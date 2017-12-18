@@ -6,6 +6,9 @@ import { MatButtonModule, MatCardModule, MatMenuModule, MatToolbarModule, MatIco
 
 import {MatInputModule} from '@angular/material';
 
+import {HttpClientModule, HttpClient,HttpHeaders, HttpParams, HttpResponse} from '@angular/common/http';
+
+
 import {AppRoutingModule} from './app-routing.module'
 
 import { AppComponent } from './app.component';
@@ -24,6 +27,7 @@ import {Search} from './component/search/search.component';
     AppRoutingModule,
     BrowserModule,
 	  BrowserAnimationsModule,
+    HttpClientModule,
 	  MatButtonModule,
     MatMenuModule,
     MatCardModule,
@@ -37,7 +41,7 @@ import {Search} from './component/search/search.component';
     MatSelectModule
 
   ],
-  providers: [],
+  providers: [HttpClientModule],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

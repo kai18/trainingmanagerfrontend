@@ -3,34 +3,45 @@
 
 	<mat-grid-list cols = 1>
 		<div class = "searchForm-container container">
-			<mat-grid-list cols = "3" rowHeight = "10:2">
-				<mat-grid-tile>
-					<mat-form-field class = "full-width-field">
-			    		<input matInput placeholder="First Name" type = "text" formControlName = "firstName">
-			  		</mat-form-field>
-			  	</mat-grid-tile>
-			  	<mat-grid-tile>
-			  		<mat-form-field class = "full-width-field">
-			    		<input matInput placeholder="Last Name" type = "text" formControlName = "lastName">
-			  		</mat-form-field>
-			  	</mat-grid-tile>
-			  	<mat-grid-tile>
-			  		<mat-form-field class = "full-width-field">
-			    		<input matInput placeholder="Email" type = "text" formControlName = "email">
-			  		</mat-form-field>
-			  	</mat-grid-tile>
-			</mat-grid-list>
-			<mat-grid-list cols = "2" rowHeight = "10:2">
-				<mat-grid-tile>
-					<mat-form-field>
-    					<mat-select placeholder="Select me">
-      						<mat-option value="option">Option</mat-option>
-    					</mat-select>
-    					<mat-hint align="end">Here's the dropdown arrow ^</mat-hint>
- 					</mat-form-field>
-				</mat-grid-tile>
-				
-			</mat-grid-list>
+			<mat-card>
+				<mat-grid-list cols = "3" rowHeight = "10:2">
+					<mat-grid-tile>
+						<mat-form-field class = "full-width-field">
+				    		<input #firstName matInput placeholder="First Name" type = "text" name="firstName" (keyup)="search(firstName.value, lastName.value, email.value, departments.value, roles.value)">
+				  		</mat-form-field>
+				  	</mat-grid-tile>
+				  	<mat-grid-tile>
+				  		<mat-form-field class = "full-width-field">
+				    		<input #lastName matInput placeholder="Last Name" type = "text" name="lastName" formControlName = "lastName" (keyup)="search(firstName.value, lastName.value, email.value, departments.value, roles.value)">
+				  		</mat-form-field>
+				  	</mat-grid-tile>
+				  	<mat-grid-tile>
+				  		<mat-form-field class = "full-width-field">
+				    		<input #email matInput placeholder="Email" type = "text" name="email" formControlName = "email" (keyup)="search(firstName.value, lastName.value, email.value, departments.value, roles.value)">
+				  		</mat-form-field>
+				  	</mat-grid-tile>
+				</mat-grid-list>
+				<mat-grid-list cols = "2" rowHeight = "10:2">
+					<mat-grid-tile>
+						<mat-form-field class = "full-width-field">
+	    					<mat-select #departments placeholder="Select Department" multiple name="departments" (change)="search(firstName.value, lastName.value, email.value, departments.value, roles.value)">
+	      						<mat-option value="option">Option</mat-option>
+	      						<mat-option value ="option2">Option 2</mat-option>
+	    					</mat-select>
+	    					<mat-hint align="end">Here's the dropdown arrow ^</mat-hint>
+	 					</mat-form-field>
+					</mat-grid-tile>
+
+					<mat-grid-tile>
+						<mat-form-field class = "full-width-field">
+	    					<mat-select #roles placeholder="Select Role" multiple name = "roles" (change)="search(firstName.value, lastName.value, email.value, departments.value, roles.value)">
+	      						<mat-option value="option">Option</mat-option>
+	    					</mat-select>
+	    					<mat-hint align="end">Here's the dropdown arrow ^</mat-hint>
+	 					</mat-form-field>
+					</mat-grid-tile>
+				</mat-grid-list>
+			</mat-card>
 		</div>
 	</mat-grid-list>
 </div>
