@@ -8,6 +8,9 @@ import {MatInputModule} from '@angular/material';
 
 import {HttpClientModule, HttpClient,HttpHeaders, HttpParams, HttpResponse} from '@angular/common/http';
 
+import {Observable} from "rxjs/Observable";
+import {Subject} from "rxjs/Subject"
+import 'rxjs/add/operator/map';
 
 import {AppRoutingModule} from './app-routing.module'
 

@@ -44,4 +44,9 @@
 			</mat-card>
 		</div>
 	</mat-grid-list>
+	
+
+	<div class="search-results">
+		<p *ngFor = "let user of searchResponse.element | async">user.firstName</p>
+	</div>
 </div>
