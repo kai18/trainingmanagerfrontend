@@ -49,11 +49,9 @@ export class Search implements OnInit{
 	{
 		let params = this.addSearchParameters(firstName, lastName, email, departments, roles);
 		console.log(params.getAll('firstName'));
-		//console.log(firstName, lastName, email, departments, roles);
 
 		this.searchTerms.next(params);
-		//this.searchResponse.subscribe();
-		//console.log(this.searchResponse);
+		
 	}
 
 	public searchNext(searchParameters: HttpParams)
