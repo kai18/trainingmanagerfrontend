@@ -6,13 +6,14 @@ import { MatButtonModule, MatCardModule, MatMenuModule, MatToolbarModule, MatIco
 
 import {MatInputModule} from '@angular/material';
 
-import {HttpClientModule, HttpClient,HttpHeaders, HttpParams, HttpResponse} from '@angular/common/http';
-
-import {Observable} from "rxjs/Observable";
-import {Subject} from "rxjs/Subject"
+import {HttpClientModule, HttpClient, HttpHeaders, HttpParams, HttpResponse} from '@angular/common/http';
+import { FormsModule , ReactiveFormsModule} from '@angular/forms';
+import { HttpModule, Http, Headers, RequestOptions, URLSearchParams } from '@angular/http';
+import {Observable} from 'rxjs/Observable';
+import {Subject} from 'rxjs/Subject';
 import 'rxjs/add/operator/map';
 
-import {AppRoutingModule} from './app-routing.module'
+import {AppRoutingModule} from './app-routing.module';
 
 import { AppComponent } from './app.component';
 import {Navbar} from './component/navbar/navbar.component';
@@ -32,14 +33,16 @@ import {RoleService} from './service/RoleService.service';
   imports: [
     AppRoutingModule,
     BrowserModule,
-	  BrowserAnimationsModule,
+    BrowserAnimationsModule,
     HttpClientModule,
-	  MatButtonModule,
+    HttpModule,
+    ReactiveFormsModule ,
+    MatButtonModule,
     MatMenuModule,
     MatCardModule,
     MatToolbarModule,
     MatIconModule,
-	  MatTabsModule,
+    MatTabsModule,
     MatFormFieldModule,
     MatInputModule,
     MatGridListModule,
