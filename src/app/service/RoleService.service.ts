@@ -26,4 +26,14 @@ export class RoleService {
       .catch(this.handleError);
   }
 
+  private extractData(res: Response) {
+    const body = res.json();
+    return body;
+  }
+
+  private handleError(error: Response | any) {
+    const errorBody = error.json();
+    // console.error("error : " + errorBody);
+    return Observable.throw(errorBody || error);
+  }
 }
