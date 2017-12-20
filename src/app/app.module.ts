@@ -19,6 +19,8 @@ import {Navbar} from './component/navbar/navbar.component';
 import {Search} from './component/search/search.component';
 import {RoleComponent} from './component/role/role.component';
 
+import {RoleService} from './service/RoleService.service';
+
 
 @NgModule({
   declarations: [
@@ -46,7 +48,10 @@ import {RoleComponent} from './component/role/role.component';
     MatCheckboxModule
 
   ],
-  providers: [HttpClientModule],
+  providers: [
+    HttpClientModule,
+    RoleService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
