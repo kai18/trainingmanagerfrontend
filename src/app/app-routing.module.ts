@@ -6,16 +6,20 @@ import {
 
 import {Navbar} from './component/navbar/navbar.component';
 import {Search} from './component/search/search.component';
+import { RoleComponent } from './component/role/role.component';
 
 const appRoutes: Routes = [
-
-	{
-		path: 'navbar',
-		component: Navbar
-	},
+    {
+      path: 'navbar',
+      component: Navbar
+    },
     {
         path: 'search',
         component: Search
+    },
+    {
+      path: 'role',
+      component: RoleComponent
     }
 
 ];
@@ -29,5 +33,5 @@ const appRoutes: Routes = [
     ]
 })
 export class AppRoutingModule {
- 
+
 }

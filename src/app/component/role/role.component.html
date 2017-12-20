@@ -1,0 +1,33 @@
+<div class="role">
+	<mat-grid-list cols="1" rowHeight="2:1">
+		<mat-grid-tile >
+			<mat-card class="grid">
+				<h1>Add a new Role</h1>
+				<mat-form-field class="full-width">
+					<input matInput placeholder="Role Name">
+				</mat-form-field>
+				<mat-form-field class="full-width">
+					<mat-select placeholder="Role Type">
+						<mat-option value="option">Option</mat-option>
+					</mat-select>
+				</mat-form-field>
+				<mat-form-field class="full-width">
+					<mat-select placeholder="Department">
+						<mat-option value="option">Option</mat-option>
+					</mat-select>
+				</mat-form-field>
+				<mat-form-field class="full-width">
+					<textarea matInput placeholder="Role Description"></textarea>
+				</mat-form-field>
+				<section class="example-section">
+          <h3>Privileges</h3>
+					<mat-checkbox class="example-margin">Creation</mat-checkbox>
+					<mat-checkbox class="example-margin">Deletion</mat-checkbox>
+					<mat-checkbox class="example-margin">Updation</mat-checkbox>
+					<mat-checkbox class="example-margin">Read</mat-checkbox>
+				</section><br><br>
+        <button mat-raised-button color="primary" class="full-width">Submit</button>
+			</mat-card>
+		</mat-grid-tile>
+	</mat-grid-list>
+</div>
