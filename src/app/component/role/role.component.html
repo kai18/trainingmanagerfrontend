@@ -1,23 +1,38 @@
-<div class="role">
-	<mat-grid-list cols="1" rowHeight="2:1">
+<div style="text-align:center;border:2px solid black;">
+<div class="role" style="text-align:center;border:2px solid black;">
+    <mat-card  *ngFor="let role of allRoles" style="text-align:center;border:2px solid black;">
+        <mat-grid-list cols="2" rowHeight="2:1">
+          <mat-grid-tile>
+            {{role.roleName}}<br>{{role.roleType}} <br> {{role.roleDescription}}<br>
+          </mat-grid-tile>
+          <mat-grid-tile>
+              Creation - {{role.privilege.creationPrivilege}}<br>
+              Deletion - {{role.privilege.deletionPrivilege}}<br>
+              Updation - {{role.privilege.updationPrivilege}}<br>
+              Read - {{role.privilege.readPrivilege}}
+          </mat-grid-tile>
+        </mat-grid-list>
+      </mat-card>
+</div>
+	<mat-grid-list cols="1" rowHeight="2:1" *ngIf="isCreate">
 		<mat-grid-tile >
 			<mat-card class="grid">
 				<h1>Add a new Role</h1>
 				<mat-form-field class="full-width">
-					<input matInput placeholder="Role Name">
+					<input matInput placeholder="Role Name" [formControl]="roleName">
 				</mat-form-field>
 				<mat-form-field class="full-width">
-					<mat-select placeholder="Role Type">
+					<mat-select placeholder="Role Type" [formControl]="roleType">
 						<mat-option value="option">Option</mat-option>
 					</mat-select>
 				</mat-form-field>
 				<mat-form-field class="full-width">
-					<mat-select placeholder="Department">
+					<mat-select placeholder="Department" [formControl]="departmentId">
 						<mat-option value="option">Option</mat-option>
 					</mat-select>
 				</mat-form-field>
 				<mat-form-field class="full-width">
-					<textarea matInput placeholder="Role Description"></textarea>
+					<textarea matInput placeholder="Role Description" [formControl]="roleDescription"></textarea>
 				</mat-form-field>
 				<section class="example-section">
           <h3>Privileges</h3>
