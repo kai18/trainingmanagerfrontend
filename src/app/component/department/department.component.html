@@ -1,0 +1,9 @@
+<h3>Department Details</h3>
+<table>
+  <tr><th>Id</th><th>Name</th><th>Description</th></tr>
+  <s *ngFor="let department of allDepartments" >
+        <td>{{department.departmentId}}</td> <td>{{departemnt.departmentName}}</td> <td>{{department.departmentDescription}}</td>
+	<td><button type="button" >Update</button> </td> 
+	<td><button type="button" >Delete</button></td>
+  </tr>
+</table> 

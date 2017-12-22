@@ -18,8 +18,11 @@ import { AppComponent } from './app.component';
 import {Navbar} from './component/navbar/navbar.component';
 import {Search} from './component/search/search.component';
 import {RoleComponent} from './component/role/role.component';
+import { CreateDepartmentComponent } from './component/create-department/create-department.component';
+import { DepartmentComponent} from './component/department/department.component';
 
 import {RoleService} from './service/RoleService.service';
+import {DepartmentService} from './service/DepartmentService';
 
 
 @NgModule({
@@ -27,7 +30,9 @@ import {RoleService} from './service/RoleService.service';
     AppComponent,
     Navbar,
     Search,
-    RoleComponent
+    RoleComponent,
+    CreateDepartmentComponent,
+    DepartmentComponent
   ],
   imports: [
     AppRoutingModule,
@@ -50,7 +55,8 @@ import {RoleService} from './service/RoleService.service';
   ],
   providers: [
     HttpClientModule,
-    RoleService
+    RoleService,
+    DepartmentService
   ],
   bootstrap: [AppComponent]
 })

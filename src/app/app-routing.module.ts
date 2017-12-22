@@ -7,6 +7,8 @@ import {
 import {Navbar} from './component/navbar/navbar.component';
 import {Search} from './component/search/search.component';
 import { RoleComponent } from './component/role/role.component';
+import { CreateDepartmentComponent } from './component/create-department/create-department.component';
+import { DepartmentComponent} from './component/department/department.component';
 
 const appRoutes: Routes = [
     {
@@ -20,6 +22,14 @@ const appRoutes: Routes = [
     {
       path: 'role',
       component: RoleComponent
+    },
+    {
+        path: 'create-department',
+        component: CreateDepartmentComponent
+    },
+    {
+        path: 'department',
+        component: DepartmentComponent
     }
 
 ];
