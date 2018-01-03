@@ -1,0 +1,75 @@
+<div class="container .mat-display-3" style="padding:1%">
+  <div *ngIf="!toUpdate">
+   <div class="card" style="margin:2% auto;">
+    <mat-card class=" mat-elevation-z5" *ngFor="let department of allDepartments" style="margin:0.4%;">
+   <mat-card-header>
+   <div mat-card-avatar class="example-header-image"></div>
+   <mat-card-title>{{department.departmentId}}</mat-card-title>
+   <mat-card-subtitle>{{department.departmentName}}</mat-card-subtitle>
+   </mat-card-header>
+
+   <mat-card-content>
+ <table>
+  <tr>
+   <td style="width:94%;text-align:left">
+   <p>{{department.departmentDescription}}
+  <br>
+   </p>
+   </td>
+   <td>
+<button mat-raised-button style="margin-bottom:5%;" (click)="onUpdateClick(department)">Update</button>
+<button mat-raised-button (click)="deleteDepartment(departmentId)">Delete</button>
+</td>
+</tr>
+</table>
+</mat-card-content>
+</mat-card>
+</div>
+</div>
+  </div> 
+
+
+<div class="example-container">
+    <div *ngIf="toUpdate">
+        <form [formGroup]="departmentUpdateForm" (ngSubmit)="onUpdateSubmit()">
+	<mat-grid-list cols="1" rowHeight="2:1">
+		<mat-grid-tile >
+			<mat-card class="grid">
+                <h1>Department Updation</h1>
+           
+                <i class="material-icons prefix">account_circle</i>
+				<mat-form-field class="full-width">
+					<input matInput placeholder="Department ID" formControlName="departmentId" disabled="true" *ngIf="toUpdate">
+                </mat-form-field>
+              <div>
+                <i class="material-icons prefix">perm_identity</i>
+                <mat-form-field class="full-width">
+					<textarea matInput placeholder="Department Name" class="validate" formControlName="departmentName" required></textarea>
+                </mat-form-field>
+              </div>
+                <i class="material-icons prefix">description</i>
+			    <mat-form-field class="full-width">
+					<textarea matInput placeholder="Department Description" class="validate" formControlName="departmentDescription" required ></textarea>
+        </mat-form-field>
+      
+               <div>		
+                   <button mat-raised-button color="primary">Update</button>
+                   <button mat-raised-button color="primary" (click)="toUpdate=false">Cancel</button>
+               </div>
+			</mat-card>
+		</mat-grid-tile>
+    </mat-grid-list>
+        </form>
+    </div>
+</div>
+
+    <!-- <div>
+    <mat-dialog-content>DO you want to delete this department?</mat-dialog-content>
+    <mat-dialog-actions>
+      <button mat-button mat-dialog-close>No</button>-->
+      <!-- Can optionally provide a result for the closing dialog. -->
+      <!--<button mat-button (click)="deleteDepartmentByID(departmentToDelete)" [mat-dialog-close]="true">Yes</button>
+    </mat-dialog-actions>
+    </div> -->
+    <button mat-fab style="right:2%; bottom:2%; position: fixed" [routerLink]="['/create-department']">
+      <i class="material-icons small">add</i></button> 

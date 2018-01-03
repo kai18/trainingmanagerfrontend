@@ -1,3 +1,5 @@
+import { Department } from './../../model/department.model';
+import { DepartmentService } from './../../service/DepartmentService';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder, NgControl, Validator, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -13,12 +15,12 @@ import { RoleService } from './../../service/RoleService.service';
 })
 export class RoleComponent {
   allRoles: Role[];
-  // allDepartments: Departments[];
+  allDepartments: Department[];
   statusCode: number;
   processValidation = true;
   requestProcessing = false;
   isCreate = false;
-  isUpdate: false;
+  isUpdate = false;
   isDepartment = false;
   rForm: FormGroup;
   roleId: any;
@@ -32,7 +34,8 @@ export class RoleComponent {
   post: any;
   standardResponse: StandardResponse;
 
-  constructor(private roleService: RoleService, private router: Router, private fb: FormBuilder) {
+  constructor(private roleService: RoleService, private departmentService: DepartmentService,
+    private router: Router, private fb: FormBuilder) {
     this.rForm = fb.group({
       'roleName': ['', Validators.required],
       'roleType': ['', Validators.required],
@@ -47,6 +50,7 @@ export class RoleComponent {
 
   ngOnInit(): void {
     this.getAllRoles();
+    this.getAllDepartments();
   }
 
   // Perform preliminary processing configurations
@@ -63,12 +67,12 @@ export class RoleComponent {
       errorCode => this.statusCode = errorCode);
   }
 
-  // getAllDepartments() {
-  //   this.roleService.getAllDepartments()
-  //   .subscribe(
-  //     data => this.
-  //   )
-  // }
+  getAllDepartments() {
+    this.departmentService.getAllDepartments()
+      .subscribe(
+        data => this.allDepartments = data.element,
+        errorCode => this.statusCode = errorCode);
+  }
 
   // Handle create
   onRoleFormSubmit(post) {
@@ -85,6 +89,12 @@ export class RoleComponent {
     const deletePrivilege = this.rForm.get('deletionPrivilege').value;
     const updatePrivilege = this.rForm.get('updationPrivilege').value;
     const readPrivilege = this.rForm.get('readPrivilege').value;
+    let departmentId;
+    if (this.isDepartment) {
+      departmentId = this.rForm.get('departmentId').value;
+    } else {
+      departmentId = null;
+    }
 
     if (this.isCreate) {
       // Handle create Role
@@ -105,10 +115,7 @@ export class RoleComponent {
         role.privilege.updationPrivilege = 1;
       }
       role.privilege.readPrivilege = 1;
-
-      if (role.roleType === 'department') {
-
-      }
+      role.privilege.departmentId = departmentId;
 
       role.createdDtm = null;
       role.updatedDtm = null;
@@ -116,7 +123,7 @@ export class RoleComponent {
       this.roleService.createRole(role)
         .subscribe(response => {
           this.standardResponse = response;
-          this.getAllRoles();
+          // this.getAllRoles();
           this.backToCreateRole();
         },
         errorCode => this.statusCode = errorCode);
@@ -146,14 +153,6 @@ export class RoleComponent {
     } else {
       this.isCreate = true;
       this.isUpdate = false;
-    }
-  }
-
-  departmentToggle() {
-    if (this.isDepartment) {
-      this.isDepartment = false;
-    } else {
-      this.isDepartment = true;
     }
   }
 }
