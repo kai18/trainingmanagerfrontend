@@ -12,16 +12,16 @@ import { DepartmentService } from '../../service/DepartmentService';
     styleUrls: ['create-department.component.css']
 })
 export class CreateDepartmentComponent {
-   /* departmentForm: FormGroup;
-	departmentName: FormControl;
-	departmentId: FormControl;
-	departmentIdToUpdate: number;
-	isUpdate = false;
-	isCreate = false;
+    departmentForm: FormGroup;
+	//departmentName: FormControl;
+	//departmentId: FormControl;
+	//departmentIdToUpdate: number;
+	//isUpdate = false;
+	//isCreate = false;
 	statusCode: number;
 	requestProcessing = false;
 	processValidation = false;
-	departmentDescriptionReceived: string = "department Description";
+	//departmentDescriptionReceived: string = "department Description";
 
 	standardResponse = new StandardResponse();
 
@@ -35,7 +35,7 @@ export class CreateDepartmentComponent {
 	}
 
 	ngOnInit():  void  {
-        this.getAllDepartments();
+    
 	}
 
 	preProccessConfigurations() {
@@ -45,10 +45,8 @@ export class CreateDepartmentComponent {
 
 	//Handle create department
 	onDepartmentFormSubmit() {
-		console.log("called")
 		this.processValidation = true;
 		if (this.departmentForm.invalid) {
-			console.log("invalid")
 			return;
 		}
 		//Form is valid, now perform create
@@ -64,9 +62,9 @@ export class CreateDepartmentComponent {
 			.subscribe(successCode => {
 				this.standardResponse = successCode;
 				this.router.navigate(['./department']);
-				//location.reload();
+				location.reload();
 			},
 			errorCode => this.statusCode = errorCode);
 	}
-*/
+
 }

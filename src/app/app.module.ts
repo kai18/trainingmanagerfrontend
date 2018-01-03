@@ -1,10 +1,12 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import {NgcFloatButtonModule} from 'ngc-float-button';
+import {MatDialogModule} from '@angular/material/dialog';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule, MatCardModule, MatMenuModule, MatToolbarModule, MatIconModule , MatTabsModule,
  MatFormFieldModule, MatGridListModule, MatOptionModule, MatSelectModule, MatCheckboxModule} from '@angular/material';
 
-import {MatInputModule} from '@angular/material';
+import {MatInputModule, MatTableModule} from '@angular/material';
 
 import {HttpClientModule, HttpClient, HttpHeaders, HttpParams, HttpResponse} from '@angular/common/http';
 import { FormsModule , ReactiveFormsModule} from '@angular/forms';
@@ -43,6 +45,7 @@ import {DepartmentService} from './service/DepartmentService';
     HttpModule,
     ReactiveFormsModule ,
     MatButtonModule,
+    MatDialogModule,
     MatMenuModule,
     MatCardModule,
     MatToolbarModule,
@@ -53,8 +56,9 @@ import {DepartmentService} from './service/DepartmentService';
     MatGridListModule,
     MatOptionModule,
     MatSelectModule,
-    MatCheckboxModule
-
+    MatCheckboxModule,
+    MatTableModule,
+    NgcFloatButtonModule
   ],
   providers: [
     HttpClientModule,

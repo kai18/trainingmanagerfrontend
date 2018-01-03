@@ -14,6 +14,7 @@ export class DepartmentService {
 
   // Create constructor to get Http instance
   constructor(private http: Http) {
+      
   }
 
     //Fetch all departments
@@ -24,7 +25,7 @@ export class DepartmentService {
         .map(this.extractData)
         .catch(this.handleError);
 }
-/*
+
     //create new department
     createDepartment(department: Department): Observable<StandardResponse> {
     let cpHeaders = new Headers({ 'Content-Type': 'application/json' });
@@ -43,19 +44,33 @@ export class DepartmentService {
 			.catch(this.handleError);
 	}
 
-	//Delete department
-	deleteDepartmentById(departmentId: string): Observable<StandardResponse> {
-		let cpHeaders = new Headers({ 'Content-Type': 'application/json' });
-		let options = new RequestOptions({ headers: cpHeaders });
-		return this.http.delete(AppConfig.DEPARTMENT_URL + '/' + departmentId, options)
-			.map(this.extractData)
-			.catch(this.handleError);
-	}
-*/
-  private extractData(res: Response) {
-    const body = res.json();
-    return body;
-  }
+	// //Delete department
+	// deleteDepartment(department: Department): Observable<StandardResponse> {
+  //   const headers = new Headers(); 
+  //   headers.append('Content-Type', 'application/json; charset=utf-8'); headers.append('Access-Control-Allow-Origin', '*'); 
+  //   const options = new RequestOptions({ headers: headers });
+	// //	let cpHeaders = new Headers({ 'Content-Type': 'application/json' });
+  // //	let options = new RequestOptions({ headers: cpHeaders });
+  
+	// 	return this.http.delete(AppConfig.DEPARTMENT_URL +"/"+  department)
+	// 		//.map(this.extractData)
+	// 		.catch(this.handleError);
+	// }
+
+
+  deleteDepartment(departmentId: string): Observable<StandardResponse> {
+    let cpHeaders = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: cpHeaders });
+    return this.http.delete(AppConfig.DEPARTMENT_URL +"/"+ departmentId)
+           .map(success => success.status)
+                 .catch(this.handleError);
+      }	
+
+  
+private extractData(res: Response) {
+      const body = res.json();
+      return body;
+    }
 
   private handleError(error: Response | any) {
     const errorBody = error.json();
