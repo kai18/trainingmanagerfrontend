@@ -26,6 +26,14 @@ export class RoleService {
       .catch(this.handleError);
   }
 
+  getAllDepartments(): Observable<StandardResponse> {
+    const headers = new Headers({ 'Content-Type': 'application/json'});
+    const options = new RequestOptions({headers: headers});
+    return this.http.get(AppConfig.DEPARTMENTS_URL, options)
+    .map(this.extractData)
+    .catch(this.handleError);
+  }
+
   private extractData(res: Response) {
     const body = res.json();
     return body;
@@ -36,4 +44,14 @@ export class RoleService {
     // console.error("error : " + errorBody);
     return Observable.throw(errorBody || error);
   }
+
+  // Add a role
+  createRole(role: Role): Observable<StandardResponse> {
+    // const token = localStorage.getItem('jwttoken');
+    const headers = new Headers({ 'Content-Type': 'application/json' });
+    const options = new RequestOptions({ headers: headers });
+    return this.http.post(AppConfig.ROLE_URL, role, options)
+        .map(this.extractData)
+        .catch(this.handleError);
+}
 }

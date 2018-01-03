@@ -3,7 +3,7 @@ export class Role {
   public roleName: string;
   public roleType: string;
   public roleDescription: string;
-  public previlege: PrivilegeUdt;
+  public privilege: PrivilegeUdt;
   public createdDtm: Date;
   public updatedDtm: Date;
 }
