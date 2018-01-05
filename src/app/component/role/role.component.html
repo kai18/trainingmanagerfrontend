@@ -1,48 +1,126 @@
-<div style="text-align:center;border:2px solid black;">
-<div class="role" style="text-align:center;border:2px solid black;">
-    <mat-card  *ngFor="let role of allRoles" style="text-align:center;border:2px solid black;">
-        <mat-grid-list cols="2" rowHeight="2:1">
-          <mat-grid-tile>
-            {{role.roleName}}<br>{{role.roleType}} <br> {{role.roleDescription}}<br>
-          </mat-grid-tile>
-          <mat-grid-tile>
-              Creation - {{role.privilege.creationPrivilege}}<br>
-              Deletion - {{role.privilege.deletionPrivilege}}<br>
-              Updation - {{role.privilege.updationPrivilege}}<br>
-              Read - {{role.privilege.readPrivilege}}
-          </mat-grid-tile>
-        </mat-grid-list>
+<div class="container .mat-display-3" style="padding:1%">
+  <div class="card" style="margin:2% auto;" *ngIf="!isCreate && !isUpdate">
+    <mat-card class=" mat-elevation-z5 role-card" *ngFor="let role of allRoles" style="margin:0.4%;">
+      <mat-card-header>
+        <div mat-card-avatar class="example-header-image"></div>
+        <mat-card-title>
+          <h6>
+            <b>{{role.roleName}}</b>
+          </h6>
+        </mat-card-title>
+        <mat-card-subtitle>
+          <h6>{{role.roleType}}</h6>
+        </mat-card-subtitle>
+      </mat-card-header>
+
+      <mat-card-content>
+        <table>
+          <tr>
+            <td style="width:90%;text-align:left">
+              <p>
+                {{role.roleDescription}}
+                <br>
+                <br>
+                <mat-chip-list>
+                  <mat-chip *ngIf="role.privilege.creationPrivilege" selected="true" [color]="primary">Creation</mat-chip>
+                  <mat-chip *ngIf="role.privilege.deletionPrivilege" selected="true" [color]="primary">Deletion</mat-chip>
+                  <mat-chip *ngIf="role.privilege.updationPrivilege" selected="true" [color]="primary">Updation</mat-chip>
+                  <mat-chip *ngIf="role.privilege.readPrivilege" selected="true" [color]="primary">Read</mat-chip>
+                  <mat-icon mat-svg-icon="person" style="color:grey"></mat-icon>
+                </mat-chip-list>
+              </p>
+            </td>
+            <td>
+              <button mat-raised-button style="margin-bottom:5%;width:100%" (click)="loadRoleToUpdate(role)">
+                <i class="material-icons small">edit</i> Update</button>
+              <button mat-raised-button style="color:red;width:100%" (click)="openRoleDeleteDialog(role)">
+                <i class="material-icons small" >delete</i> Delete</button>
+            </td>
+          </tr>
+        </table>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
+
+<div class="create-form" *ngIf="isCreate" >
+
+      <mat-card class="grid" style="margin:auto; text-align:center">
+        <h3>ADD NEW ROLE</h3>
+        <form [formGroup]="rForm" (ngSubmit)="onRoleFormSubmit(rForm.value)">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Role Name" formControlName="roleName">
+          </mat-form-field><br>
+          <div class="alert" *ngIf="!rForm.controls['roleName'].valid && rForm.controls['roleName'].touched">{{ roleNameAlert }}</div>
+          <mat-form-field class="full-width">
+            <mat-select placeholder="Role Type" (change)="deptToggle()" formControlName="roleType" name="roleType" class="ui fluid search selection dropdown bottom">
+              <mat-option value="system">System</mat-option>
+              <mat-option value="department">Department</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <div class="alert" *ngIf="!rForm.controls['roleType'].valid && rForm.controls['roleType'].touched">{{ roleTypeAlert }}</div>
+          <mat-form-field class="full-width" *ngIf="isDepartment">
+            <mat-select placeholder="Department" formControlName="departmentId" name="departmentId">
+              <mat-option value={{department.departmentId}} *ngFor="let department of allDepartments">{{department.departmentName}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field class="full-width">
+            <textarea matInput placeholder="Role Description" formControlName="roleDescription"></textarea>
+          </mat-form-field>
+          <div class="alert" *ngIf="!rForm.controls['roleDescription'].valid && rForm.controls['roleDescription'].touched">{{ roleDescriptionAlert }}</div>
+          <section class="example-section">
+            <h3>Privileges</h3>
+            <mat-checkbox class="example-margin" formControlName="creationPrivilege">Creation</mat-checkbox>
+            <mat-checkbox class="example-margin" formControlName="deletionPrivilege">Deletion</mat-checkbox>
+            <mat-checkbox class="example-margin" formControlName="updationPrivilege">Updation</mat-checkbox>
+            <mat-checkbox class="example-margin" formControlName="readPrivilege" checked=checked>Read</mat-checkbox>
+          </section>
+          <br>
+          <br>
+          <button mat-raised-button color="primary" class="full-width" [disabled]="!rFormUpdate.valid">Submit</button>
+        </form>
       </mat-card>
 </div>
-	<mat-grid-list cols="1" rowHeight="2:1" *ngIf="isCreate">
-		<mat-grid-tile >
-			<mat-card class="grid">
-				<h1>Add a new Role</h1>
-				<mat-form-field class="full-width">
-					<input matInput placeholder="Role Name" [formControl]="roleName">
-				</mat-form-field>
-				<mat-form-field class="full-width">
-					<mat-select placeholder="Role Type" [formControl]="roleType">
-						<mat-option value="option">Option</mat-option>
-					</mat-select>
-				</mat-form-field>
-				<mat-form-field class="full-width">
-					<mat-select placeholder="Department" [formControl]="departmentId">
-						<mat-option value="option">Option</mat-option>
-					</mat-select>
-				</mat-form-field>
-				<mat-form-field class="full-width">
-					<textarea matInput placeholder="Role Description" [formControl]="roleDescription"></textarea>
-				</mat-form-field>
-				<section class="example-section">
-          <h3>Privileges</h3>
-					<mat-checkbox class="example-margin">Creation</mat-checkbox>
-					<mat-checkbox class="example-margin">Deletion</mat-checkbox>
-					<mat-checkbox class="example-margin">Updation</mat-checkbox>
-					<mat-checkbox class="example-margin">Read</mat-checkbox>
-				</section><br><br>
-        <button mat-raised-button color="primary" class="full-width">Submit</button>
-			</mat-card>
-		</mat-grid-tile>
-	</mat-grid-list>
+
+<div class="create-form" *ngIf="isUpdate" style="width:730px; text-align:center">
+  <mat-card class=" mat-elevation-z5" style="margin:0.4%;">
+    <mat-card-header>
+      <div mat-card-avatar class="example-header-image"></div>
+      <mat-card-title>
+        <h5>
+          <b>{{roleToUpdate.roleName}}</b>
+        </h5>
+      </mat-card-title>
+      <mat-card-subtitle>
+        <h6>{{roleToUpdate.roleType}}</h6>
+      </mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content style="font-size:17px">
+      <form [formGroup]="rFormUpdate" (ngSubmit)="onRoleUpdateFormSubmit(rFormUpdate.value)">
+        <mat-form-field class="full-width">
+          <textarea autofocus matInput placeholder="Role Description" formControlName="roleDescription" value={{roleToUpdate.roleDescription}}></textarea>
+        </mat-form-field>
+        <div class="alert" *ngIf="!rFormUpdate.controls['roleDescription'].valid && rFormUpdate.controls['roleDescription'].touched">{{ roleDescriptionAlert }}</div>
+        <mat-chip-list>
+          <mat-chip *ngIf="roleToUpdate.privilege.creationPrivilege" selected="true" [color]="primary">Creation</mat-chip>
+          <mat-chip *ngIf="roleToUpdate.privilege.deletionPrivilege" selected="true" [color]="primary">Deletion</mat-chip>
+          <mat-chip *ngIf="roleToUpdate.privilege.updationPrivilege" selected="true" [color]="primary">Updation</mat-chip>
+          <mat-chip *ngIf="roleToUpdate.privilege.readPrivilege" selected="true" [color]="primary">Read</mat-chip>
+          <mat-icon mat-svg-icon="person" style="color:grey"></mat-icon>
+        </mat-chip-list>
+        <br>
+        <br>
+        <button mat-raised-button style="margin-bottom:1%;"  type="submit" [disabled]="!rFormUpdate.valid">
+          <i class="material-icons small">edit</i> Submit</button>
+        <button mat-raised-button style="color:red;" (click)="isUpdate=false">
+          <i class="material-icons small">clear</i> Cancel</button>
+      </form>
+    </mat-card-content>
+  </mat-card>
 </div>
+
+<button (click)="toggleRole()" mat-fab style="left:95%; bottom:2%; position: fixed">
+  <i class="material-icons small" *ngIf="!isCreate">add</i>
+  <i class="material-icons small" *ngIf="isCreate">clear</i>
+</button>

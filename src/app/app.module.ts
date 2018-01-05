@@ -1,9 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import {NgcFloatButtonModule} from 'ngc-float-button';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule, MatCardModule, MatMenuModule, MatToolbarModule, MatIconModule , MatTabsModule,
- MatFormFieldModule, MatGridListModule, MatOptionModule, MatSelectModule, MatCheckboxModule} from '@angular/material';
+ MatFormFieldModule, MatGridListModule, MatOptionModule, MatSelectModule, MatCheckboxModule, MatChipsModule,
+ MatDialogModule, MatSnackBarModule, MatSnackBar} from '@angular/material';
 
 import {MatInputModule, MatTableModule} from '@angular/material'; 
 import { HttpClientModule, HttpHeaders, HttpParams, HttpResponse} from '@angular/common/http';
@@ -23,6 +23,7 @@ import { DepartmentComponent} from './component/department/department.component'
 
 import {RoleService} from './service/RoleService.service';
 import {DepartmentService} from './service/DepartmentService';
+import { DeleteModalComponent } from './component/delete-modal/delete-modal.component';
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import {DepartmentService} from './service/DepartmentService';
     Search,
     RoleComponent,
     CreateDepartmentComponent,
-    DepartmentComponent
+    DepartmentComponent,
+    DeleteModalComponent
   ],
   imports: [
     AppRoutingModule,
@@ -52,10 +54,15 @@ import {DepartmentService} from './service/DepartmentService';
     MatOptionModule,
     MatSelectModule,
     MatCheckboxModule,
-    MatTableModule,
-    NgcFloatButtonModule
+    MatDialogModule,
+    MatChipsModule,
+    MatSnackBarModule
+
   ],
+  entryComponents: [DeleteModalComponent],
   providers: [
+    HttpClientModule,
+    MatSnackBar,
     RoleService,
     DepartmentService,
     HttpClientModule,
