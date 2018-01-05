@@ -53,7 +53,7 @@
           </mat-form-field><br>
           <div class="alert" *ngIf="!rForm.controls['roleName'].valid && rForm.controls['roleName'].touched">{{ roleNameAlert }}</div>
           <mat-form-field class="full-width">
-            <mat-select placeholder="Role Type" (change)="deptToggle()" formControlName="roleType" name="roleType" class="ui fluid search selection dropdown bottom">
+            <mat-select placeholder="Role Type" formControlName="roleType" name="roleType" class="ui fluid search selection dropdown bottom">
               <mat-option value="system">System</mat-option>
               <mat-option value="department">Department</mat-option>
             </mat-select>
@@ -64,6 +64,7 @@
               <mat-option value={{department.departmentId}} *ngFor="let department of allDepartments">{{department.departmentName}}</mat-option>
             </mat-select>
           </mat-form-field>
+          <div class="alert" *ngIf="!rForm.controls['departmentId'].valid && rForm.controls['departmentId'].touched">{{ departmentAlert }}</div>
           <mat-form-field class="full-width">
             <textarea matInput placeholder="Role Description" formControlName="roleDescription"></textarea>
           </mat-form-field>
@@ -77,7 +78,7 @@
           </section>
           <br>
           <br>
-          <button mat-raised-button color="primary" class="full-width" [disabled]="!rFormUpdate.valid">Submit</button>
+          <button mat-raised-button color="primary" class="full-width" [disabled]="!rForm.valid">Submit</button>
         </form>
       </mat-card>
 </div>
