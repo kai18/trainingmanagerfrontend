@@ -1,18 +1,7 @@
-/* h1 {
-    font-size: 2.0em;
-    margin: 20px 0 0 0;
-    font-weight: 400;   
-} */
-/* h3 { 
-    color: blue;
-} */
 table {
   border-collapse: collapse;
 }
-table, th, td {
-  border: 1px solid black;
-  font-size:17px;
-}
+
 input {
   width: 225px;
   margin: 8px 0;
@@ -35,25 +24,10 @@ button {
 .example-container {
   display: flex;
   flex-direction: column;
-  min-width: 300px;
+  min-width: 200px;
 }
-  
-  /* .example-header {
-    min-height: 64px;
-    padding: 8px 24px 0;
-  }
-  
-  .mat-form-field {
-    font-size: 14px;
-    width: 100%;
-  }
-  
-  .mat-table {
-    overflow: auto;
-    max-height: 500px;
-  } */
 
-  .container{
+.container{
     display: block;
     text-align: center;
     margin: auto;
@@ -62,7 +36,7 @@ button {
     align-items: center;
     }
     
-    .card{
+.card{
     margin:2%;
     padding:2%;
     width:65%;

@@ -1,11 +1,13 @@
 import {Component, AfterViewInit, ViewChild} from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { HttpClient, HttpHeaders, HttpParams, HttpResponse} from '@angular/common/http';
 import {MatTableModule} from '@angular/material';
-import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 
 import { DepartmentService } from '../../service/DepartmentService';
 import { Department } from '../../model/department.model';
+import { ModalContent} from '../../model/modalContent.model';
 import { StandardResponse} from "../../model/standardresponse.model";
+import { ModalComponent } from '../modal/modal.component';
 
 
 @Component({
@@ -19,28 +21,19 @@ export class DepartmentComponent {
 
     allDepartments: Department[];
 	departmentToUpdate = new Department();
-//	departmentIdToUpdate: number;
 	departmentUpdateForm: FormGroup;
-//	departmentId: FormControl;
-//	departmentName: FormControl;
-//	departmentDescription: FormControl;
-//	departmentDescriptionReceived: string = "Department description";
-//	departmentToDelete: string;
-
-	standardResponse = new StandardResponse();
-	errorResponse = new StandardResponse();
+	departmentId: FormControl;
 	statusCode: number;
 	requestProcessing = false;
 	processValidation = false;
 	toUpdate = false;
-  //deptFlag: boolean = false;
-	//userId: number;
-	//previleges: Previleges[];
-  
+
+	standardResponse = new StandardResponse();
+	errorResponse = new StandardResponse();
 	
   
 	//Create constructor to get service instance
-	constructor(private departmentService: DepartmentService ) {
+	constructor(private departmentService: DepartmentService)  {
 		//creating update form
 		this.departmentUpdateForm = new FormGroup({
 			departmentId: new FormControl({ disabled: true }),
@@ -48,6 +41,7 @@ export class DepartmentComponent {
 			departmentDescription: new FormControl('', Validators.required),
 		});
 	}
+
 
 	//Create ngOnInit() and load articles
 	ngOnInit(): void {
@@ -60,8 +54,7 @@ export class DepartmentComponent {
         
 			.subscribe(
 			data => this.allDepartments = data.element,
-            errorCode => this.statusCode = errorCode);
-           
+            errorCode => this.statusCode = errorCode);       
     }
 
 	onUpdateClick(departmentToUpdate: Department) {
@@ -73,8 +66,6 @@ export class DepartmentComponent {
 		this.departmentToUpdate.departmentId = departmentToUpdate.departmentId;
 		this.departmentToUpdate.departmentName = departmentToUpdate.departmentName;
 		this.departmentToUpdate.departmentDescription = departmentToUpdate.departmentDescription;
-	//	this.departmentToUpdate.departmentCreatedDtm = departmentToUpdate.departmentCreatedDtm;
-	//	this.departmentToUpdate.departmentUpdatedDtm = departmentToUpdate.departmentUpdatedDtm;
 
 		this.departmentUpdateForm.setValue({
 			departmentId: this.departmentToUpdate.departmentId,
@@ -103,7 +94,7 @@ export class DepartmentComponent {
 		this.departmentService.updateDepartment(department)
 			.subscribe(successCode => {
 				this.standardResponse = successCode;
-				this.getAllDepartments();
+				//this.getAllDepartments();
 			},
 			errorCode => {
 				this.errorResponse = errorCode;
@@ -118,9 +109,13 @@ export class DepartmentComponent {
 			.subscribe(successCode => {
 				console.log("invalid")
 				this.standardResponse = successCode;
-				this.getAllDepartments();
+			//	this.getAllDepartments();
 			},
-			errorCode => this.statusCode = errorCode);
+			errorCode => {
+				this.statusCode = errorCode;
+				alert(this.errorResponse.message);
+			});
+			this.getAllDepartments();
 	}
    
  //Perform preliminary processing configurations
@@ -128,9 +123,4 @@ export class DepartmentComponent {
     this.statusCode = null;
     this.requestProcessing = true;   
  }
-
 }
-
-
- 
- 

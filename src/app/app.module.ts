@@ -1,16 +1,13 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {NgcFloatButtonModule} from 'ngc-float-button';
-import {MatDialogModule} from '@angular/material/dialog';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule, MatCardModule, MatMenuModule, MatToolbarModule, MatIconModule , MatTabsModule,
  MatFormFieldModule, MatGridListModule, MatOptionModule, MatSelectModule, MatCheckboxModule} from '@angular/material';
 
-import {MatInputModule, MatTableModule} from '@angular/material';
-
-import {HttpClientModule, HttpClient, HttpHeaders, HttpParams, HttpResponse} from '@angular/common/http';
+import {MatInputModule, MatTableModule} from '@angular/material'; 
+import { HttpClientModule, HttpHeaders, HttpParams, HttpResponse} from '@angular/common/http';
 import { FormsModule , ReactiveFormsModule} from '@angular/forms';
-import { HttpModule, Http, Headers, RequestOptions, URLSearchParams } from '@angular/http';
 import {Observable} from 'rxjs/Observable';
 import {Subject} from 'rxjs/Subject';
 import 'rxjs/add/operator/map';
@@ -41,11 +38,9 @@ import {DepartmentService} from './service/DepartmentService';
     AppRoutingModule,
     BrowserModule,
     BrowserAnimationsModule,
-    HttpClientModule,
-    HttpModule,
     ReactiveFormsModule ,
     MatButtonModule,
-    MatDialogModule,
+    HttpClientModule,
     MatMenuModule,
     MatCardModule,
     MatToolbarModule,
@@ -61,9 +56,9 @@ import {DepartmentService} from './service/DepartmentService';
     NgcFloatButtonModule
   ],
   providers: [
-    HttpClientModule,
     RoleService,
-    DepartmentService
+    DepartmentService,
+    HttpClientModule,
   ],
   bootstrap: [AppComponent]
 })

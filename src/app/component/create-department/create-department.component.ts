@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { HttpClient, HttpHeaders, HttpParams, HttpResponse} from '@angular/common/http';
 import { Router } from '@angular/router';
 
 import { Department } from '../../model/department.model';
@@ -13,15 +14,9 @@ import { DepartmentService } from '../../service/DepartmentService';
 })
 export class CreateDepartmentComponent {
     departmentForm: FormGroup;
-	//departmentName: FormControl;
-	//departmentId: FormControl;
-	//departmentIdToUpdate: number;
-	//isUpdate = false;
-	//isCreate = false;
 	statusCode: number;
 	requestProcessing = false;
 	processValidation = false;
-	//departmentDescriptionReceived: string = "department Description";
 
 	standardResponse = new StandardResponse();
 
@@ -61,8 +56,8 @@ export class CreateDepartmentComponent {
 		this.departmentService.createDepartment(department)
 			.subscribe(successCode => {
 				this.standardResponse = successCode;
-				this.router.navigate(['./department']);
-				location.reload();
+				//this.router.navigate(['./department']);
+				//location.reload();
 			},
 			errorCode => this.statusCode = errorCode);
 	}
