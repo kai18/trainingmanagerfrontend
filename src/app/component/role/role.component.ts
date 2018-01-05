@@ -2,10 +2,13 @@ import { Department } from './../../model/department.model';
 import { DepartmentService } from './../../service/DepartmentService';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder, NgControl, Validator, Validators } from '@angular/forms';
+import { MatDialog, MatDialogRef } from '@angular/material';
+import { MatSnackBar } from '@angular/material';
 import { Router } from '@angular/router';
 import { Role, PrivilegeUdt } from '../../model/role.model';
 import { StandardResponse } from './../../model/standardresponse.model';
 import { RoleService } from './../../service/RoleService.service';
+import { DeleteModalComponent } from './../delete-modal/delete-modal.component';
 
 @Component({
   moduleId: module.id,
@@ -23,6 +26,9 @@ export class RoleComponent {
   isUpdate = false;
   isDepartment = false;
   rForm: FormGroup;
+  rFormUpdate: FormGroup;
+  roleToUpdate: Role;
+  roleToDelete: Role;
   roleId: any;
   roleName: string = '';
   roleType: string = '';
@@ -33,9 +39,13 @@ export class RoleComponent {
   departmentId: any;
   post: any;
   standardResponse: StandardResponse;
-
+  id: any;
+  roleNameAlert = 'Role Name is required';
+  roleTypeAlert = 'Role Type is required';
+  roleDescriptionAlert = 'Role Description is required';
   constructor(private roleService: RoleService, private departmentService: DepartmentService,
-    private router: Router, private fb: FormBuilder) {
+    private router: Router, private fb: FormBuilder, private fbUpdate: FormBuilder, private dialog: MatDialog,
+    public snackBar: MatSnackBar) {
     this.rForm = fb.group({
       'roleName': ['', Validators.required],
       'roleType': ['', Validators.required],
@@ -45,6 +55,10 @@ export class RoleComponent {
       'deletionPrivilege': 0,
       'updationPrivilege': 0,
       'readPrivilege': [{ value: 1, disabled: true }, Validators.required]
+    });
+
+    this.rFormUpdate = fbUpdate.group({
+      'roleDescription': ['', Validators.required]
     });
   }
 
@@ -70,8 +84,8 @@ export class RoleComponent {
   getAllDepartments() {
     this.departmentService.getAllDepartments()
       .subscribe(
-        data => this.allDepartments = data.element,
-        errorCode => this.statusCode = errorCode);
+      data => this.allDepartments = data.element,
+      errorCode => this.statusCode = errorCode);
   }
 
   // Handle create
@@ -123,11 +137,46 @@ export class RoleComponent {
       this.roleService.createRole(role)
         .subscribe(response => {
           this.standardResponse = response;
-          // this.getAllRoles();
+          this.getAllRoles();
           this.backToCreateRole();
+          this.openSnackBar(this.standardResponse.message, 'Ok');
         },
         errorCode => this.statusCode = errorCode);
     }
+  }
+
+  onRoleUpdateFormSubmit(post) {
+    this.processValidation = true;
+    if (this.rFormUpdate.invalid) {
+      return; // Validation failed, exit from method.
+    }
+    // Form is valid, now perform create or update
+    this.preProcessConfigurations();
+    this.roleToUpdate.roleDescription = this.rFormUpdate.get('roleDescription').value.trim();
+    if (this.roleToUpdate.privilege.departmentId == null) {
+      this.roleToUpdate.privilege.departmentId = null;
+    }
+    this.roleService.updateRole(this.roleToUpdate)
+      .subscribe(response => {
+        this.standardResponse = response;
+        this.getAllRoles();
+        this.backToCreateRole();
+        this.openSnackBar(this.standardResponse.message, 'Ok');
+      },
+      errorCode => this.statusCode = errorCode);
+  }
+
+  // Delete role
+  deleteRole(roleToDelete: Role) {
+    this.preProcessConfigurations();
+    this.roleService.deleteRoleById(roleToDelete)
+      .subscribe(response => {
+        this.standardResponse = response;
+        this.getAllRoles();
+        this.backToCreateRole();
+        this.openSnackBar(this.standardResponse.message, 'Ok');
+      },
+      errorCode => this.statusCode = errorCode);
   }
 
   // Go back from update to create
@@ -135,6 +184,7 @@ export class RoleComponent {
     this.isUpdate = false;
     this.isCreate = false;
     this.rForm.reset();
+    this.rFormUpdate.reset();
     this.processValidation = false;
   }
 
@@ -144,6 +194,17 @@ export class RoleComponent {
     } else {
       this.isCreate = true;
     }
+  }
+
+  loadRoleToUpdate(role) {
+    if (this.isUpdate) {
+      this.isCreate = false;
+      this.isUpdate = false;
+    } else {
+      this.isCreate = false;
+      this.isUpdate = true;
+    }
+    this.roleToUpdate = role;
   }
 
   toggleRole() {
@@ -162,6 +223,26 @@ export class RoleComponent {
     } else {
       this.isDepartment = false;
     }
+  }
+
+  openRoleDeleteDialog(role?) {
+    const dialogRef = this.dialog.open(DeleteModalComponent, {
+      hasBackdrop: false,
+      data: {
+        role: role
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.deleteRole(role);
+      }
+    });
+  }
+
+  openSnackBar(message: string, action: string) {
+    this.snackBar.open(message, action, {
+      duration: 4000,
+    });
   }
 }
 

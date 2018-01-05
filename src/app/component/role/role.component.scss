@@ -10,7 +10,7 @@
 .card{
   margin:2%;
   padding:2%;
-  width: 65%;
+  width: 55%;
 }
 .create-form{
   text-align: center;
@@ -27,4 +27,16 @@
 .grid{
   min-width: 735px;
   max-width: 735px;
+}
+
+.alert {
+  width: 100%;
+  background: #f2edda;
+  padding: 7px;
+  font-size: .9em;
+  margin-top: 0;
+  color: red;
+  margin-bottom: 1%;
+  display: inline-block;
+  animation: 2s alertAnim forwards;
 }
