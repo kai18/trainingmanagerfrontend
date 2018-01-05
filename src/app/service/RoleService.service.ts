@@ -27,11 +27,11 @@ export class RoleService {
   }
 
   getAllDepartments(): Observable<StandardResponse> {
-    const headers = new Headers({ 'Content-Type': 'application/json'});
-    const options = new RequestOptions({headers: headers});
+    const headers = new Headers({ 'Content-Type': 'application/json' });
+    const options = new RequestOptions({ headers: headers });
     return this.http.get(AppConfig.DEPARTMENT_URL, options)
-    .map(this.extractData)
-    .catch(this.handleError);
+      .map(this.extractData)
+      .catch(this.handleError);
   }
 
   private extractData(res: Response) {
@@ -51,7 +51,17 @@ export class RoleService {
     const headers = new Headers({ 'Content-Type': 'application/json' });
     const options = new RequestOptions({ headers: headers });
     return this.http.post(AppConfig.ROLE_URL, role, options)
-        .map(this.extractData)
-        .catch(this.handleError);
-}
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
+
+  // Add a role
+  updateRole(role: Role): Observable<StandardResponse> {
+    // const token = localStorage.getItem('jwttoken');
+    const headers = new Headers({ 'Content-Type': 'application/json' });
+    const options = new RequestOptions({ headers: headers });
+    return this.http.put(AppConfig.ROLE_URL, role, options)
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
 }

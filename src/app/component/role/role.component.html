@@ -48,9 +48,9 @@
             <input matInput placeholder="Role Name" formControlName="roleName">
           </mat-form-field>
           <mat-form-field class="full-width">
-            <mat-select placeholder="Role Type" formControlName="roleType" name="roleType">
-              <mat-option value="system" (click)="isDepartment = false">System</mat-option>
-              <mat-option value="department" (click)="isDepartment = true">Department</mat-option>
+            <mat-select placeholder="Role Type"(change)="deptToggle()" formControlName="roleType" name="roleType" class="ui fluid search selection dropdown bottom">
+              <mat-option value="system" >System</mat-option>
+              <mat-option value="department">Department</mat-option>
             </mat-select>
           </mat-form-field>
           <mat-form-field class="full-width" *ngIf="isDepartment">

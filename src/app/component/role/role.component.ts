@@ -155,6 +155,14 @@ export class RoleComponent {
       this.isUpdate = false;
     }
   }
+
+  deptToggle() {
+    if (this.rForm.get('roleType').value === 'department') {
+      this.isDepartment = true;
+    } else {
+      this.isDepartment = false;
+    }
+  }
 }
 
 // https://coursetro.com/posts/code/66/Angular-4-Reactive-Forms-Tutorial
