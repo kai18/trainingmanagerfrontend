@@ -43,6 +43,7 @@ export class RoleComponent {
   roleNameAlert = 'Role Name is required';
   roleTypeAlert = 'Role Type is required';
   roleDescriptionAlert = 'Role Description is required';
+  departmentAlert = 'Please select a department';
   constructor(private roleService: RoleService, private departmentService: DepartmentService,
     private router: Router, private fb: FormBuilder, private fbUpdate: FormBuilder, private dialog: MatDialog,
     public snackBar: MatSnackBar) {
@@ -65,6 +66,21 @@ export class RoleComponent {
   ngOnInit(): void {
     this.getAllRoles();
     this.getAllDepartments();
+    this.onChanges();
+  }
+
+  onChanges(): void {
+    this.rForm.get('roleType').valueChanges.subscribe(val => {
+      if (val === 'department') {
+        this.rForm.controls['departmentId'].setValidators(Validators.required);
+        this.rForm.get('departmentId').updateValueAndValidity();
+        this.isDepartment = true;
+    } else {
+      this.isDepartment = false;
+      this.rForm.get('departmentId').clearValidators();
+      this.rForm.get('departmentId').updateValueAndValidity();
+    }
+    });
   }
 
   // Perform preliminary processing configurations
@@ -196,6 +212,11 @@ export class RoleComponent {
     }
   }
 
+  // addValidation() {
+  //   if (this.rForm.get('roleType').value != null && this.rForm.get('roleType').value === 'department') {
+  //     this.rForm.controls['departmentId'].setValidators(Validators.required);
+  // }
+  // }
   loadRoleToUpdate(role) {
     if (this.isUpdate) {
       this.isCreate = false;
@@ -218,11 +239,12 @@ export class RoleComponent {
   }
 
   deptToggle() {
-    if (this.rForm.get('roleType').value === 'department') {
-      this.isDepartment = true;
-    } else {
-      this.isDepartment = false;
-    }
+    // if (this.rForm.get('roleType').value === 'department') {
+    //   this.isDepartment = true;
+    //   // this.rForm.controls['departmentId'].setValidators(Validators.required);
+    // } else {
+    //   this.isDepartment = false;
+    // }
   }
 
   openRoleDeleteDialog(role?) {
