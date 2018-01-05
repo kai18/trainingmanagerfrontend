@@ -2,8 +2,7 @@ import { Department } from './../../model/department.model';
 import { DepartmentService } from './../../service/DepartmentService';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder, NgControl, Validator, Validators } from '@angular/forms';
-import { MatDialog, MatDialogRef } from '@angular/material';
-import { MatSnackBar } from '@angular/material';
+import { MatDialog, MatDialogRef, MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material';
 import { Router } from '@angular/router';
 import { Role, PrivilegeUdt } from '../../model/role.model';
 import { StandardResponse } from './../../model/standardresponse.model';
@@ -40,6 +39,8 @@ export class RoleComponent {
   post: any;
   standardResponse: StandardResponse;
   id: any;
+  horizontalPosition: MatSnackBarHorizontalPosition = 'center';
+  verticalPosition: MatSnackBarVerticalPosition = 'top';
   roleNameAlert = 'Role Name is required';
   roleTypeAlert = 'Role Type is required';
   roleDescriptionAlert = 'Role Description is required';
@@ -248,15 +249,16 @@ export class RoleComponent {
   }
 
   openRoleDeleteDialog(role?) {
+    this.roleToDelete = role;
     const dialogRef = this.dialog.open(DeleteModalComponent, {
       hasBackdrop: false,
       data: {
-        role: role
+        name: role.roleName
       }
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.deleteRole(role);
+        this.deleteRole(this.roleToDelete);
       }
     });
   }
@@ -264,6 +266,8 @@ export class RoleComponent {
   openSnackBar(message: string, action: string) {
     this.snackBar.open(message, action, {
       duration: 4000,
+      horizontalPosition : this.horizontalPosition,
+      verticalPosition : this.verticalPosition
     });
   }
 }
