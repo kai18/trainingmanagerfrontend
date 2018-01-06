@@ -9,6 +9,10 @@ import {Search} from './component/search/search.component';
 import { RoleComponent } from './component/role/role.component';
 import { CreateDepartmentComponent } from './component/create-department/create-department.component';
 import { DepartmentComponent} from './component/department/department.component';
+import {Register} from './component/register/register.component';
+import {Login} from './component/login/login.component';
+import { UserProfile } from './component/userprofile/userprofile.component';
+
 
 const appRoutes: Routes = [
     {
@@ -30,6 +34,18 @@ const appRoutes: Routes = [
     {
         path: 'department',
         component: DepartmentComponent
+    },
+    {
+      path: 'register',
+      component: Register
+    },
+    {
+      path: 'login',
+      component: Login
+    },
+    {
+      path: 'userprofile',
+      component: UserProfile
     }
 
 ];

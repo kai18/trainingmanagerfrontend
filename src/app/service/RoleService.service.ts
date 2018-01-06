@@ -37,7 +37,7 @@ export class RoleService {
   }
 
   private handleError(error: Response | any) {
-    const errorBody = error.json();
+    const errorBody = error;
     // console.error("error : " + errorBody);
     return Observable.throw(errorBody || error);
   }

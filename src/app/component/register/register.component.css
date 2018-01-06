@@ -1,0 +1,21 @@
+.reg{
+	padding-top: 5%;
+	font-family: GillSans, Calibri, Trebuchet, sans-serif;
+}
+
+.container{
+	padding-right: 10%;
+	padding-left: 10%;
+}
+
+.full-width{
+	width: 80%;
+}
+
+.full-width-oneline{
+	width: 40%;
+}
+
+.b{
+	padding-top: 3%
+}

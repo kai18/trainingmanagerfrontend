@@ -3,8 +3,11 @@ import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule, MatCardModule, MatMenuModule, MatToolbarModule, MatIconModule , MatTabsModule,
  MatFormFieldModule, MatGridListModule, MatOptionModule, MatSelectModule, MatCheckboxModule, MatChipsModule,
- MatDialogModule, MatSnackBarModule, MatSnackBar} from '@angular/material';
+ MatDialogModule, MatSnackBarModule, MatSnackBar, MatPaginatorModule} from '@angular/material';
 
+import {MatStepperModule} from '@angular/material/stepper';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
+import {MatRadioModule} from '@angular/material/radio';
 import {MatInputModule, MatTableModule} from '@angular/material';
 
 import {HttpClientModule, HttpClient, HttpHeaders, HttpParams, HttpResponse} from '@angular/common/http';
@@ -22,10 +25,28 @@ import {Search} from './component/search/search.component';
 import {RoleComponent} from './component/role/role.component';
 import { CreateDepartmentComponent } from './component/create-department/create-department.component';
 import { DepartmentComponent} from './component/department/department.component';
+import { DeleteModalComponent } from './component/delete-modal/delete-modal.component';
+import {Register} from './component/register/register.component';
+import {Login} from './component/login/login.component';
+import {Tabs} from './component/tabs/tabs.component';
+import {Footer} from './component/footer/footer.component'
+import { UserProfile } from './component/userprofile/userprofile.component';
+
+
+
+import { AuthHttp, AuthConfig, provideAuth } from 'angular2-jwt';
+import { tokenNotExpired, JwtHelper } from 'angular2-jwt';
 
 import {RoleService} from './service/RoleService.service';
+import {UserService} from './service/UserService.service';
 import {DepartmentService} from './service/DepartmentService';
-import { DeleteModalComponent } from './component/delete-modal/delete-modal.component';
+import { AuthorizeService } from './service/AuthorizeService.service';
+
+export function authHttpServiceFactory(http: Http, options: RequestOptions) {
+
+  return new AuthHttp(new AuthConfig(), http, options);
+
+}
 
 
 @NgModule({
@@ -36,7 +57,12 @@ import { DeleteModalComponent } from './component/delete-modal/delete-modal.comp
     RoleComponent,
     CreateDepartmentComponent,
     DepartmentComponent,
-    DeleteModalComponent
+    DeleteModalComponent,
+    Register,
+    Login,
+    Tabs,
+    Footer,
+    UserProfile
   ],
   imports: [
     AppRoutingModule,
@@ -56,11 +82,16 @@ import { DeleteModalComponent } from './component/delete-modal/delete-modal.comp
     MatInputModule,
     MatGridListModule,
     MatOptionModule,
+    MatPaginatorModule,
     MatSelectModule,
     MatCheckboxModule,
     MatDialogModule,
     MatChipsModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatStepperModule,
+    MatRadioModule,
+    MatProgressBarModule,
+    FormsModule
 
   ],
   entryComponents: [DeleteModalComponent],
@@ -68,7 +99,10 @@ import { DeleteModalComponent } from './component/delete-modal/delete-modal.comp
     HttpClientModule,
     MatSnackBar,
     RoleService,
-    DepartmentService
+    DepartmentService,
+    UserService,
+    JwtHelper,
+    AuthorizeService
   ],
   bootstrap: [AppComponent]
 })

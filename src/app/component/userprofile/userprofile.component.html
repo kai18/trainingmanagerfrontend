@@ -1,0 +1,190 @@
+<div class="main">
+  <mat-card>
+    <div class="center" *ngIf="!isUpdate">
+      <h1 class="center"> USER PROFILE</h1>
+      <div class="row">
+        <i class="material-icons prefix">account_circle</i>
+        <mat-form-field class="full-width">
+          <input matInput placeholder="First Name" value={{user.firstName}} readonly>
+        </mat-form-field>
+        <i class="material-icons prefix">account_circle</i>
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Last Name" value={{user.lastName}} readonly>
+        </mat-form-field>
+      </div>
+
+      <div class="row">
+        <i class="material-icons prefix">insert_emoticon</i>
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Gender" value={{user.gender}} readonly>
+        </mat-form-field>
+        <i class="material-icons prefix">call</i>
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Phone Number" value={{user.phoneNumber}} readonly>
+        </mat-form-field>
+      </div>
+
+      <div class="row">
+        <i class="material-icons prefix">location_city</i>
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Door Number" value={{address.doorNumber}} readonly>
+        </mat-form-field>
+        <i class="material-icons prefix">time_to_leave</i>
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Street Name" value={{address.streetName}} readonly>
+        </mat-form-field>
+      </div>
+
+      <div class="row">
+        <i class="material-icons prefix">pin_drop</i>
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Area" value={{address.area}} readonly>
+        </mat-form-field>
+        <i class="material-icons prefix">pin_drop</i>
+        <mat-form-field class="full-width">
+          <input matInput placeholder="City" value={{address.city}} readonly>
+        </mat-form-field>
+      </div>
+
+      <div class="row">
+        <i class="material-icons prefix">pin_drop</i>
+        <mat-form-field class="half-width">
+          <input matInput placeholder="State" value={{address.state}} readonly>
+        </mat-form-field>
+        <i class="material-icons prefix">pin_drop</i>
+        <mat-form-field class="half-width">
+          <input matInput placeholder="Country" value={{address.country}} readonly>
+        </mat-form-field>
+        <i class="material-icons prefix">fiber_pin</i>
+        <mat-form-field class="half-width">
+          <input matInput placeholder="Zip Code" value={{address.zipcode}} readonly>
+        </mat-form-field>
+      </div>
+      <div class="nocenter">
+        <button mat-raised-button color="primary" (click)="updateToggle()">UPDATE USER DETAILS</button>
+      </div>
+    </div>
+  </mat-card>
+
+  <mat-card>
+    <div class="center" *ngIf="isUpdate">
+      <h1 class="center"> USER PROFILE UPDATE</h1>
+      <form name="myForm" #validateForm="ngForm" (ngSubmit)="onSubmit()" novalidate>
+        <div>
+          <i class="material-icons prefix">account_circle</i>
+          <mat-form-field class="full-width">
+            <input #firstName (keyup)="validateFirstName(firstName.value)" matInput placeholder="First Name" [(ngModel)]="user.firstName"
+              name="user.firstName" [ngModelOptions]="{standalone: true}" required>
+            <span class="font" *ngIf="!first">invalid firstname</span>
+          </mat-form-field>
+
+        </div>
+        <div>
+          <i class="material-icons prefix">account_circle</i>
+          <mat-form-field class="full-width">
+            <input #lastName (keyup)="validateLastName(lastName.value)" matInput placeholder="Last Name" [(ngModel)]="user.lastName"
+              name="user.lastName" [ngModelOptions]="{standalone: true}" required>
+            <span class="font" *ngIf="!last">invalid lastname</span>
+          </mat-form-field>
+
+        </div>
+
+        <!-- <i class="material-icons prefix">insert_emoticon</i>
+        <mat-form-field class="full-width">
+            <!-- <mat-select placeholder="Gender" [(ngModel)]="user.gender" name="user.gender" [ngModelOptions]="{standalone: true}">
+                <mat-option value="male">Male</mat-option>
+                <mat-option value="Female">Female</mat-option>
+                <mat-option value="Other">Other</mat-option>
+              </mat-select> -->
+        <!-- <input matInput placeholder="Gender" [(ngModel)]="user.gender" name="user.gender" [ngModelOptions]="{standalone: true}" disabled>
+          </mat-form-field> -->
+        <div>
+          <i class="material-icons prefix">call</i>
+          <mat-form-field class="full-width">
+            <input #phoneNumber (keyup)="validatePhoneNumberField(phoneNumber.value)" matInput placeholder="Phone Number" [(ngModel)]="user.phoneNumber"
+              name="user.phoneNumber" [ngModelOptions]="{standalone: true}" #phoneNumber="ngModel" minlength="10" maxlength="10"
+              required>
+            <span class="font" *ngIf="!phone">Please input a valid number</span>
+          </mat-form-field>
+          <br>
+
+        </div>
+
+        <div>
+          <i class="material-icons prefix">location_city</i>
+          <mat-form-field class="full-width">
+            <input #doorNumber (keyup)="validateDoorNumber(doorNumber.value)" matInput placeholder="Door Number" [(ngModel)]="address.doorNumber"
+              name="address.doorNumber" [ngModelOptions]="{standalone: true}" required>
+            <span class="font" *ngIf="!door">door number cannot be null</span>
+          </mat-form-field>
+
+        </div>
+        <div>
+          <i class="material-icons prefix">time_to_leave</i>
+          <mat-form-field class="full-width">
+            <input #streetName (keyup)="validateStreetName(streetName.value)" matInput placeholder="Street Name" [(ngModel)]="address.streetName"
+              name="address.streetName" [ngModelOptions]="{standalone: true}" required>
+            <span class="font" *ngIf="!street">street name cannot be null</span>
+          </mat-form-field>
+        </div>
+
+        <div>
+          <i class="material-icons prefix">pin_drop</i>
+          <mat-form-field class="full-width">
+            <input #area (keyup)="validateArea(area.value)" matInput placeholder="Area" [(ngModel)]="address.area" name="address.area"
+              [ngModelOptions]="{standalone: true}" required>
+
+            <span class="font" *ngIf="!area1">invalid area</span>
+          </mat-form-field>
+
+        </div>
+        <div>
+          <i class="material-icons prefix">pin_drop</i>
+          <mat-form-field class="full-width">
+            <input #city (keyup)="validateCity(city.value)" matInput placeholder="City" [(ngModel)]="address.city" name="address.city"
+              [ngModelOptions]="{standalone: true}" required>
+            <span class="font" *ngIf="!city1">invalid city</span>
+          </mat-form-field>
+
+        </div>
+
+        <div>
+          <i class="material-icons prefix">pin_drop</i>
+          <mat-form-field class="full-width">
+            <input #state (keyup)="validateState(state.value)" matInput placeholder="State" [(ngModel)]="address.state" name="address.state"
+              [ngModelOptions]="{standalone: true}" required>
+              <span class="font" *ngIf="!state1">invalid state</span>
+          </mat-form-field>
+      
+
+        </div>
+        <div>
+          <i class="material-icons prefix">pin_drop</i>
+          <mat-form-field class="full-width">
+            <input #country (keyup)="validateCountry(country.value)" matInput placeholder="Country" [(ngModel)]="address.country" name="address.country"
+              [ngModelOptions]="{standalone: true}" required>
+            <span class="font" *ngIf="!country1">invalid country</span>
+          </mat-form-field>
+
+        </div>
+        <div>
+          <i class="material-icons prefix">fiber_pin</i>
+          <mat-form-field class="full-width">
+            <input #zipCode (keyup)="validateZipCode(zipCode.value)" matInput placeholder="Zip Code" [(ngModel)]="address.zipcode" name="address.zipcode"
+              [ngModelOptions]="{standalone: true}" #zipcode="ngModel" minlength="6" maxlength="6" required>
+            <span class="font" *ngIf="!zip">Please input a valid ZipCode</span>
+          </mat-form-field>
+        </div>
+
+        <!-- <button type="submit" class="btn btn-primary" >
+      submit
+    </button> -->
+        <div class="center">
+          <button mat-raised-button color="primary">SUBMIT</button>
+        </div>
+
+      </form>
+    </div>
+  </mat-card>
+</div>
+

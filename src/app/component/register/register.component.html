@@ -1,0 +1,162 @@
+<div class="reg">
+  <div class = "example container">
+    <mat-horizontal-stepper [linear]="isLinear">
+    <mat-step [stepControl]="firstFormGroup">
+      <form [formGroup]="firstFormGroup" (ngSubmit)="onDetailsSubmit()">
+        <mat-progress-bar mode="determinate" value="0"></mat-progress-bar>
+          <ng-template matStepLabel>Fill your Details</ng-template>
+          <mat-icon>account_circle</mat-icon>
+          <mat-form-field class = "full-width-oneline">
+            <input #firstName matInput placeholder="First name" formControlName="firstName" required>
+          </mat-form-field>
+          <div class="alert" *ngIf="!firstFormGroup.controls['firstName'].valid && firstFormGroup.controls['firstName'].touched">{{ titleAlert }}</div>
+
+
+         <mat-icon>account_circle</mat-icon>
+          <mat-form-field class = "full-width-oneline">
+            <input #lastName matInput placeholder="Last name" formControlName="lastName" required>
+          </mat-form-field>
+          <div class="alert" *ngIf="!firstFormGroup.controls['lastName'].valid && firstFormGroup.controls['lastName'].touched">{{ titleAlert }}</div>
+
+
+          <div class="row">
+           <mat-icon>email</mat-icon>
+          <mat-form-field class = "full-width">
+            <input #emailId matInput placeholder="Email ID" formControlName="emailId" required>
+          </mat-form-field>
+          </div>
+          <div class="alert" *ngIf="!firstFormGroup.controls['emailId'].valid && firstFormGroup.controls['emailId'].touched"> Invalid email </div>
+
+
+          <div class="row">
+           <mat-icon>vpn_key</mat-icon>
+          <mat-form-field class = "full-width">
+            <input #password matInput placeholder="Password" formControlName="password" required>
+          </mat-form-field>
+          </div>
+          <div class="alert" *ngIf="!firstFormGroup.controls['password'].valid && firstFormGroup.controls['password'].touched">{{ titleAlert }}</div>
+
+
+          <div class="row" (keyup)="validatePassword(password.value,cpassword.value)">
+           <mat-icon>vpn_key</mat-icon>
+          <mat-form-field class = "full-width">
+            <input #cpassword matInput placeholder="Confirm Password" formControlName="cpassword" required>
+          </mat-form-field>
+          </div>
+          <div class="alert" *ngIf="!firstFormGroup.controls['cpassword'].valid && firstFormGroup.controls['cpassword'].touched">{{ titleAlert }}</div>
+          <span class="mismatch" *ngIf="passwordInvalid">Password mismatch</span>
+
+          <div class="row">
+           <mat-icon>phone</mat-icon>
+          <mat-form-field class = "full-width">
+            <input #phoneNumber matInput placeholder="Phone Number" formControlName="phoneNumber" required>
+          </mat-form-field>
+          </div>
+          <div class="alert" *ngIf="!firstFormGroup.controls['phoneNumber'].valid && firstFormGroup.controls['phoneNumber'].touched"> Phone number should be 10 digit </div>
+
+          <div class="row">
+            <mat-radio-group formControlName="gender" placeholder="Gender" color="primary">
+              <mat-radio-button value="male">Male</mat-radio-button>
+              <mat-radio-button value="female">Female</mat-radio-button>
+              <mat-radio-button value="other">Other</mat-radio-button>
+            </mat-radio-group>
+          </div>
+
+          <div class="b">
+            <button  mat-raised-button color="primary" matStepperNext >Next</button>
+          </div>
+      </form>
+  </mat-step>
+  
+  <mat-step [stepControl]="secondFormGroup">
+    <form [formGroup]="secondFormGroup" (ngSubmit)="onAddressSubmit()">
+      <mat-progress-bar mode="determinate" value="40"></mat-progress-bar>
+      <ng-template matStepLabel>Fill your address</ng-template>
+       <div class="row">
+      <mat-form-field class = "full-width">
+        <input #doorNumber matInput placeholder="Door number" formControlName="doorNumber" required>
+      </mat-form-field>
+      <div class="alert" *ngIf="!secondFormGroup.controls['doorNumber'].valid && secondFormGroup.controls['doorNumber'].touched">{{ titleAlert }}</div>
+    </div>
+       <div class="row">
+       <mat-form-field class = "full-width">
+        <input #streetName matInput placeholder="Street name" formControlName="streetName" required>
+      </mat-form-field>
+      <div class="alert" *ngIf="!secondFormGroup.controls['streetName'].valid && secondFormGroup.controls['streetName'].touched">{{ titleAlert }}</div>
+    </div>
+       <div class="row">
+       <mat-form-field class = "full-width">
+        <input #area matInput placeholder="Area" formControlName="area" required>
+      </mat-form-field>
+      <div class="alert" *ngIf="!secondFormGroup.controls['area'].valid && secondFormGroup.controls['area'].touched">{{ titleAlert }}</div>
+    </div>
+    <div class="row">
+       <mat-form-field class = "full-width">
+        <input #city matInput placeholder="City" formControlName="city" required>
+      </mat-form-field>
+      <div class="alert" *ngIf="!secondFormGroup.controls['city'].valid && secondFormGroup.controls['city'].touched">{{ titleAlert }}</div>
+    </div>
+       <div class="row">
+       <mat-form-field class = "full-width">
+        <input #state matInput placeholder="State" formControlName="state" required>
+      </mat-form-field>
+      <div class="alert" *ngIf="!secondFormGroup.controls['state'].valid && secondFormGroup.controls['state'].touched">{{ titleAlert }}</div>
+    </div>
+       <div class="row">
+       <mat-form-field class = "full-width">
+        <input #country matInput placeholder="Country" formControlName="country" required>
+      </mat-form-field>
+      <div class="alert" *ngIf="!secondFormGroup.controls['country'].valid && secondFormGroup.controls['country'].touched">{{ titleAlert }}</div>
+    </div>
+       <div class="row">
+       <mat-form-field class = "full-width">
+        <input #zipcode matInput placeholder="Zip code" formControlName="zipcode" required>
+      </mat-form-field>
+      <div class="alert" *ngIf="!secondFormGroup.controls['zipcode'].valid && secondFormGroup.controls['zipcode'].touched">{{ titleAlert }}</div>
+    </div>
+      <div class="b">
+        <button mat-raised-button matStepperPrevious color="primary">Back</button>
+        <button mat-raised-button matStepperNext color="primary">Next</button>
+      </div>
+    </form>
+  </mat-step>
+  
+  <mat-step [stepControl]="thirdFormGroup">
+     <form [formGroup]="thirdFormGroup" (ngSubmit)="register()">
+    <ng-template matStepLabel>Add your Department and Role</ng-template>
+     <mat-progress-bar mode="determinate" value="70"></mat-progress-bar>
+       <div class="row">
+        <mat-form-field class = "full-width">
+            <mat-select placeholder="Select Department">
+              <mat-option value="option">Option</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+          <div class="row">
+          <mat-form-field class = "full-width">
+            <mat-select placeholder="Select Role">
+              <mat-option value="option">Option</mat-option>
+            </mat-select>
+          </mat-form-field>
+       </div>
+     <div class="b">
+        <button mat-raised-button matStepperPrevious color="primary">Back</button>
+        <button mat-raised-button matStepperNext color="primary">Next</button>
+      </div>
+      </form>
+  </mat-step>
+
+  <mat-step>
+    <mat-progress-bar mode="determinate" value="100"></mat-progress-bar>
+    <ng-template matStepLabel>Done</ng-template>
+    You are now done.
+    {{user.emailId}} successfully registered.
+    Click the button to login
+    <div class="b">
+      <button mat-raised-button color="primary">Login</button>
+      <button mat-raised-button matStepperPrevious color="primary">Back</button>
+    </div>
+  </mat-step>
+</mat-horizontal-stepper>
+</div>
+</div>

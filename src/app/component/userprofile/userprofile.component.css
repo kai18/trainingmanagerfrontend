@@ -1,0 +1,28 @@
+.full-width{
+	width: 40%;
+}
+
+.full-width-oneline{
+	width: 30%;
+} 
+
+.half-width{
+  width: 20%;
+}
+  
+.center{
+	text-align: center;
+}
+
+.main{
+  padding-top: 60px;
+}
+
+.nocenter{
+  text-align: left
+}
+
+.font{
+  color: red;
+  font-family: "Times New Roman", Times, serif;
+}

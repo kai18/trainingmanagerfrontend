@@ -9,3 +9,25 @@
 .menu-items{
 	padding-left: 20px;
 }
+
+a {
+    color: white;
+    text-decoration: none;
+    text-align: left;
+}
+
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+.example-fill-remaining-space {
+  flex: 1 1 auto;
+}
+
+.a-class{
+	padding-right: 1px
+}
+/*.padding{
+	padding-left: 50%
+}*/
+

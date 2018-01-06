@@ -1,0 +1,21 @@
+.login{
+	padding-top: 5%;
+		text-align: center;
+}
+
+.container{
+	padding-right: 10%;
+	padding-left: 10%;
+}
+
+.full-width{
+	width: 80%
+}
+
+.example-card{
+	width:500px	;
+}
+
+.b{
+	padding-top: 2px;
+}
