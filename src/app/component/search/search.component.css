@@ -5,12 +5,46 @@
 
 .full-width-field{
 	width:80%;
+	outline: none;
 }
 
 .container{
-	padding-right: 10%;
-	padding-left: 10%;
+	padding-right: 6%;
+	padding-left: 6%;
 }
 
 .search-result{
+}
+
+
+
+
+
+
+
+
+input >.NoBoxShadow{
+	box-shadow: none;
+}
+
+input >.NoBoxShadow:focus{
+	border:none;
+}
+input#mat-input-2{
+box-shadow: none;	
+}
+input#mat-input-2:focus{
+	border:none;
+}
+input#mat-input-3{
+box-shadow: none;		
+}
+input#mat-input-3:focus{
+	border:none;
+}
+input#mat-input-4{
+box-shadow: none;	
+}
+input#mat-input-4:focus{
+	border:none;	
 }

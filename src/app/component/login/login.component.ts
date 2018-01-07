@@ -54,6 +54,7 @@ ngOnInit() {
 					let decodedToken = this.jwtHelper.decodeToken(standardResponse.element.jwtToken)
 					localStorage.setItem('jwt-token', standardResponse.element.jwtToken);
 					localStorage.setItem('decodedtoken', JSON.stringify(decodedToken));
+					localStorage.setItem('isLoggedIn', 'true');
 					let value: string = localStorage.getItem('jwt-token')
 					let decodevalue: any = JSON.parse(localStorage.getItem('decodedtoken'));
 					this.redirectToUserProfile(decodevalue.jti);

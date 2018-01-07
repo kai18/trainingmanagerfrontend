@@ -11,31 +11,31 @@ import { AuthorizeService } from '../../service/AuthorizeService.service';
 
 export class Navbar
 {
-	// isLoggedIn: boolean;
-	// userId: number;
+	 isLoggedIn: boolean;
+	 userId: string;
 
-	// constructor(private router: Router , private authorizeService: AuthorizeService) {
+	 constructor(private router: Router , private authorizeService: AuthorizeService) {
 
-	// }
+	 }
 
-	// ngOnInit(): void {
-	// 	let decodevalue: any = JSON.parse(localStorage.getItem('decodedtoken'));
-	// 	this.userId = decodevalue.jti;
-	// 	if (this.authorizeService.getRefreshTokenExpirationDate()) {
-	// 		this.isLoggedIn = true;
-	// 	} else {
-	// 		this.isLoggedIn = false;
-	// 		this.logout();
-	// 	}
+	 ngOnInit(): void {
+	 	//let decodevalue: any = JSON.parse(localStorage.getItem('decodedtoken'));
+	 	//this.userId = decodevalue.jti;
+	 	if (this.authorizeService.getRefreshTokenExpirationDate()) {
+	 		this.isLoggedIn = localStorage.getItem('isLoggedIn') == 'true';
+	 	} else {
+	 		this.isLoggedIn = false;
+	 		this.logout();
+	 	}
 		
-	// }
+	 }
 
-	// logout() {
-	// 	localStorage.removeItem('jwttoken');
-	// 	localStorage.removeItem('decodedtoken');
-	// 	this.router.navigate(['login']);
-	// 	this.isLoggedIn = false;
-	// }
+	public logout() {
+	 	localStorage.removeItem('jwttoken');
+	 	localStorage.removeItem('decodedtoken');
+	 	this.router.navigate(['login']);
+	 	this.isLoggedIn = false;
+	 }
 
 	// navigateToUserProfile() {
 	// 	let decodevalue: any = JSON.parse(localStorage.getItem('decodedtoken'));

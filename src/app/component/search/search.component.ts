@@ -1,5 +1,7 @@
 import {Component, Injectable, OnInit} from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams, HttpResponse} from '@angular/common/http';
+import { Router } from '@angular/router';
+
 
 import{PageEvent} from'@angular/material';
 
@@ -15,12 +17,14 @@ import'rxjs/add/operator/switchMap';
 
 import {UserService} from '../../service/UserService.service';
 import{RoleService} from '../../service/RoleService.service';
-
+import{DepartmentService} from '../../service/DepartmentService';
 import {UserSearch} from '../../model/usersearch.model';
 import {AppConfig} from '../../model/appconfig.model';
 import {StandardResponse} from '../../model/standardresponse.model';
 import {Address} from '../../model/address.model';
 import {Role} from '../../model/role.model';
+import {Department} from '../../model/department.model';
+
 
 
 @Component({
@@ -39,14 +43,17 @@ export class Search implements OnInit{
 	searchResults: UserSearch[];
 	message: string
 	allRoles: Role[];
-
+	allDepartments: Department[];
 	searchedOnce = false;
+
+	pageSizeOptions = [3, 9, 12, 15];
 
 	pagedUser: UserSearch[];
 	pageSize = 3;
 	pageLength = 0;
 
-	constructor(private http: HttpClient, private userService: UserService, private roleService: RoleService)
+	constructor(private http: HttpClient, private userService: UserService, private roleService: RoleService,
+				 private departmentService: DepartmentService, private router: Router)
 	{}
 
 	public search(firstName, lastName, email, departments, roles)
@@ -89,20 +96,22 @@ export class Search implements OnInit{
 		return params;
 	}
 
-	public pageEventTrigger($event: PageEvent)
-	{
-		console.log($event.length);
-		console.log($event.pageIndex);
+	public pageEventTrigger($event: PageEvent){
 		this.pageSize = $event.pageSize;
-		console.log("page event triggered");
-		console.log($event.pageIndex*this.pageSize + "," + this.pageSize*($event.pageIndex+1));
 		if(this.searchedOnce)
 			this.pagedUser = this.searchResults.slice($event.pageIndex*this.pageSize, this.pageSize*($event.pageIndex+1));
 		console.log(this.pagedUser);
 	}
 
-	ngOnInit(): void
-	{
+	public visitUser(id: string){
+		this.router.navigate(['userprofile'], { queryParams: { userId: id } });
+	}
+
+	public deleteUser(userId: string){
+		this.userService.delete(userId).subscribe(response => {console.log(response.message)}, response=> {console.log(response.message)});
+	}
+
+	ngOnInit(): void{
 		this.searchResponse = this.searchTerms
 							.debounceTime(500)
 							.distinctUntilChanged()
@@ -118,9 +127,10 @@ export class Search implements OnInit{
 													this.searchResults = this.searchResponsePlain.element;
 													this.pageLength = this.searchResults.length;
 												   	console.log(this.pageLength);
-												   	this.pagedUser = this.searchResults.slice(0, 3);
+												   	this.pagedUser = this.searchResults.slice(0, this.pageSizeOptions[0]);
 													this.searchedOnce = true;});
 		
 		this.roleService.getAllRoles().subscribe(response=> {this.allRoles = response.element});
+		this.departmentService.getAllDepartments().subscribe(response => {this.allDepartments = response.element});
 	}
 }

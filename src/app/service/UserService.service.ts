@@ -50,6 +50,6 @@ export class UserService{
 
 	public delete(userId: string)
 	{
-		return this.http.delete<StandardResponse>(AppConfig.USER_URL + '/' + userId);
+		return this.http.delete<StandardResponse>(AppConfig.USER_URL + userId);
 	}
 }
