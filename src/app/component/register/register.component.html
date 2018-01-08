@@ -127,15 +127,15 @@
      <mat-progress-bar mode="determinate" value="70"></mat-progress-bar>
        <div class="row">
         <mat-form-field class = "full-width">
-            <mat-select placeholder="Select Department">
-              <mat-option value="option">Option</mat-option>
+            <mat-select placeholder="Select Department" formControlName="department" name="department" >
+              <mat-option *ngFor="let department of allDepartments" [value]="department">{{department.departmentName}}</mat-option>
             </mat-select>
           </mat-form-field>
         </div>
           <div class="row">
           <mat-form-field class = "full-width">
-            <mat-select placeholder="Select Role">
-              <mat-option value="option">Option</mat-option>
+            <mat-select placeholder="Select Role" formControlName="role" name="role" >
+               <mat-option *ngFor="let role of allBasicRoles" [value]="role">{{role.roleName}}</mat-option>
             </mat-select>
           </mat-form-field>
        </div>
@@ -149,11 +149,16 @@
   <mat-step>
     <mat-progress-bar mode="determinate" value="100"></mat-progress-bar>
     <ng-template matStepLabel>Done</ng-template>
+    <div *ngIf="standardResponse.code==200">
     You are now done.
     {{user.emailId}} successfully registered.
     Click the button to login
+  </div>
+  <div *ngIf="standardResponse.code!=200">
+    Could not register user. Please Go back and try again
+  </div>
     <div class="b">
-      <button mat-raised-button color="primary">Login</button>
+      <button mat-raised-button color="primary" [routerLink]="['/login']">Login</button>
       <button mat-raised-button matStepperPrevious color="primary">Back</button>
     </div>
   </mat-step>

@@ -4,9 +4,13 @@ import {Response} from '@angular/http';
 //import { HttpClient, HttpHeaders, HttpParams, HttpResponse} from '@angular/common/http';
 
 import { User } from '../../model/user.model';
+import { Role } from '../../model/role.model';
+import { Department } from '../../model/department.model';
 import { Address } from '../../model/address.model';
 import { StandardResponse } from '../../model/standardresponse.model';
 import { UserService } from '../../service/UserService.service';
+import { DepartmentService } from '../../service/DepartmentService';
+import { RoleService } from '../../service/RoleService.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -18,7 +22,9 @@ import { Router } from '@angular/router';
 export class Register
 {
 
-  //allDepartments: Department[];
+  allDepartments: Department[];
+  allBasicRoles: Role[];
+  allRoles: Role[];
   user = new User();
   address = new Address();
   standardResponse = new StandardResponse();
@@ -41,21 +47,22 @@ export class Register
   state:string
   zipcode:string
   city: string
-  // role = new Role();
-  // department = new Department();
-  // rolesArray = new Array<Role>();
-  // departmentsArray = new Array<Department>();
+  role = new Role();
+  department = new Department();
+  rolesArray = new Array<Role>();
+  departmentsArray = new Array<Department>();
 
   statusCode: number;
   errorMessage: String;
   passwordInvalid= false
 
-  constructor(private router: Router, private _formBuilder: FormBuilder, private userService: UserService) { }
+  constructor(private router: Router, private _formBuilder: FormBuilder, private userService: UserService, private departmentService: DepartmentService, private roleService: RoleService) { }
 
 
   ngOnInit() {
-    //this.getAllDepartments();
-
+    this.getAllDepartments();
+    this.getAllRoles();
+    this.getAllBasicRoles();
 
    this.firstFormGroup = this._formBuilder.group({
       firstName: ['', Validators.required],
@@ -76,16 +83,24 @@ export class Register
       city: ['', Validators.required]
     });
     this.thirdFormGroup = this._formBuilder.group({
-      
+      department: [''],
+      role: ['']
     });
 
   }
 
   getAllDepartments() {
-    // this.departmentService.getAllDepartments()
-    //   .subscribe(
-    //   data => this.allDepartments = data.element,
-    //   errorCode => this.statusCode = errorCode);
+    this.departmentService.getAllDepartments()
+      .subscribe(
+      data => this.allDepartments = data.element,
+      errorCode => this.statusCode = errorCode);
+  }
+
+  getAllRoles(){
+    this.roleService.getAllRoles()
+    .subscribe(
+      data => this.allBasicRoles = data.element,
+      errorCode => this.statusCode = errorCode);
   }
 
   onDetailsSubmit():void{
@@ -132,26 +147,20 @@ export class Register
     else this.passwordInvalid= false
   }
 
-// public addRegisterParameters(user): HttpParams{
-//     let params = new HttpParams();
-//       params = params.set('user', user);
-//     return params;
-//   }
-
 register(): void {
     console.log("sjhdj")
   
+      let departmentFront = this.thirdFormGroup.get('department').value;
+      let roleFront = this.thirdFormGroup.get('role').value;
+
       this.user.isActive = true;
       this.user.address = this.address;
 
-      // this.rolesArray.push(this.role);
-      // this.user.role = this.rolesArray;
+      this.rolesArray.push(roleFront);
+      this.user.roles = this.rolesArray;
 
-      // this.departmentsArray.push(this.department);
-      // this.user.departments = this.departmentsArray;
-      // let params= new HttpParams();
-      // params= this.addRegisterParameters(this.user);
-
+      this.departmentsArray.push(departmentFront);
+      this.user.departments = this.departmentsArray;
 
       this.userService.register(this.user)
         .subscribe(standardResponse => this.standardResponse = standardResponse,

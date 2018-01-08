@@ -1,6 +1,6 @@
  import { Address } from '../model/address.model';
-// import { Role } from '../models';
-// import { Department } from '../models';
+ import { Role } from '../model/role.model';
+ import { Department } from '../model/department.model';
 export class User {
 	public userId: number;
 	public emailId: string;
@@ -11,6 +11,6 @@ export class User {
 	public phoneNumber: string;
 	public isActive: boolean;
 	public address: Address;
-	// public role: Array<Role>;
-	// public departments: Array<Department>;
+	public roles: Array<Role>;
+	public departments: Array<Department>;
 }
