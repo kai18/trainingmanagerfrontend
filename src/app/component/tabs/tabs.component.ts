@@ -10,59 +10,72 @@ import { PrivilegeUdt } from '../../model/role.model';
 })
 export class Tabs {
 
-	// userId: string;
-	// previleges: PrivilegeUdt[];
-	// roleFlag: boolean = false;
-	// deptFlag: boolean = false;
-	// firstName:string;
+	userId: string;
+	previleges: PrivilegeUdt[];
+	roleFlag: boolean = false;
+	deptFlag: boolean = false;
+	firstName:string;
 
-	// ngOnInit(): void {
-	// 	let decodevalue: any = JSON.parse(localStorage.getItem('decodedtoken'));
-	// 	this.userId = decodevalue.jti;
-	// 	this.previleges = decodevalue.previleges;
-	// 	this.roleFlag = this.checkAccessForRoleManagement();
-	// 	this.deptFlag = this.checkAccessForDepartmentManagement();
-	// 	let decodeValue: any = JSON.parse(localStorage.getItem('decodedtoken'));
-	// 	this.firstName = (decodeValue.firstName).toUpperCase();
-	// }
+	ngOnInit(): void {
+		let decodedValue: any = JSON.parse(localStorage.getItem('decodedtoken'));
+		if(decodedValue) {
+		this.userId = decodedValue.jti;
+		this.previleges = decodedValue.previleges;
+		this.roleFlag = this.checkAccessForRoleManagement();
+		this.deptFlag = this.checkAccessForDepartmentManagement();
+		let decodeValue: any = JSON.parse(localStorage.getItem('decodedtoken'));
+		this.firstName = (decodeValue.firstName).toUpperCase();
+	}
+	}
 
-	// checkAccessForRoleManagement(): boolean {
-	// 	var flag = false;
-	// 	var keepGoing = true;
-	// 	this.previleges.forEach((previlege, previlegeIndex) => {
-	// 		if (keepGoing) {
-	// 			if (previlege.creationPrivilege && previlege.creationPrivilege === 999) {
-	// 				if (previlege.deletionPrivilege && previlege.deletionPrivilege === 999) {
-	// 					if (previlege.updationPrivilege && previlege.updationPrivilege === 999) {
-	// 						if (previlege.readPrivilege && previlege.readPrivilege === 999) {
-	// 							flag = true;
-	// 							keepGoing = false;
-	// 						}
-	// 					}
-	// 				}
-	// 			}
-	// 		}
-	// 	});
-	// 	return flag;
-	// }
+	ngDoCheck(): void{
+		let decodedValue: any = JSON.parse(localStorage.getItem('decodedtoken'));
+		if(decodedValue) {
+		this.userId = decodedValue.jti;
+		this.previleges = decodedValue.previleges;
+		this.roleFlag = this.checkAccessForRoleManagement();
+		this.deptFlag = this.checkAccessForDepartmentManagement();
+		console.log(this.previleges+" "+this.roleFlag)
+	}
+	}
 
-	// checkAccessForDepartmentManagement(): boolean {
-	// 	var flag = false;
-	// 	var keepGoing = true;
-	// 	this.previleges.forEach((previlege, previlegeIndex) => {
-	// 		if (keepGoing) {
-	// 			if (previlege.creationPrivilege && previlege.creationPrivilege === 999) {
-	// 				if (previlege.deletionPrivilege && previlege.deletionPrivilege === 999) {
-	// 					if (previlege.updationPrivilege && previlege.updationPrivilege === 999) {
-	// 						if (previlege.readPrivilege && previlege.readPrivilege === 999) {
-	// 							flag = true;
-	// 							keepGoing = false;
-	// 						}
-	// 					}
-	// 				}
-	// 			}
-	// 		}
-	// 	});
-	// 	return flag;
-	// }
+	checkAccessForRoleManagement(): boolean {
+		var flag = false;
+		var keepGoing = true;
+		this.previleges.forEach((previlege, previlegeIndex) => {
+			if (keepGoing) {
+				if (previlege.creationPrivilege && previlege.creationPrivilege === 9) {
+					if (previlege.deletionPrivilege && previlege.deletionPrivilege === 9) {
+						if (previlege.updationPrivilege && previlege.updationPrivilege === 9) {
+							if (previlege.readPrivilege && previlege.readPrivilege === 9) {
+								flag = true;
+								keepGoing = false;
+							}
+						}
+					}
+				}
+			}
+		});
+		return flag;
+	}
+
+	checkAccessForDepartmentManagement(): boolean {
+		var flag = false;
+		var keepGoing = true;
+		this.previleges.forEach((previlege, previlegeIndex) => {
+			if (keepGoing) {
+				if (previlege.creationPrivilege && previlege.creationPrivilege === 9) {
+					if (previlege.deletionPrivilege && previlege.deletionPrivilege === 9) {
+						if (previlege.updationPrivilege && previlege.updationPrivilege === 9) {
+							if (previlege.readPrivilege && previlege.readPrivilege === 9) {
+								flag = true;
+								keepGoing = false;
+							}
+						}
+					}
+				}
+			}
+		});
+		return flag;
+	}
 }

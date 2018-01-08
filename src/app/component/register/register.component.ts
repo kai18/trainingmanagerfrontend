@@ -23,8 +23,8 @@ export class Register
 {
 
   allDepartments: Department[];
-  allBasicRoles: Role[];
-  allRoles: Role[];
+  allBasicRoles= new Array<Role>();
+  allRoles= new Array<Role>();
   user = new User();
   address = new Address();
   standardResponse = new StandardResponse();
@@ -62,7 +62,7 @@ export class Register
   ngOnInit() {
     this.getAllDepartments();
     this.getAllRoles();
-    this.getAllBasicRoles();
+    //this.getAllBasicRoles();
 
    this.firstFormGroup = this._formBuilder.group({
       firstName: ['', Validators.required],
@@ -98,9 +98,21 @@ export class Register
 
   getAllRoles(){
     this.roleService.getAllRoles()
-    .subscribe(
-      data => this.allBasicRoles = data.element,
-      errorCode => this.statusCode = errorCode);
+     .subscribe(standardResponse => {
+        console.log("hello");
+        this.standardResponse = standardResponse;
+        this.allRoles = this.standardResponse.element;
+        this.getAllBasicRoles();
+      },
+      error => this.errorMessage = <any>error);
+  }
+
+  getAllBasicRoles(){
+    for(let all of this.allRoles)
+    {
+      if(all.roleName=='Faculty' || all.roleName=='Student')
+        this.allBasicRoles.push(all);
+    }
   }
 
   onDetailsSubmit():void{

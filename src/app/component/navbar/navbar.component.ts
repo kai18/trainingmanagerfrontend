@@ -11,35 +11,48 @@ import { AuthorizeService } from '../../service/AuthorizeService.service';
 
 export class Navbar
 {
-	// isLoggedIn: boolean;
-	// userId: number;
+	isLoggedIn = false;
+	userId: number;
 
-	// constructor(private router: Router , private authorizeService: AuthorizeService) {
+	constructor(private router: Router , private authorizeService: AuthorizeService) {
 
-	// }
+	}
 
-	// ngOnInit(): void {
-	// 	let decodevalue: any = JSON.parse(localStorage.getItem('decodedtoken'));
-	// 	this.userId = decodevalue.jti;
-	// 	if (this.authorizeService.getRefreshTokenExpirationDate()) {
-	// 		this.isLoggedIn = true;
-	// 	} else {
-	// 		this.isLoggedIn = false;
-	// 		this.logout();
-	// 	}
+	ngOnInit(): void {
+		// localStorage.removeItem('jwttoken');
+		// localStorage.removeItem('decodedtoken');
+		// localStorage.removeItem('isLoggedIn')
+		let decodevalue: any = JSON.parse(localStorage.getItem('decodedtoken'));
+		//this.isLoggedIn= JSON.parse(localStorage.getItem('isLoggedIn'));
+		if(decodevalue){
+		this.userId = decodevalue.jti;
+		if (this.authorizeService.getRefreshTokenExpirationDate()) {
+			this.isLoggedIn = true;
+		} else {
+			this.isLoggedIn = false;
+			this.logout();
+		}
+	}
 		
-	// }
+	}
 
-	// logout() {
-	// 	localStorage.removeItem('jwttoken');
-	// 	localStorage.removeItem('decodedtoken');
-	// 	this.router.navigate(['login']);
-	// 	this.isLoggedIn = false;
-	// }
+ngDoCheck(){
+	let decodevalue: any = JSON.parse(localStorage.getItem('decodedtoken'));
+	this.isLoggedIn= JSON.parse(localStorage.getItem('isLoggedIn'));
+}
 
-	// navigateToUserProfile() {
-	// 	let decodevalue: any = JSON.parse(localStorage.getItem('decodedtoken'));
-	// 	let userId: string = decodevalue.jti;
-	// 	this.router.navigate(['user/' + userId]);
-	// }
+	logout() {
+		localStorage.removeItem('jwttoken');
+		localStorage.removeItem('jwt-token');
+		localStorage.removeItem('decodedtoken');
+		localStorage.removeItem('isLoggedIn');
+		this.router.navigate(['login']);
+		this.isLoggedIn = false;
+	}
+
+	navigateToUserProfile() {
+		let decodevalue: any = JSON.parse(localStorage.getItem('decodedtoken'));
+		let userId: string = decodevalue.jti;
+		this.router.navigate(['user/' + userId]);
+	}
 }

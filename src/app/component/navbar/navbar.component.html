@@ -1,3 +1,4 @@
+
 <div class="mat-elevation-z6 navbar">
 <mat-toolbar color = "primary" class = "docs-navbar-header">
 	<span>TrainingManager</span>
@@ -5,13 +6,11 @@
 	<div class = "menu-items" *ngIf="!isLoggedIn">
   		<a class="a-class" [routerLink]="['/register']">Register</a>&nbsp;
   		<a class="a-class" [routerLink]="['/login']">Login</a>&nbsp;&nbsp;
-  		<a class="a-class" [routerLink]="['/search']"><mat-icon>search</mat-icon></a>&nbsp;
   	</div>
 
   	<div class = "menu-items" *ngIf="isLoggedIn">
-  		<a class="padding" [routerLink]="['/register']">Register</a>&nbsp;
-  		<a (click)="logout()">Logout</a>&nbsp;&nbsp;
-  		<a [routerLink]="['/search']"><mat-icon>search</mat-icon></a>&nbsp;&nbsp;
+  		<a (click)="logout()">Logout</a>&nbsp;&nbsp;&nbsp;&nbsp;
+  		<a [routerLink]="['/search']"><mat-icon>search</mat-icon></a>&nbsp;&nbsp;&nbsp;&nbsp;
   		<a [routerLink]="['/user', userId]"><mat-icon>menu</mat-icon></a>
   	</div>
 </mat-toolbar>
