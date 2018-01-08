@@ -1,43 +1,27 @@
- <!--StandardResponse div-->
-<div class="example-container">
-		<div class="row section" *ngIf="standardResponse.code">
-		  <mat-grid-list cols="1" rowHeight="2:1">
-			  <mat-grid-tile>
-				<mat-card class="grid">
-			<h3>{{standardResponse.message}}</h3>
-			<br>
-			<button class="btn waves-effect waves-light btn-medium" type="submit" style="width:50%" [routerLink]="['/department']">OK 
-			</button>
-			   </mat-card>
-			 </mat-grid-tile>
-		  </mat-grid-list>
-		</div>
-</div>
-
+ 
  <!--Creation div -->
-<div class="example-container">
-            <form [formGroup]="departmentForm" (ngSubmit)="onDepartmentFormSubmit()">
-	<mat-grid-list cols="1" rowHeight="2:1">
+ <div class="example-container">
+  <form [formGroup]="departmentForm" (ngSubmit)="onDepartmentFormSubmit()">
+	 <mat-grid-list cols="1" rowHeight="2:1">
 		<mat-grid-tile >
 			<mat-card class="grid">
-				<h1>Department Creation</h1>
-				
-					<i class="material-icons prefix">perm_identity</i>
-			    <mat-form-field class="full-width">
-				    <textarea matInput placeholder="Department Name" class="validate" formControlName="departmentName" required></textarea>
-				</mat-form-field>
+				<h3>Department Creation</h3>
 				<div>
-				   <i class="material-icons prefix">description</i>
-			    <mat-form-field class="full-width">
+				<i class="material-icons prefix">perm_identity</i>
+			  <mat-form-field class="full-width">
+				  <textarea matInput placeholder="Department Name" class="validate" formControlName="departmentName" required></textarea>
+				</mat-form-field>
+			  </div>
+				<i class="material-icons prefix">description</i>
+			  <mat-form-field class="full-width">
 					<textarea matInput placeholder="Department Description" class="validate" formControlName="departmentDescription" required ></textarea>
 				</mat-form-field>
-			    </div>
 				<div>		
-              <button mat-raised-button color="primary">Create</button>
-              <button mat-raised-button color="primary" [routerLink]="['/department']">Cancel</button>
+          <button mat-raised-button color="primary">Create</button>
+          <button mat-raised-button color="primary" [routerLink]="['/department']">Cancel</button>
         </div>
 			</mat-card>
 		</mat-grid-tile>
-	</mat-grid-list>
-        </form>
-</div>
+	 </mat-grid-list>
+  </form>
+ </div>

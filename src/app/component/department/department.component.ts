@@ -2,12 +2,12 @@ import {Component, AfterViewInit, ViewChild} from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { HttpClient, HttpHeaders, HttpParams, HttpResponse} from '@angular/common/http';
 import {MatTableModule} from '@angular/material';
+import { MatDialog, MatDialogRef, MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material';
 
 import { DepartmentService } from '../../service/DepartmentService';
 import { Department } from '../../model/department.model';
-import { ModalContent} from '../../model/modalContent.model';
 import { StandardResponse} from "../../model/standardresponse.model";
-import { ModalComponent } from '../modal/modal.component';
+import { DeleteModalComponent } from './../delete-modal/delete-modal.component';
 
 
 @Component({
@@ -27,13 +27,15 @@ export class DepartmentComponent {
 	requestProcessing = false;
 	processValidation = false;
 	toUpdate = false;
+	departmentToDelete: Department;
+	horizontalPosition: MatSnackBarHorizontalPosition = 'center';
+	verticalPosition: MatSnackBarVerticalPosition = 'top';
 
 	standardResponse = new StandardResponse();
 	errorResponse = new StandardResponse();
 	
-  
 	//Create constructor to get service instance
-	constructor(private departmentService: DepartmentService)  {
+	constructor(private departmentService: DepartmentService,private dialog: MatDialog,public snackBar: MatSnackBar)  {
 		//creating update form
 		this.departmentUpdateForm = new FormGroup({
 			departmentId: new FormControl({ disabled: true }),
@@ -94,11 +96,12 @@ export class DepartmentComponent {
 		this.departmentService.updateDepartment(department)
 			.subscribe(successCode => {
 				this.standardResponse = successCode;
-				//this.getAllDepartments();
+				this.getAllDepartments();
+				this.openSnackBar(this.standardResponse.message, 'Ok');
 			},
 			errorCode => {
 				this.errorResponse = errorCode;
-				alert(this.errorResponse.message);
+				this.openSnackBar(this.errorResponse.message, 'Ok');
 			});
 		this.toUpdate = false;
 	}
@@ -109,18 +112,44 @@ export class DepartmentComponent {
 			.subscribe(successCode => {
 				console.log("invalid")
 				this.standardResponse = successCode;
-			//	this.getAllDepartments();
+				this.getAllDepartments();
+				this.openSnackBar(this.standardResponse.message, 'Ok');
 			},
 			errorCode => {
 				this.statusCode = errorCode;
-				alert(this.errorResponse.message);
+				this.openSnackBar(this.errorResponse.message, 'Ok');
 			});
 			this.getAllDepartments();
 	}
    
- //Perform preliminary processing configurations
-   preProcessConfigurations() {
-    this.statusCode = null;
-    this.requestProcessing = true;   
- }
+    //Perform preliminary processing configurations
+    preProcessConfigurations() {
+        this.statusCode = null;
+        this.requestProcessing = true;   
+    }
+
+    openDepartmentDeleteDialog(department?) {
+        this.departmentToDelete = department;
+        const dialogRef = this.dialog.open(DeleteModalComponent, {
+        hasBackdrop: false,
+            data: {
+            name: department.departmentName
+            }
+		});
+		
+        dialogRef.afterClosed().subscribe(result => {
+            if (result) {
+            this.deleteDepartment(this.departmentToDelete.departmentId);
+            }
+        });
+    }
+
+    openSnackBar(message: string, action: string) {
+        this.snackBar.open(message, action, {
+        duration: 4000,
+        horizontalPosition : this.horizontalPosition,
+        verticalPosition : this.verticalPosition
+        });
+    }
+
 }

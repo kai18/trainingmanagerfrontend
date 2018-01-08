@@ -1,23 +1,19 @@
-input {
-    width: 225px;
-    margin: 8px 0;
-    background-color: #dfdfdf;
-    font-size:17px;
-}
-button {
+
+  button {
     background-color: #008CBA;
     color: white;
-}
-   .grid{
+  }
+  
+  .grid{
     width: 80%;
     text-align: center;
   }
-
+  
   .full-width{
      width: 80%;
   }
-
- .example-container {
+  
+  .example-container {
     display: flex;
     flex-direction: column;
     min-width: 300px;

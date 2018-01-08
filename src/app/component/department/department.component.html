@@ -1,24 +1,12 @@
- <!--StandardResponse div -->
-<div class="example-container">
-  <div class="row section" *ngIf="!toUpdate && standardResponse.code">
-    <mat-grid-list cols="1" rowHeight="2:1">
-        <mat-grid-tile>
-          <mat-card class="grid">
-      <h3>{{standardResponse.message}}</h3>
-      <br>
-      <button class="btn waves-effect waves-light btn-medium" type="submit" style="width:50%" [routerLink]="['/department']" onclick="clickHandler()">OK
-      </button>
-         </mat-card>
-       </mat-grid-tile>
-    </mat-grid-list>
-  </div>
-</div>
-
 
  <!--List div -->
-<div class="container .mat-display-3"  style="padding:1%">
+ <br>
+<div class="container.mat-display-3"  style="padding:1%">
   <div *ngIf="!toUpdate">
-    <div class="card"  style="margin:2% auto;">
+  <div class="card"  style="margin:2% auto;">
+      <mat-card class=" mat-elevation-z5">
+  <h3 style="text-align:center;">List of Departments</h3> 
+      </mat-card>
       <mat-card class=" mat-elevation-z5"  *ngFor="let department of allDepartments"  style="margin:0.4%;">
         <mat-card-header>
            <i class="material-icons prefix" style=" margin:0.5%;padding:0.5%;font-size:50px;color:rgb(186, 0, 0);">video_label</i>
@@ -30,8 +18,10 @@
                 <mat-card-subtitle style="word-wrap:normal;">{{department.departmentDescription}}</mat-card-subtitle>
               </td>
               <td>
-                <button mat-raised-button style="margin-bottom:5%;" (click)="onUpdateClick(department)">Update</button>
-                   <button mat-raised-button (click)="deleteDepartment(department.departmentId)">Delete</button> 
+                <button mat-raised-button style="margin-bottom:5%;" (click)="onUpdateClick(department)">
+                <i class="material-icons small" >create</i> Update</button>
+                <button mat-raised-button (click)="openDepartmentDeleteDialog(department)">
+                <i class="material-icons small" >delete</i> Delete</button>
               </td>
             </tr>
           </table>
@@ -48,17 +38,17 @@
         <mat-grid-list cols="1" rowHeight="2:1">
           <mat-grid-tile>
             <mat-card class="grid">
-              <h1>Department Updation</h1>
+              <h3>Department Updation</h3>
 
               <i class="material-icons prefix">account_circle</i>
               <mat-form-field class="full-width">
                 <input matInput placeholder="Department ID" formControlName="departmentId" disabled="true" *ngIf="toUpdate">
               </mat-form-field>
               <div>
-                <i class="material-icons prefix">perm_identity</i>
-                <mat-form-field class="full-width">
-                  <textarea matInput placeholder="Department Name" class="validate" formControlName="departmentName" required></textarea>
-                </mat-form-field>
+              <i class="material-icons prefix">perm_identity</i>
+              <mat-form-field class="full-width">
+                <textarea matInput placeholder="Department Name" class="validate" formControlName="departmentName" required></textarea>
+              </mat-form-field>
               </div>
               <i class="material-icons prefix">description</i>
               <mat-form-field class="full-width">

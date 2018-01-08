@@ -1,10 +1,11 @@
 table {
   border-collapse: collapse;
+  width:80%;
 }
 
 input {
-  width: 225px;
-  margin: 8px 0;
+  width: 325px;
+  margin: 8px;
   background-color: #dfdfdf;
   font-size:17px;
 }
@@ -24,7 +25,7 @@ button {
 .example-container {
   display: flex;
   flex-direction: column;
-  min-width: 200px;
+  min-width: 300px;
 }
 
 .container{
@@ -41,3 +42,5 @@ button {
     padding:2%;
     width:65%;
     } 
+
+   
