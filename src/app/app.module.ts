@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule, MatCardModule, MatMenuModule, MatToolbarModule, MatIconModule , MatTabsModule,
  MatFormFieldModule, MatGridListModule, MatOptionModule, MatSelectModule, MatCheckboxModule, MatChipsModule,
- MatDialogModule, MatSnackBarModule, MatSnackBar} from '@angular/material';
+ MatDialogModule, MatSnackBarModule, MatSnackBar, MatTooltipModule} from '@angular/material';
 
 import {MatInputModule, MatTableModule} from '@angular/material'; 
 import { HttpClientModule, HttpHeaders, HttpParams, HttpResponse} from '@angular/common/http';
@@ -56,7 +56,8 @@ import { DeleteModalComponent } from './component/delete-modal/delete-modal.comp
     MatCheckboxModule,
     MatDialogModule,
     MatChipsModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatTooltipModule
 
   ],
   entryComponents: [DeleteModalComponent],

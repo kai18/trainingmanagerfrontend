@@ -45,6 +45,10 @@ export class RoleComponent {
   roleTypeAlert = 'Role Type is required';
   roleDescriptionAlert = 'Role Description is required';
   departmentAlert = 'Please select a department';
+
+  // hints
+  roleTypeHint = 'It is a dropdown of Role Types';
+
   constructor(private roleService: RoleService, private departmentService: DepartmentService,
     private router: Router, private fb: FormBuilder, private fbUpdate: FormBuilder, private dialog: MatDialog,
     public snackBar: MatSnackBar) {
@@ -56,7 +60,7 @@ export class RoleComponent {
       'creationPrivilege': 0,
       'deletionPrivilege': 0,
       'updationPrivilege': 0,
-      'readPrivilege': [{ value: 1, disabled: true }, Validators.required]
+      'readPrivilege': [{ value: true, disabled: true }, Validators.required]
     });
 
     this.rFormUpdate = fbUpdate.group({
