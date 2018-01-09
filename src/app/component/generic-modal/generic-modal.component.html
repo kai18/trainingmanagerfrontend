@@ -1,0 +1,10 @@
+<h1 mat-dialog-title>{{message}}</h1>
+<mat-dialog-content>
+  {{subject}}
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button *ngIf = "isAllowed" mat-button type="submit" [mat-dialog-close]="true">YES</button>
+  <button *ngIf = "isAllowed" mat-button type="button" mat-dialog-close [mat-dialog-close]="false">NO</button>
+  <button *ngIf = "!isAllowed" mat-button type="button" mat-dialog-close [mat-dialog-close]="false">OK</button>
+
+</mat-dialog-actions>

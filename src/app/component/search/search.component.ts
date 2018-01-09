@@ -2,6 +2,8 @@ import {Component, Injectable, OnInit} from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams, HttpResponse} from '@angular/common/http';
 import { Router } from '@angular/router';
 
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+
 
 import{PageEvent} from'@angular/material';
 
@@ -15,9 +17,13 @@ import'rxjs/add/operator/debounceTime';
 import'rxjs/add/operator/distinctUntilChanged';
 import'rxjs/add/operator/switchMap';
 
+import{GenericModalComponent} from '../../component/generic-modal/generic-modal.component';
+
 import {UserService} from '../../service/UserService.service';
 import{RoleService} from '../../service/RoleService.service';
 import{DepartmentService} from '../../service/DepartmentService';
+import{PrivilegeCheckerService} from '../../service/privilegechecker.service';
+
 import {UserSearch} from '../../model/usersearch.model';
 import {AppConfig} from '../../model/appconfig.model';
 import {StandardResponse} from '../../model/standardresponse.model';
@@ -53,7 +59,8 @@ export class Search implements OnInit{
 	pageLength = 0;
 
 	constructor(private http: HttpClient, private userService: UserService, private roleService: RoleService,
-				 private departmentService: DepartmentService, private router: Router)
+				 private departmentService: DepartmentService, private privilegeCheckerService: PrivilegeCheckerService,
+				  private router: Router, public dialog: MatDialog)
 	{}
 
 	public search(firstName, lastName, email, departments, roles)
@@ -107,10 +114,42 @@ export class Search implements OnInit{
 		this.router.navigate(['userprofile'], { queryParams: { userId: id } });
 	}
 
-	public deleteUser(userId: string){
+	private deleteUser(userId: string){
 		this.userService.delete(userId).subscribe(response => {console.log(response.message)}, response=> {console.log(response.message)});
 	}
 
+	public openUserDeleteDialog(user: UserSearch)
+	{
+		let data;
+
+		if(this.privilegeCheckerService.checkForDelete(user.departments)){
+			data = {
+				message: "Are you sure you want to delete this user?",
+				subject: user.firstName + " " + user.lastName,
+				isAllowed: true
+			}
+		}
+		else{
+			data = {
+				message: "You dont have privileges to delete this user",
+				subject: user.firstName + " " + user.lastName,
+				isAllowed: false
+				}
+			}
+
+		const dialogRef = this.dialog.open(GenericModalComponent,{
+			hasBackdrop: false,
+			data
+		});
+
+		dialogRef.afterClosed().subscribe(result => {
+			if(result){
+				this.deleteUser(user.id)
+			}
+		})
+
+	}
+	
 	ngOnInit(): void{
 		this.searchResponse = this.searchTerms
 							.debounceTime(500)

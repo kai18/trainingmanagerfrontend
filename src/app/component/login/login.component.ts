@@ -58,10 +58,11 @@ ngOnInit() {
 					let value: string = localStorage.getItem('jwt-token')
 					let decodevalue: any = JSON.parse(localStorage.getItem('decodedtoken'));
 					this.redirectToUserProfile(decodevalue.jti);
-
+					console.log('decoded token: ' + JSON.stringify(decodevalue.departments);
 					console.log('1 : ' + standardResponse.element.jwttoken);
 					console.log('2 : ' + value);
 					console.log('3 : ' + decodevalue);
+					console.log(JSON.stringify(decodevalue.privileges));
 				} else {
 					console.log(this.standardResponse.message);
 				}
