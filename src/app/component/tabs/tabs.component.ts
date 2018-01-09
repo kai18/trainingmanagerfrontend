@@ -35,7 +35,6 @@ export class Tabs {
 		this.previleges = decodedValue.previleges;
 		this.roleFlag = this.checkAccessForRoleManagement();
 		this.deptFlag = this.checkAccessForDepartmentManagement();
-		console.log(this.previleges+" "+this.roleFlag)
 	}
 	}
 
