@@ -7,17 +7,17 @@
           <ng-template matStepLabel>Fill your Details</ng-template>
           <mat-icon>account_circle</mat-icon>
           <mat-form-field class = "full-width-oneline">
-            <input #firstName matInput placeholder="First name" formControlName="firstName" required>
+            <input #firstName (keyup)="validateFirstName(firstName.value)" matInput placeholder="First name" formControlName="firstName" required>
           </mat-form-field>
           <div class="alert" *ngIf="!firstFormGroup.controls['firstName'].valid && firstFormGroup.controls['firstName'].touched">{{ titleAlert }}</div>
-
+          <span class="font" *ngIf="!first">Invalid firstname</span>
 
          <mat-icon>account_circle</mat-icon>
           <mat-form-field class = "full-width-oneline">
-            <input #lastName matInput placeholder="Last name" formControlName="lastName" required>
+            <input #lastName (keyup)="validateLastName(lastName.value)" matInput placeholder="Last name" formControlName="lastName" required>
           </mat-form-field>
           <div class="alert" *ngIf="!firstFormGroup.controls['lastName'].valid && firstFormGroup.controls['lastName'].touched">{{ titleAlert }}</div>
-
+          <span class="font" *ngIf="!last">Invalid lastname</span>
 
           <div class="row">
            <mat-icon>email</mat-icon>
@@ -49,10 +49,11 @@
           <div class="row">
            <mat-icon>phone</mat-icon>
           <mat-form-field class = "full-width">
-            <input #phoneNumber matInput placeholder="Phone Number" formControlName="phoneNumber" required>
+            <input #phoneNumber (keyup)="validatePhoneNumberField(phoneNumber.value)" matInput placeholder="Phone Number" formControlName="phoneNumber" required>
           </mat-form-field>
           </div>
           <div class="alert" *ngIf="!firstFormGroup.controls['phoneNumber'].valid && firstFormGroup.controls['phoneNumber'].touched"> Phone number should be 10 digit </div>
+           <span class="font" *ngIf="!phone">Please input a valid number</span>
 
           <div class="row">
             <mat-radio-group formControlName="gender" placeholder="Gender" color="primary">
@@ -112,7 +113,7 @@
        <mat-form-field class = "full-width">
         <input #zipcode matInput placeholder="Zip code" formControlName="zipcode" required>
       </mat-form-field>
-      <div class="alert" *ngIf="!secondFormGroup.controls['zipcode'].valid && secondFormGroup.controls['zipcode'].touched">{{ titleAlert }}</div>
+      <div class="alert" *ngIf="!secondFormGroup.controls['zipcode'].valid && secondFormGroup.controls['zipcode'].touched"> Invalid ZipCode </div>
     </div>
       <div class="b">
         <button mat-raised-button matStepperPrevious color="primary">Back</button>

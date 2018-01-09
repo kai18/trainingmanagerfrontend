@@ -14,9 +14,9 @@ import { RoleService } from '../../service/RoleService.service';
 import { Router } from '@angular/router';
 
 @Component({
-	selector: 'register',
-	templateUrl: './register.component.html',
-	styleUrls: ['./register.component.css']
+  selector: 'register',
+  templateUrl: './register.component.html',
+  styleUrls: ['./register.component.css']
 })
 
 export class Register
@@ -55,6 +55,17 @@ export class Register
   statusCode: number;
   errorMessage: String;
   passwordInvalid= false
+
+  first = true;
+  last = true;
+  phone = true;
+  zip = true;
+  door = true;
+  street = true;
+  area1 = true;
+  city1 = true;
+  state1 = true;
+  country1 = true;
 
   constructor(private router: Router, private _formBuilder: FormBuilder, private userService: UserService, private departmentService: DepartmentService, private roleService: RoleService) { }
 
@@ -159,7 +170,90 @@ export class Register
     else this.passwordInvalid= false
   }
 
+  private validateFirstName(field: string): boolean {
+    let regexp = new RegExp('^[a-zA-Z]+$');
+    this.first = regexp.test(field);
+    console.log(this.first + " inside firstName validation")
+    return this.first;
+  }
+
+  private validateLastName(field: string): boolean {
+    let regexp = new RegExp('^[a-zA-Z]+$');
+    this.last = regexp.test(field);
+    console.log(this.last + " inside lastName validation")
+    return this.last;
+  }
+
+  private validatePhoneNumberField(field: string): boolean {
+    let regexp = new RegExp('^[0-9]*$');
+    this.phone = regexp.test(field);
+    console.log(this.phone + " inside phonenumber validation")
+    if (field != null && field.length == 10 && this.phone)
+      return true
+    else
+      console.log("phone number not valid")
+    this.phone = false;
+    return false
+  }
+
+  private validateDoorNumber(field: string): boolean {
+    let regexp = new RegExp('^[a-zA-Z0-9\\-\\s]+$');
+    this.door = regexp.test(field);
+    console.log(this.door + " inside door validation")
+    return this.door;
+  }
+  private validateStreetName(field: string): boolean {
+    let regexp = new RegExp('^[a-zA-Z0-9\\-\\s]+$');
+    this.street = regexp.test(field);
+    console.log(this.street + " inside street validation")
+    return this.street;
+  }
+
+  private validateArea(field: string): boolean {
+    let regexp = new RegExp('^[a-zA-Z0-9\\-\\s]+$');
+    this.area1 = regexp.test(field);
+    console.log(this.area1 + " inside area validation")
+    return this.area1;
+  }
+  private validateCity(field: string): boolean {
+    let regexp = new RegExp('^[a-zA-Z\\-\\s]+$');
+    this.city1 = regexp.test(field);
+    console.log(this.city1 + " inside city validation")
+    return this.city1;
+  }
+
+  private validateState(field: string): boolean {
+    let regexp = new RegExp('^[a-zA-Z\\-\\s]+$');
+    this.state1 = regexp.test(field);
+    console.log(this.state1 + " inside state validation")
+    return this.state1;
+  }
+
+  private validateCountry(field: string): boolean {
+    let regexp = new RegExp('^[a-zA-Z\\-\\s]+$');
+    this.country1 = regexp.test(field);
+    console.log(this.country1 + " inside country validation")
+    return this.country1;
+  }
+
+  private validateZipCode(field: string): boolean {
+    let regexp = new RegExp('^[0-9]*$');
+    this.zip = regexp.test(field);
+    console.log(this.zip + " inside zip validation")
+    if (field != null && field.length == 6 && this.zip)
+      return true
+    else
+      console.log("zipCode not valid")
+    this.zip = false;
+    return false
+  }
+
 register(): void {
+  if (this.validateFirstName(this.user.firstName) && this.validateLastName(this.user.lastName)
+      && this.validatePhoneNumberField(this.user.phoneNumber) && this.validateDoorNumber(this.address.doorNumber)
+      && this.validateStreetName(this.address.streetName) && this.validateArea(this.address.area) && this.validateCity(this.address.city)
+      && this.validateState(this.address.state) && this.validateCountry(this.address.country) && this.validateZipCode(this.address.zipcode)) {
+      
     console.log("sjhdj")
   
       let departmentFront = this.thirdFormGroup.get('department').value;
@@ -181,6 +275,6 @@ register(): void {
     }
  
  //console.log('Test result : ' + this.standardResponse.status);
-
+}
 }
   
