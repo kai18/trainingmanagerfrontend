@@ -61,7 +61,7 @@
         </mat-form-field>
       </div>
       <div class="nocenter">
-        <button mat-raised-button color="primary" (click)="updateToggle()">UPDATE USER DETAILS</button>
+        <button mat-raised-button color="primary" (click)="updateToggle()"> <i class="material-icons small" >create</i> UPDATE USER DETAILS</button>
       </div>
     </div>
   </mat-card>
@@ -78,8 +78,8 @@
             <span class="font" *ngIf="!first">invalid firstname</span>
           </mat-form-field>
 
-        </div>
-        <div>
+          <!-- </div>
+        <div> -->
           <i class="material-icons prefix">account_circle</i>
           <mat-form-field class="full-width">
             <input #lastName (keyup)="validateLastName(lastName.value)" matInput placeholder="Last Name" [(ngModel)]="user.lastName"
@@ -91,49 +91,50 @@
 
         <!-- <i class="material-icons prefix">insert_emoticon</i>
         <mat-form-field class="full-width">
-            <!-- <mat-select placeholder="Gender" [(ngModel)]="user.gender" name="user.gender" [ngModelOptions]="{standalone: true}">
+            <mat-select placeholder="Gender" [(ngModel)]="user.gender" name="user.gender" [ngModelOptions]="{standalone: true}">
                 <mat-option value="male">Male</mat-option>
                 <mat-option value="Female">Female</mat-option>
                 <mat-option value="Other">Other</mat-option>
-              </mat-select> -->
+              </mat-select>
         <!-- <input matInput placeholder="Gender" [(ngModel)]="user.gender" name="user.gender" [ngModelOptions]="{standalone: true}" disabled>
           </mat-form-field> -->
         <div>
           <i class="material-icons prefix">call</i>
           <mat-form-field class="full-width">
             <input #phoneNumber (keyup)="validatePhoneNumberField(phoneNumber.value)" matInput placeholder="Phone Number" [(ngModel)]="user.phoneNumber"
-              name="user.phoneNumber" [ngModelOptions]="{standalone: true}" #phoneNumber="ngModel" minlength="10" maxlength="10"
+             name="user.phoneNumber" [ngModelOptions]="{standalone: true}" #phoneNumber="ngModel" minlength="10" maxlength="10"
               required>
             <span class="font" *ngIf="!phone">Please input a valid number</span>
           </mat-form-field>
-          <br>
+          <!-- <br> -->
 
-        </div>
+          <!-- </div>
 
-        <div>
+        <div> -->
           <i class="material-icons prefix">location_city</i>
           <mat-form-field class="full-width">
             <input #doorNumber (keyup)="validateDoorNumber(doorNumber.value)" matInput placeholder="Door Number" [(ngModel)]="address.doorNumber"
               name="address.doorNumber" [ngModelOptions]="{standalone: true}" required>
             <span class="font" *ngIf="!door">door number cannot be null</span>
           </mat-form-field>
-
+          </div>
+          <!-- 
         </div>
-        <div>
+        <div> -->
+          <div>
           <i class="material-icons prefix">time_to_leave</i>
           <mat-form-field class="full-width">
             <input #streetName (keyup)="validateStreetName(streetName.value)" matInput placeholder="Street Name" [(ngModel)]="address.streetName"
               name="address.streetName" [ngModelOptions]="{standalone: true}" required>
             <span class="font" *ngIf="!street">street name cannot be null</span>
           </mat-form-field>
-        </div>
+          <!-- </div>
 
-        <div>
+        <div> -->
           <i class="material-icons prefix">pin_drop</i>
           <mat-form-field class="full-width">
             <input #area (keyup)="validateArea(area.value)" matInput placeholder="Area" [(ngModel)]="address.area" name="address.area"
               [ngModelOptions]="{standalone: true}" required>
-
             <span class="font" *ngIf="!area1">invalid area</span>
           </mat-form-field>
 
@@ -146,19 +147,22 @@
             <span class="font" *ngIf="!city1">invalid city</span>
           </mat-form-field>
 
+          <!-- 
         </div>
 
-        <div>
+        <div> -->
+          
           <i class="material-icons prefix">pin_drop</i>
           <mat-form-field class="full-width">
             <input #state (keyup)="validateState(state.value)" matInput placeholder="State" [(ngModel)]="address.state" name="address.state"
               [ngModelOptions]="{standalone: true}" required>
-              <span class="font" *ngIf="!state1">invalid state</span>
+            <span class="font" *ngIf="!state1">invalid state</span>
           </mat-form-field>
-      
-
+          </div>
+          <!-- 
         </div>
-        <div>
+        <div> -->
+          <div>
           <i class="material-icons prefix">pin_drop</i>
           <mat-form-field class="full-width">
             <input #country (keyup)="validateCountry(country.value)" matInput placeholder="Country" [(ngModel)]="address.country" name="address.country"
@@ -166,8 +170,8 @@
             <span class="font" *ngIf="!country1">invalid country</span>
           </mat-form-field>
 
-        </div>
-        <div>
+          <!-- </div>
+        <div> -->
           <i class="material-icons prefix">fiber_pin</i>
           <mat-form-field class="full-width">
             <input #zipCode (keyup)="validateZipCode(zipCode.value)" matInput placeholder="Zip Code" [(ngModel)]="address.zipcode" name="address.zipcode"
@@ -180,11 +184,15 @@
       submit
     </button> -->
         <div class="center">
-          <button mat-raised-button color="primary">SUBMIT</button>
+          <button mat-raised-button color="primary">
+          <i class="material-icons small" >create</i> UPDATE</button> 
+          
+          <button mat-raised-button color="primary" (click)="fetchUser()">
+              <i class="material-icons small" >cancel</i>  
+              CANCEL</button>
         </div>
 
       </form>
     </div>
   </mat-card>
 </div>
-

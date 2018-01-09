@@ -14,9 +14,9 @@ import { RoleService } from '../../service/RoleService.service';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'register',
-  templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css']
+	selector: 'register',
+	templateUrl: './register.component.html',
+	styleUrls: ['./register.component.css']
 })
 
 export class Register

@@ -28,6 +28,7 @@ export class Navbar
 		this.userId = decodevalue.jti;
 		if (this.authorizeService.getRefreshTokenExpirationDate()) {
 			this.isLoggedIn = true;
+			this.navigateToUserProfile();
 		} else {
 			this.isLoggedIn = false;
 			this.logout();
@@ -53,6 +54,6 @@ ngDoCheck(){
 	navigateToUserProfile() {
 		let decodevalue: any = JSON.parse(localStorage.getItem('decodedtoken'));
 		let userId: string = decodevalue.jti;
-		this.router.navigate(['user/' + userId]);
+		this.router.navigate(['userprofile'], { queryParams: { userId: userId } });
 	}
 }
