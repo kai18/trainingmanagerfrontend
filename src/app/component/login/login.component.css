@@ -9,7 +9,8 @@
 }
 
 .full-width{
-	width: 80%
+	width: 80%;
+	border: none;
 }
 
 .example-card{

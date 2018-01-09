@@ -4,9 +4,13 @@ import {Response} from '@angular/http';
 //import { HttpClient, HttpHeaders, HttpParams, HttpResponse} from '@angular/common/http';
 
 import { User } from '../../model/user.model';
+import { Role } from '../../model/role.model';
+import { Department } from '../../model/department.model';
 import { Address } from '../../model/address.model';
 import { StandardResponse } from '../../model/standardresponse.model';
 import { UserService } from '../../service/UserService.service';
+import { DepartmentService } from '../../service/DepartmentService';
+import { RoleService } from '../../service/RoleService.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -18,7 +22,9 @@ import { Router } from '@angular/router';
 export class Register
 {
 
-  //allDepartments: Department[];
+  allDepartments: Department[];
+  allBasicRoles= new Array<Role>();
+  allRoles= new Array<Role>();
   user = new User();
   address = new Address();
   standardResponse = new StandardResponse();
@@ -41,21 +47,33 @@ export class Register
   state:string
   zipcode:string
   city: string
-  // role = new Role();
-  // department = new Department();
-  // rolesArray = new Array<Role>();
-  // departmentsArray = new Array<Department>();
+  role = new Role();
+  department = new Department();
+  rolesArray = new Array<Role>();
+  departmentsArray = new Array<Department>();
 
   statusCode: number;
   errorMessage: String;
   passwordInvalid= false
 
-  constructor(private router: Router, private _formBuilder: FormBuilder, private userService: UserService) { }
+  first = true;
+  last = true;
+  phone = true;
+  zip = true;
+  door = true;
+  street = true;
+  area1 = true;
+  city1 = true;
+  state1 = true;
+  country1 = true;
+
+  constructor(private router: Router, private _formBuilder: FormBuilder, private userService: UserService, private departmentService: DepartmentService, private roleService: RoleService) { }
 
 
   ngOnInit() {
-    //this.getAllDepartments();
-
+    this.getAllDepartments();
+    this.getAllRoles();
+    //this.getAllBasicRoles();
 
    this.firstFormGroup = this._formBuilder.group({
       firstName: ['', Validators.required],
@@ -76,16 +94,36 @@ export class Register
       city: ['', Validators.required]
     });
     this.thirdFormGroup = this._formBuilder.group({
-      
+      department: [''],
+      role: ['']
     });
 
   }
 
   getAllDepartments() {
-    // this.departmentService.getAllDepartments()
-    //   .subscribe(
-    //   data => this.allDepartments = data.element,
-    //   errorCode => this.statusCode = errorCode);
+    this.departmentService.getAllDepartments()
+      .subscribe(
+      data => this.allDepartments = data.element,
+      errorCode => this.statusCode = errorCode);
+  }
+
+  getAllRoles(){
+    this.roleService.getAllRoles()
+     .subscribe(standardResponse => {
+        console.log("hello");
+        this.standardResponse = standardResponse;
+        this.allRoles = this.standardResponse.element;
+        this.getAllBasicRoles();
+      },
+      error => this.errorMessage = <any>error);
+  }
+
+  getAllBasicRoles(){
+    for(let all of this.allRoles)
+    {
+      if(all.roleName=='Faculty' || all.roleName=='Student')
+        this.allBasicRoles.push(all);
+    }
   }
 
   onDetailsSubmit():void{
@@ -132,26 +170,103 @@ export class Register
     else this.passwordInvalid= false
   }
 
-// public addRegisterParameters(user): HttpParams{
-//     let params = new HttpParams();
-//       params = params.set('user', user);
-//     return params;
-//   }
+  private validateFirstName(field: string): boolean {
+    let regexp = new RegExp('^[a-zA-Z]+$');
+    this.first = regexp.test(field);
+    console.log(this.first + " inside firstName validation")
+    return this.first;
+  }
+
+  private validateLastName(field: string): boolean {
+    let regexp = new RegExp('^[a-zA-Z]+$');
+    this.last = regexp.test(field);
+    console.log(this.last + " inside lastName validation")
+    return this.last;
+  }
+
+  private validatePhoneNumberField(field: string): boolean {
+    let regexp = new RegExp('^[0-9]*$');
+    this.phone = regexp.test(field);
+    console.log(this.phone + " inside phonenumber validation")
+    if (field != null && field.length == 10 && this.phone)
+      return true
+    else
+      console.log("phone number not valid")
+    this.phone = false;
+    return false
+  }
+
+  private validateDoorNumber(field: string): boolean {
+    let regexp = new RegExp('^[a-zA-Z0-9\\-\\s]+$');
+    this.door = regexp.test(field);
+    console.log(this.door + " inside door validation")
+    return this.door;
+  }
+  private validateStreetName(field: string): boolean {
+    let regexp = new RegExp('^[a-zA-Z0-9\\-\\s]+$');
+    this.street = regexp.test(field);
+    console.log(this.street + " inside street validation")
+    return this.street;
+  }
+
+  private validateArea(field: string): boolean {
+    let regexp = new RegExp('^[a-zA-Z0-9\\-\\s]+$');
+    this.area1 = regexp.test(field);
+    console.log(this.area1 + " inside area validation")
+    return this.area1;
+  }
+  private validateCity(field: string): boolean {
+    let regexp = new RegExp('^[a-zA-Z\\-\\s]+$');
+    this.city1 = regexp.test(field);
+    console.log(this.city1 + " inside city validation")
+    return this.city1;
+  }
+
+  private validateState(field: string): boolean {
+    let regexp = new RegExp('^[a-zA-Z\\-\\s]+$');
+    this.state1 = regexp.test(field);
+    console.log(this.state1 + " inside state validation")
+    return this.state1;
+  }
+
+  private validateCountry(field: string): boolean {
+    let regexp = new RegExp('^[a-zA-Z\\-\\s]+$');
+    this.country1 = regexp.test(field);
+    console.log(this.country1 + " inside country validation")
+    return this.country1;
+  }
+
+  private validateZipCode(field: string): boolean {
+    let regexp = new RegExp('^[0-9]*$');
+    this.zip = regexp.test(field);
+    console.log(this.zip + " inside zip validation")
+    if (field != null && field.length == 6 && this.zip)
+      return true
+    else
+      console.log("zipCode not valid")
+    this.zip = false;
+    return false
+  }
 
 register(): void {
+  if (this.validateFirstName(this.user.firstName) && this.validateLastName(this.user.lastName)
+      && this.validatePhoneNumberField(this.user.phoneNumber) && this.validateDoorNumber(this.address.doorNumber)
+      && this.validateStreetName(this.address.streetName) && this.validateArea(this.address.area) && this.validateCity(this.address.city)
+      && this.validateState(this.address.state) && this.validateCountry(this.address.country) && this.validateZipCode(this.address.zipcode)) {
+      
     console.log("sjhdj")
   
+      let departmentFront = this.thirdFormGroup.get('department').value;
+      let roleFront = this.thirdFormGroup.get('role').value;
+
       this.user.isActive = true;
       this.user.address = this.address;
 
-      // this.rolesArray.push(this.role);
-      // this.user.role = this.rolesArray;
+      this.rolesArray.push(roleFront);
+      this.user.roles = this.rolesArray;
 
-      // this.departmentsArray.push(this.department);
-      // this.user.departments = this.departmentsArray;
-      // let params= new HttpParams();
-      // params= this.addRegisterParameters(this.user);
-
+      this.departmentsArray.push(departmentFront);
+      this.user.departments = this.departmentsArray;
 
       this.userService.register(this.user)
         .subscribe(standardResponse => this.standardResponse = standardResponse,
@@ -160,6 +275,6 @@ register(): void {
     }
  
  //console.log('Test result : ' + this.standardResponse.status);
-
+}
 }
   

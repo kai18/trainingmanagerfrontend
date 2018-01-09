@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
 import { Headers, RequestOptions } from '@angular/http';
 import { tokenNotExpired, JwtHelper } from 'angular2-jwt';
 import { Observable } from 'rxjs';
@@ -9,9 +8,9 @@ import 'rxjs/add/operator/toPromise';
 @Injectable()
 export class AuthorizeService {
 	jwtHelper: JwtHelper = new JwtHelper();
-	constructor(private http: Http) { }
+
 	getRefreshTokenExpirationDate(): boolean {
-		var token = localStorage.getItem('jwttoken');
+		var token = localStorage.getItem('jwt-token');
 		console.log("App entry point: token : " + token);
 		if (token) {
 			let tokenExpDate = this.jwtHelper.getTokenExpirationDate(token);

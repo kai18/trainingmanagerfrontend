@@ -102,7 +102,7 @@
           <i class="material-icons prefix">call</i>
           <mat-form-field class="full-width">
             <input #phoneNumber (keyup)="validatePhoneNumberField(phoneNumber.value)" matInput placeholder="Phone Number" [(ngModel)]="user.phoneNumber"
-              name="user.phoneNumber" [ngModelOptions]="{standalone: true}" #phoneNumber="ngModel" minlength="10" maxlength="10"
+             name="user.phoneNumber" [ngModelOptions]="{standalone: true}" #phoneNumber="ngModel" minlength="10" maxlength="10"
               required>
             <span class="font" *ngIf="!phone">Please input a valid number</span>
           </mat-form-field>
@@ -195,4 +195,8 @@
       </form>
     </div>
   </mat-card>
+<<<<<<< HEAD
 </div>
+=======
+</div>
+>>>>>>> 81a8f06faf01c19f90d8fb0ac12a0e7c11096bd0
