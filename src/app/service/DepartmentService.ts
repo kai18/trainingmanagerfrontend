@@ -3,8 +3,8 @@ import { AppConfig } from './../model/appconfig.model';
 import { Department } from '../model/department.model';
 
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
-import { Headers, RequestOptions } from '@angular/http';
+import { HttpClient, HttpHeaders, HttpParams, HttpResponse} from '@angular/common/http';
+
 import { Observable } from 'rxjs';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
@@ -13,33 +13,26 @@ import 'rxjs/add/operator/toPromise';
 export class DepartmentService {
 
   // Create constructor to get Http instance
-  constructor(private http: Http) {
+  constructor(private http: HttpClient) {
       
   }
 
     //Fetch all departments
-    getAllDepartments(): Observable<StandardResponse> {
-    let cpHeaders = new Headers({ 'Content-Type': 'application/json' });
-    let options = new RequestOptions({ headers: cpHeaders });
-    return this.http.get(AppConfig.DEPARTMENT_URL, options )
-        .map(this.extractData)
+    public getAllDepartments(): Observable<StandardResponse> {
+    return this.http.get(AppConfig.DEPARTMENT_URL)
         .catch(this.handleError);
 }
 
     //create new department
-    createDepartment(department: Department): Observable<StandardResponse> {
-    let cpHeaders = new Headers({ 'Content-Type': 'application/json' });
-    let options = new RequestOptions({ headers: cpHeaders });
-    return this.http.post(AppConfig.DEPARTMENT_URL , department, options)
-        .map(this.extractData)
+    public createDepartment(department: Department): Observable<StandardResponse> {
+    
+    return this.http.post(AppConfig.DEPARTMENT_URL , department)
         .catch(this.handleError);
 }
 
 	//Update department
-	updateDepartment(department: Department): Observable<StandardResponse> {
-		let cpHeaders = new Headers({ 'Content-Type': 'application/json'});
-		let options = new RequestOptions({ headers: cpHeaders });
-		return this.http.put(AppConfig.DEPARTMENT_URL , department, options)
+	public updateDepartment(department: Department): Observable<StandardResponse> {
+		return this.http.put(AppConfig.DEPARTMENT_URL , department)
 			.map(this.extractData)
 			.catch(this.handleError);
 	}
@@ -58,12 +51,10 @@ export class DepartmentService {
 	// }
 
 
-  deleteDepartment(departmentId: string): Observable<StandardResponse> {
-    let cpHeaders = new Headers({ 'Content-Type': 'application/json' });
-    let options = new RequestOptions({ headers: cpHeaders });
+  public deleteDepartment(departmentId: string): Observable<StandardResponse> {
+    
     return this.http.delete(AppConfig.DEPARTMENT_URL +"/"+ departmentId)
-           .map(success => success.status)
-                 .catch(this.handleError);
+                     .catch(this.handleError);
       }	
 
   

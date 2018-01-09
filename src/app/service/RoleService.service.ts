@@ -69,4 +69,8 @@ export class RoleService {
     return this.http.delete<StandardResponse>(AppConfig.ROLE_URL, {params: param})
       .catch(this.handleError);
   }
+
+  public getDepartmentRoles(departmentId: string){
+    return this.http.get<StandardResponse>(AppConfig.ROLE_URL+'/department/roles/'+departmentId)
+  }
 }

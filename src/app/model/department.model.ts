@@ -4,4 +4,5 @@ export class Department {
     public departmentDescription: string;
     public CreatedDtm: Date;
     public UpdatedDtm: Date;
+    public departmentType: string
   }

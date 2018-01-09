@@ -1,10 +1,11 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 import { MatButtonModule, MatCardModule, MatMenuModule, MatToolbarModule, MatIconModule , MatTabsModule,
  MatFormFieldModule, MatGridListModule, MatOptionModule, MatSelectModule, MatCheckboxModule, MatChipsModule,
  MatDialogModule, MatSnackBarModule, MatSnackBar, MatPaginatorModule} from '@angular/material';
-
 import {MatStepperModule} from '@angular/material/stepper';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {MatRadioModule} from '@angular/material/radio';
@@ -13,9 +14,15 @@ import {MatInputModule, MatTableModule} from '@angular/material';
 import {HttpClientModule, HttpClient, HttpHeaders, HttpParams, HttpResponse} from '@angular/common/http';
 import { FormsModule , ReactiveFormsModule} from '@angular/forms';
 import { HttpModule, Http, Headers, RequestOptions, URLSearchParams } from '@angular/http';
+
+
 import {Observable} from 'rxjs/Observable';
 import {Subject} from 'rxjs/Subject';
 import 'rxjs/add/operator/map';
+
+import { AuthHttp, AuthConfig, provideAuth } from 'angular2-jwt';
+import { tokenNotExpired, JwtHelper } from 'angular2-jwt';
+
 
 import {AppRoutingModule} from './app-routing.module';
 
@@ -31,16 +38,17 @@ import {Login} from './component/login/login.component';
 import {Tabs} from './component/tabs/tabs.component';
 import {Footer} from './component/footer/footer.component'
 import { UserProfile } from './component/userprofile/userprofile.component';
-
-
-
-import { AuthHttp, AuthConfig, provideAuth } from 'angular2-jwt';
-import { tokenNotExpired, JwtHelper } from 'angular2-jwt';
+import { GenericModalComponent} from './component/generic-modal/generic-modal.component';
 
 import {RoleService} from './service/RoleService.service';
 import {UserService} from './service/UserService.service';
 import {DepartmentService} from './service/DepartmentService';
 import { AuthorizeService } from './service/AuthorizeService.service';
+import {PrivilegeCheckerService} from './service/privilegechecker.service';
+import{LocalStorageService} from './service/LocalStorageService.service';
+
+import {JwtInterceptor} from './interceptor/jwtinterceptor.interceptor';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 export function authHttpServiceFactory(http: Http, options: RequestOptions) {
 
@@ -58,6 +66,7 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     CreateDepartmentComponent,
     DepartmentComponent,
     DeleteModalComponent,
+    GenericModalComponent,
     Register,
     Login,
     Tabs,
@@ -94,7 +103,7 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     FormsModule
 
   ],
-  entryComponents: [DeleteModalComponent],
+  entryComponents: [DeleteModalComponent, GenericModalComponent],
   providers: [
     HttpClientModule,
     MatSnackBar,
@@ -102,7 +111,15 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     DepartmentService,
     UserService,
     JwtHelper,
-    AuthorizeService
+    AuthorizeService,
+    PrivilegeCheckerService,
+    LocalStorageService
+    {
+    provide: HTTP_INTERCEPTORS,
+      useClass: JwtInterceptor,
+      multi: true
+  }
+
   ],
   bootstrap: [AppComponent]
 })

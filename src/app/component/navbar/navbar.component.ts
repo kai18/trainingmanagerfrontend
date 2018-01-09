@@ -11,6 +11,39 @@ import { AuthorizeService } from '../../service/AuthorizeService.service';
 
 export class Navbar
 {
+<<<<<<< HEAD
+	 isLoggedIn: boolean;
+	 userId: string;
+
+	 constructor(private router: Router , private authorizeService: AuthorizeService) {
+
+	 }
+
+	 ngOnInit(): void {
+	 	//let decodevalue: any = JSON.parse(localStorage.getItem('decodedtoken'));
+	 	//this.userId = decodevalue.jti;
+	 	if (this.authorizeService.getRefreshTokenExpirationDate()) {
+	 		this.isLoggedIn = localStorage.getItem('isLoggedIn') == 'true';
+	 	} else {
+	 		this.isLoggedIn = false;
+	 		this.logout();
+	 	}
+		
+	 }
+
+	public logout() {
+	 	localStorage.removeItem('jwttoken');
+	 	localStorage.removeItem('decodedtoken');
+	 	this.router.navigate(['login']);
+	 	this.isLoggedIn = false;
+	 }
+
+	// navigateToUserProfile() {
+	// 	let decodevalue: any = JSON.parse(localStorage.getItem('decodedtoken'));
+	// 	let userId: string = decodevalue.jti;
+	// 	this.router.navigate(['user/' + userId]);
+	// }
+=======
 	isLoggedIn = false;
 	userId: number;
 
@@ -56,4 +89,5 @@ ngDoCheck(){
 		let userId: string = decodevalue.jti;
 		this.router.navigate(['userprofile'], { queryParams: { userId: userId } });
 	}
+>>>>>>> 81a8f06faf01c19f90d8fb0ac12a0e7c11096bd0
 }
