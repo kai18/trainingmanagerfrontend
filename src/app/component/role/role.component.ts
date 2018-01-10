@@ -227,9 +227,10 @@ export class RoleComponent {
 
   openRoleDeleteDialog(role?) {
     const dialogRef = this.dialog.open(DeleteModalComponent, {
-      hasBackdrop: false,
+      hasBackdrop: true,
       data: {
-        role: role
+        entity: 'Role',
+        message: role.roleName
       }
     });
     dialogRef.afterClosed().subscribe(result => {

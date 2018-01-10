@@ -1,28 +1,54 @@
-.full-width{
-	width: 40%;
+.full-width {
+  width: 40%;
+  margin-right: 3%;
 }
 
-.full-width-oneline{
-	width: 30%;
-} 
+.full-width-oneline {
+  width: 30%;
+}
 
-.half-width{
+.half-width {
   width: 20%;
 }
-  
-.center{
-	text-align: center;
+
+.center {
+  text-align: center;
 }
 
-.main{
- 
+.main {
+  padding-top: 60px;
 }
 
-.nocenter{
+.nocenter {
   text-align: left
 }
 
-.font{
+.font {
   color: red;
   font-family: "Times New Roman", Times, serif;
+}
+
+input {
+  background-color: white;
+  margin-right: 3%;
+}
+
+table {
+  width: 100%;
+  margin: auto;
+}
+
+tr {
+  width: 90%;
+  background-color: white;
+  border-bottom: 0.7px solid silver;
+}
+
+td {
+  background-color: white;
+}
+
+.view {
+  width: 50%;
+  margin: auto;
 }

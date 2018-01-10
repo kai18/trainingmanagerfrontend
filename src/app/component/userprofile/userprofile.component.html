@@ -1,74 +1,150 @@
 <div class="main">
-  <mat-card>
-    <div class="center" *ngIf="!isUpdate">
-      <h1 class="center"> USER PROFILE</h1>
-      <div class="row">
-        <i class="material-icons prefix">account_circle</i>
-        <mat-form-field class="full-width">
-          <input matInput placeholder="First Name" value={{user.firstName}} readonly>
-        </mat-form-field>
-        <i class="material-icons prefix">account_circle</i>
-        <mat-form-field class="full-width">
-          <input matInput placeholder="Last Name" value={{user.lastName}} readonly>
-        </mat-form-field>
-      </div>
+  <mat-card class="view" *ngIf="!isUpdate">
+    <div class="center">
+      <h3 class="center">
+        <b> USER PROFILE </b>
+      </h3>
+      <br>
 
-      <div class="row">
-        <i class="material-icons prefix">insert_emoticon</i>
-        <mat-form-field class="full-width">
-          <input matInput placeholder="Gender" value={{user.gender}} readonly>
-        </mat-form-field>
-        <i class="material-icons prefix">call</i>
-        <mat-form-field class="full-width">
-          <input matInput placeholder="Phone Number" value={{user.phoneNumber}} readonly>
-        </mat-form-field>
-      </div>
+      <table>
+        <tr>
+          <td style="width:5%;text-align:right">
+            <i class="large material-icons md-18" style="font-size:35px">account_circle</i>
+          </td>
+          <td style="width:35%;text-align:left">
+            <i style="font-size:14px;color:grey">First Name</i>
+            <h6>
+              <b>{{user.firstName | titlecase }}</b>
+            </h6>
+          </td>
+          <td style="width:40%;text-align:right">
+            <i class="large material-icons md-18" style="font-size:35px">account_circle</i>
+          </td>
+          <td style="width:5%;text-align:left">
+            <i style="font-size:14px;color:grey">Last Name</i>
+            <h6>
+              <b>{{user.lastName | titlecase}}</b>
+            </h6>
+          </td>
+        </tr>
 
-      <div class="row">
-        <i class="material-icons prefix">location_city</i>
-        <mat-form-field class="full-width">
-          <input matInput placeholder="Door Number" value={{address.doorNumber}} readonly>
-        </mat-form-field>
-        <i class="material-icons prefix">time_to_leave</i>
-        <mat-form-field class="full-width">
-          <input matInput placeholder="Street Name" value={{address.streetName}} readonly>
-        </mat-form-field>
-      </div>
+        <tr>
+          <td style="width:10%;text-align:right">
+            <i class="large material-icons md-18" style="font-size:35px">insert_emoticon</i>
+          </td>
+          <td style="width:35%;text-align:left">
+            <i style="font-size:14px;color:grey">Gender</i>
+            <h6>
+              <b>{{user.gender | titlecase}}</b>
+            </h6>
+          </td>
+          <td style="width:10%;text-align:right">
+            <i class="large material-icons md-18" style="font-size:35px">call</i>
+          </td>
+          <td style="width:35%;text-align:left">
+            <i style="font-size:14px;color:grey">Phone Number</i>
+            <h6>
+              <b>{{user.phoneNumber | titlecase}}</b>
+            </h6>
+          </td>
+        </tr>
 
-      <div class="row">
-        <i class="material-icons prefix">pin_drop</i>
-        <mat-form-field class="full-width">
-          <input matInput placeholder="Area" value={{address.area}} readonly>
-        </mat-form-field>
-        <i class="material-icons prefix">pin_drop</i>
-        <mat-form-field class="full-width">
-          <input matInput placeholder="City" value={{address.city}} readonly>
-        </mat-form-field>
-      </div>
+        <tr>
+          <td style="width:10%;text-align:right">
+            <i class="large material-icons md-18" style="font-size:35px">location_city</i>
+          </td>
+          <td style="width:35%;text-align:left">
+            <i style="font-size:14px;color:grey">Door Number</i>
+            <h6>
+              <b>{{address.doorNumber | titlecase}}</b>
+            </h6>
+          </td>
+          <td style="width:10%;text-align:right">
+            <i class="large material-icons md-18" style="font-size:35px">time_to_leave</i>
+          </td>
+          <td style="width:35%;text-align:left">
+            <i style="font-size:14px;color:grey">Street Name</i>
+            <h6>
+              <b>{{address.streetName | titlecase}}</b>
+            </h6>
+          </td>
+        </tr>
 
-      <div class="row">
-        <i class="material-icons prefix">pin_drop</i>
-        <mat-form-field class="half-width">
-          <input matInput placeholder="State" value={{address.state}} readonly>
-        </mat-form-field>
-        <i class="material-icons prefix">pin_drop</i>
-        <mat-form-field class="half-width">
-          <input matInput placeholder="Country" value={{address.country}} readonly>
-        </mat-form-field>
-        <i class="material-icons prefix">fiber_pin</i>
-        <mat-form-field class="half-width">
-          <input matInput placeholder="Zip Code" value={{address.zipcode}} readonly>
-        </mat-form-field>
-      </div>
-      <div class="nocenter">
-        <button mat-raised-button color="primary" (click)="updateToggle()"> <i class="material-icons small" >create</i> UPDATE USER DETAILS</button>
-      </div>
+        <tr>
+          <td style="width:10%;text-align:right">
+            <i class="large material-icons md-18" style="font-size:35px">pin_drop</i>
+          </td>
+          <td style="width:35%;text-align:left">
+            <i style="font-size:14px;color:grey">Area</i>
+            <h6>
+              <b>{{address.area | titlecase}}</b>
+            </h6>
+          </td>
+          <td style="width:10%;text-align:right">
+            <i class="large material-icons md-18" style="font-size:35px">pin_drop</i>
+          </td>
+          <td style="width:35%;text-align:left">
+            <i style="font-size:14px;color:grey">City</i>
+            <h6>
+              <b>{{address.city | titlecase}}</b>
+            </h6>
+          </td>
+        </tr>
+
+        <tr>
+          <td style="width:10%;text-align:right">
+            <i class="large material-icons md-18" style="font-size:35px">pin_drop</i>
+          </td>
+          <td style="width:25%;text-align:left">
+            <i style="font-size:14px;color:grey">State</i>
+            <h6>
+              <b>{{address.state | titlecase}}</b>
+            </h6>
+          </td>
+          <td style="width:10%;text-align:right">
+            <i class="large material-icons md-18" style="font-size:35px">pin_drop</i>
+          </td>
+          <td style="width:25%;text-align:left">
+            <i style="font-size:14px;color:grey">Country</i>
+            <h6>
+              <b>{{address.country | titlecase}}</b>
+            </h6>
+          </td>
+        </tr>
+        <tr>
+          <td style="width:10%;text-align:right">
+            <i class="large material-icons md-18" style="font-size:35px">fiber_pin</i>
+          </td>
+          <td style="width:25%;text-align:left">
+            <i style="font-size:14px;color:grey">Zipcode</i>
+            <h6>
+              <b>{{address.zipcode }}</b>
+            </h6>
+          </td>
+        </tr>
+        <tr>
+          <td style="width:10%;"></td>
+          <td style="width:35%;"></td>
+          <td style="width:10%;"></td>
+          <td>
+            <div style="text-align:left">
+              <button mat-raised-button color="primary" (click)="updateToggle()">
+                <i class="material-icons small">create</i> UPDATE USER DETAILS</button>
+            </div>
+          </td>
+        </tr>
+      </table>
+
     </div>
   </mat-card>
 
   <mat-card>
     <div class="center" *ngIf="isUpdate">
-      <h1 class="center"> USER PROFILE UPDATE</h1>
+      <h3 class="center">
+        <b> USER PROFILE UPDATE </b>
+      </h3>
+      <br>
+
       <form name="myForm" #validateForm="ngForm" (ngSubmit)="onSubmit()" novalidate>
         <div>
           <i class="material-icons prefix">account_circle</i>
@@ -102,7 +178,7 @@
           <i class="material-icons prefix">call</i>
           <mat-form-field class="full-width">
             <input #phoneNumber (keyup)="validatePhoneNumberField(phoneNumber.value)" matInput placeholder="Phone Number" [(ngModel)]="user.phoneNumber"
-             name="user.phoneNumber" [ngModelOptions]="{standalone: true}" #phoneNumber="ngModel" minlength="10" maxlength="10"
+              name="user.phoneNumber" [ngModelOptions]="{standalone: true}" #phoneNumber="ngModel" minlength="10" maxlength="10"
               required>
             <span class="font" *ngIf="!phone">Please input a valid number</span>
           </mat-form-field>
@@ -117,11 +193,11 @@
               name="address.doorNumber" [ngModelOptions]="{standalone: true}" required>
             <span class="font" *ngIf="!door">door number cannot be null</span>
           </mat-form-field>
-          </div>
-          <!-- 
+        </div>
+        <!--
         </div>
         <div> -->
-          <div>
+        <div>
           <i class="material-icons prefix">time_to_leave</i>
           <mat-form-field class="full-width">
             <input #streetName (keyup)="validateStreetName(streetName.value)" matInput placeholder="Street Name" [(ngModel)]="address.streetName"
@@ -147,22 +223,22 @@
             <span class="font" *ngIf="!city1">invalid city</span>
           </mat-form-field>
 
-          <!-- 
+          <!--
         </div>
 
         <div> -->
-          
+
           <i class="material-icons prefix">pin_drop</i>
           <mat-form-field class="full-width">
             <input #state (keyup)="validateState(state.value)" matInput placeholder="State" [(ngModel)]="address.state" name="address.state"
               [ngModelOptions]="{standalone: true}" required>
             <span class="font" *ngIf="!state1">invalid state</span>
           </mat-form-field>
-          </div>
-          <!-- 
+        </div>
+        <!--
         </div>
         <div> -->
-          <div>
+        <div>
           <i class="material-icons prefix">pin_drop</i>
           <mat-form-field class="full-width">
             <input #country (keyup)="validateCountry(country.value)" matInput placeholder="Country" [(ngModel)]="address.country" name="address.country"
@@ -185,11 +261,11 @@
     </button> -->
         <div class="center">
           <button mat-raised-button color="primary">
-          <i class="material-icons small" >create</i> UPDATE</button> 
-          
+            <i class="material-icons small">create</i> UPDATE</button>
+
           <button mat-raised-button color="primary" (click)="fetchUser()">
-              <i class="material-icons small" >cancel</i>  
-              CANCEL</button>
+            <i class="material-icons small">cancel</i>
+            CANCEL</button>
         </div>
 
       </form>

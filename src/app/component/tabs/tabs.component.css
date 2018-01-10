@@ -1,4 +1,14 @@
-.tab-padding{
-	padding-top: 5%;
-	
+a{
+  color: rgb(4, 4, 70);
+  background-color: silver;
+  margin-top: 4%;
+}
+
+nav{
+
+  background-color: silver;
+}
+
+b{
+  font-size: 17px;
 }

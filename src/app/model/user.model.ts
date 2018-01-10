@@ -11,10 +11,6 @@ export class User {
 	public phoneNumber: string;
 	public isActive: boolean;
 	public address: Address;
-<<<<<<< HEAD
-	public role: Array<Role>;
-=======
 	public roles: Array<Role>;
->>>>>>> 81a8f06faf01c19f90d8fb0ac12a0e7c11096bd0
 	public departments: Array<Department>;
 }

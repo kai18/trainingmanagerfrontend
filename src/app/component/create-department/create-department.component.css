@@ -1,32 +1,19 @@
-/*
-
-  .gl{
-    border: 2px solid black;
-  }
-  
-   */
-
-   input {
-    width: 225px;
-    margin: 8px 0;
-    background-color: #dfdfdf;
-    font-size:17px;
-}
 button {
-    background-color: #008CBA;
-    color: white;
+  background-color: #008CBA;
+  color: white;
 }
-   .grid{
-    width: 80%;
-    text-align: center;
-  }
 
-  .full-width{
-     width: 80%;
-  }
+.grid{
+  width: 80%;
+  text-align: center;
+}
 
- .example-container {
-    display: flex;
-    flex-direction: column;
-    min-width: 300px;
-  }
+.full-width{
+   width: 80%;
+}
+
+.example-container {
+  display: flex;
+  flex-direction: column;
+  min-width: 300px;
+}
