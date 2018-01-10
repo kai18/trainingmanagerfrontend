@@ -1,26 +1,29 @@
-<div class="example-container">
-            <form [formGroup]="departmentForm" (ngSubmit)="onDepartmentFormSubmit()">
-	<mat-grid-list cols="1" rowHeight="2:1">
+ 
+ <!--Creation div -->
+ <div class="example-container">
+  <form [formGroup]="departmentForm" (ngSubmit)="onDepartmentFormSubmit()">
+	 <mat-grid-list cols="1" rowHeight="3:1">
 		<mat-grid-tile >
 			<mat-card class="grid">
-				<h1>Department Creation</h1>
-				
-					<i class="material-icons prefix">perm_identity</i>
-			    <mat-form-field class="full-width">
-				    <textarea matInput placeholder="Department Name" class="validate" formControlName="departmentName" required></textarea>
-				</mat-form-field>
+				<h4><b>Department Creation</b></h4>
 				<div>
-				   <i class="material-icons prefix">description</i>
-			    <mat-form-field class="full-width">
+				<i class="material-icons prefix">perm_identity</i>
+			  <mat-form-field class="full-width">
+				  <textarea matInput placeholder="Department Name" class="validate" formControlName="departmentName" required></textarea>
+				</mat-form-field>
+			  </div>
+				<i class="material-icons prefix">description</i>
+			  <mat-form-field class="full-width">
 					<textarea matInput placeholder="Department Description" class="validate" formControlName="departmentDescription" required ></textarea>
 				</mat-form-field>
-			    </div>
 				<div>		
-                   <button mat-raised-button color="primary">Create</button>
-                   <button mat-raised-button color="primary" [routerLink]="['/department']">Cancel</button>
-               </div>
+          <button mat-raised-button color="primary">
+							<i class="material-icons small">edit</i> Submit</button>
+					<button mat-raised-button color="primary" [routerLink]="['/department']">
+						<i class="material-icons small">cancel</i> Cancel</button>
+        </div>
 			</mat-card>
 		</mat-grid-tile>
-	</mat-grid-list>
-        </form>
-</div>
+	 </mat-grid-list>
+  </form>
+ </div>

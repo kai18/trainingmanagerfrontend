@@ -1,9 +1,10 @@
 .full-width{
-	width: 40%;
+  width: 40%;
+  margin-right: 3%;
 }
 
 .full-width-oneline{
-	width: 30%;
+  width: 30%;
 } 
 
 .half-width{
@@ -11,11 +12,11 @@
 }
   
 .center{
-	text-align: center;
+  text-align: center;
 }
 
 .main{
- 
+  padding-top: 60px;
 }
 
 .nocenter{
@@ -26,3 +27,27 @@
   color: red;
   font-family: "Times New Roman", Times, serif;
 }
+
+input{
+  background-color: white;
+  margin-right: 3%;
+}
+table{
+  width: 100%;
+  margin:auto;
+}
+tr{
+  width:90%;
+  background-color: white;
+  border-bottom:0.7px solid silver;
+}
+td{
+  background-color: white;
+  
+}
+
+.view{
+  width:50%;
+  margin:auto;
+}
+

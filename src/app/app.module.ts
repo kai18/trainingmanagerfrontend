@@ -10,6 +10,7 @@ import {MatStepperModule} from '@angular/material/stepper';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatInputModule, MatTableModule} from '@angular/material';
+import {MatListModule} from '@angular/material';
 
 import {HttpClientModule, HttpClient, HttpHeaders, HttpParams, HttpResponse} from '@angular/common/http';
 import { FormsModule , ReactiveFormsModule} from '@angular/forms';
@@ -100,6 +101,7 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     MatStepperModule,
     MatRadioModule,
     MatProgressBarModule,
+    MatListModule,
     FormsModule
 
   ],

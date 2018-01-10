@@ -28,7 +28,7 @@ export class Navbar
 		this.userId = decodevalue.jti;
 		if (this.authorizeService.getRefreshTokenExpirationDate()) {
 			this.isLoggedIn = true;
-			this.navigateToUserProfile();
+			//this.navigateToUserProfile();
 		} else {
 			this.isLoggedIn = false;
 			this.logout();

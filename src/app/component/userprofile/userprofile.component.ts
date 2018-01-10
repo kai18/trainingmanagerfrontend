@@ -15,6 +15,8 @@ import { Observable } from "rxjs/Observable";
 import { Subject } from "rxjs/Subject";
 import { NgForm } from '@angular/forms/src/directives/ng_form';
 
+import {Role} from '../../model/role.model';
+
 @Component({
   selector: 'userprofile',
   templateUrl: './userprofile.component.html',
@@ -24,7 +26,8 @@ import { NgForm } from '@angular/forms/src/directives/ng_form';
 export class UserProfile {
   //firstFormGroup: FormGroup;
   user = new User();
-  //availableRoles = new Array<Role>();
+  availableRoles = new Array<Role>();
+  presentRoles = new Array<Role>();
   //roleAccessTempList = new Array<Role>();
   //availableRolesTemp = new Array<Role>();
   deptArray: Array<number>;
@@ -142,7 +145,7 @@ export class UserProfile {
     this.updateProfile = false;
     this.sub = this.actRoute.snapshot.queryParams['userId'];
     console.log(this.sub)
-    this.user.userId = parseInt(this.sub);
+    this.user.userId = this.sub;
     let decodevalue: any = JSON.parse(localStorage.getItem('decodedtoken'));
     //this.loggedInUserId = decodevalue.jti;
     //this.previleges = decodevalue.previleges;
@@ -159,7 +162,12 @@ export class UserProfile {
         this.showProfile = true;
         this.user = this.standardResponse.element;
         this.address = this.user.address;
+        if (this.user.roles != null) {
+            this.user.roles.forEach(e => { this.presentRoles.push(e); });
+        } 
         console.log(this.user);
+        this.getRoleByDepartments(this.user.userId); 
+        
         //this.getRoleByDepartments();
       },
       error => this.errorMessage = <any>error);
@@ -201,5 +209,45 @@ export class UserProfile {
       console.log("form inappropriate");
     }
   }
+
+
+
+getRoleByDepartments(userId: string): void {
+        this.userService.getRoleByDepartments(userId)
+            .subscribe(standardResponse => {
+                this.standardResponse = standardResponse;
+                if (this.standardResponse.element != null) {
+                    this.availableRoles = this.standardResponse.element;
+                }
+            },
+            error => this.errorMessage = <any>error);
+    }
+
+    grantRoleToUser(userId: string, role: Role): void {
+
+        this.userService.granteRoleToUser(userId, role.roleId)
+            .subscribe(standardResponse => {
+                this.standardResponse = standardResponse;
+                if (this.standardResponse != null && this.standardResponse.status == 'success') {
+                    this.presentRoles.push(role);
+                    this.availableRoles.splice(this.availableRoles.indexOf(role), 1);
+                }
+            },
+            error => this.errorMessage = <any>error);
+
+    }
+    ///changed
+    revokeRoleToUser(userId: string, role: Role): void {
+        this.userService.revokeRoleToUser(userId, role.roleId)
+            .subscribe(standardResponse => {
+                this.standardResponse = standardResponse;
+                if (this.standardResponse != null && this.standardResponse.status == 'success') {
+                    this.availableRoles.push(role);
+                    this.presentRoles.splice(this.presentRoles.indexOf(role), 1);
+                }
+            },
+            error => this.errorMessage = <any>error);
+    } 
+
 }
 

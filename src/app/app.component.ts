@@ -52,7 +52,8 @@ export class AppComponent {
 	navigateToUserProfile() {
 		let decodevalue: any = JSON.parse(localStorage.getItem('decodedtoken'));
 		let userId: string = decodevalue.jti;
-		this.router.navigate(['user/' + userId]);
+		this.router.navigate(['userprofile'], { queryParams: { userId: userId } });
+	
 
 	}
 }
