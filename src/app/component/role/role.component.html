@@ -2,7 +2,7 @@
   <div class="card" style="margin:2% auto;" *ngIf="!isCreate && !isUpdate">
     <mat-card class=" mat-elevation-z5 role-card" *ngFor="let role of allRoles" style="margin:0.4%;">
       <mat-card-header>
-        <div mat-card-avatar class="example-header-image"></div>
+        <div mat-card-avatar class="material-icons" style="font-size:30px;color:rgba(0, 102, 186, 0.986);">account_circle</div>
         <mat-card-title>
           <h6>
             <b>{{role.roleName}}</b>
@@ -102,6 +102,7 @@
           <textarea autofocus matInput placeholder="Role Description" formControlName="roleDescription" value={{roleToUpdate.roleDescription}}></textarea>
         </mat-form-field>
         <div class="alert" *ngIf="!rFormUpdate.controls['roleDescription'].valid && rFormUpdate.controls['roleDescription'].touched">{{ roleDescriptionAlert }}</div>
+        <h6 style="text-align:left">Privileges : </h6>
         <mat-chip-list>
           <mat-chip *ngIf="roleToUpdate.privilege.creationPrivilege" selected="true" [color]="primary">Creation</mat-chip>
           <mat-chip *ngIf="roleToUpdate.privilege.deletionPrivilege" selected="true" [color]="primary">Deletion</mat-chip>

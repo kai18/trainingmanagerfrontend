@@ -13,9 +13,11 @@ export class DeleteModalComponent {
   constructor(private dialogRef: MatDialogRef<DeleteModalComponent>,
     @Inject(MAT_DIALOG_DATA) private data) {}
 
-    role: Role;
+    entity: string;
+    message: string;
 
   ngOnInit() {
-    this.role = this.data.role;
+    this.entity = this.data.entity;
+    this.message = this.data.message;
   }
 }

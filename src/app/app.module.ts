@@ -115,7 +115,7 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     JwtHelper,
     AuthorizeService,
     PrivilegeCheckerService,
-    LocalStorageService
+    LocalStorageService,
     {
     provide: HTTP_INTERCEPTORS,
       useClass: JwtInterceptor,

@@ -198,7 +198,7 @@ export class UserProfile {
           this.standardResponse = standardResponse;
           this.isUpdate = false;
           this.showProfile = true;
-          location.reload();
+          //location.reload();
           //this.fetchUser();
         },
         error => this.errorMessage = <any>error);

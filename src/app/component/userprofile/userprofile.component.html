@@ -13,6 +13,7 @@
 
 <div class="main">
   <mat-card class="view" *ngIf="!isUpdate">
+<<<<<<< HEAD
     <div class="center" >
       <h3 class="center">
         <b> USER PROFILE </b>
@@ -161,55 +162,160 @@
           <input matInput placeholder="Phone Number" value={{user.phoneNumber}} readonly>
         </mat-form-field>
       </div>
+=======
+    <div class="center">
+      <h3 class="center">
+        <b> USER PROFILE </b>
+      </h3>
+      <br>
 
-      <div class="row">
-        <i class="material-icons prefix">location_city</i>
-        <mat-form-field class="full-width">
-          <input matInput placeholder="Door Number" value={{address.doorNumber}} readonly>
-        </mat-form-field>
-        <i class="material-icons prefix">time_to_leave</i>
-        <mat-form-field class="full-width">
-          <input matInput placeholder="Street Name" value={{address.streetName}} readonly>
-        </mat-form-field>
-      </div>
+      <table>
+        <tr>
+          <td style="width:5%;text-align:right">
+            <i class="large material-icons md-18" style="font-size:35px">account_circle</i>
+          </td>
+          <td style="width:35%;text-align:left">
+            <i style="font-size:14px;color:grey">First Name</i>
+            <h6>
+              <b>{{user.firstName | titlecase }}</b>
+            </h6>
+          </td>
+          <td style="width:40%;text-align:right">
+            <i class="large material-icons md-18" style="font-size:35px">account_circle</i>
+          </td>
+          <td style="width:5%;text-align:left">
+            <i style="font-size:14px;color:grey">Last Name</i>
+            <h6>
+              <b>{{user.lastName | titlecase}}</b>
+            </h6>
+          </td>
+        </tr>
+>>>>>>> cad91c83a99010837a34ea81190f185ccbcc176a
 
-      <div class="row">
-        <i class="material-icons prefix">pin_drop</i>
-        <mat-form-field class="full-width">
-          <input matInput placeholder="Area" value={{address.area}} readonly>
-        </mat-form-field>
-        <i class="material-icons prefix">pin_drop</i>
-        <mat-form-field class="full-width">
-          <input matInput placeholder="City" value={{address.city}} readonly>
-        </mat-form-field>
-      </div>
+        <tr>
+          <td style="width:10%;text-align:right">
+            <i class="large material-icons md-18" style="font-size:35px">insert_emoticon</i>
+          </td>
+          <td style="width:35%;text-align:left">
+            <i style="font-size:14px;color:grey">Gender</i>
+            <h6>
+              <b>{{user.gender | titlecase}}</b>
+            </h6>
+          </td>
+          <td style="width:10%;text-align:right">
+            <i class="large material-icons md-18" style="font-size:35px">call</i>
+          </td>
+          <td style="width:35%;text-align:left">
+            <i style="font-size:14px;color:grey">Phone Number</i>
+            <h6>
+              <b>{{user.phoneNumber | titlecase}}</b>
+            </h6>
+          </td>
+        </tr>
 
-      <div class="row">
-        <i class="material-icons prefix">pin_drop</i>
-        <mat-form-field class="half-width">
-          <input matInput placeholder="State" value={{address.state}} readonly>
-        </mat-form-field>
-        <i class="material-icons prefix">pin_drop</i>
-        <mat-form-field class="half-width">
-          <input matInput placeholder="Country" value={{address.country}} readonly>
-        </mat-form-field>
-        <i class="material-icons prefix">fiber_pin</i>
-        <mat-form-field class="half-width">
-          <input matInput placeholder="Zip Code" value={{address.zipcode}} readonly>
-        </mat-form-field>
-      </div>
-      <div class="nocenter">
-        <button mat-raised-button color="primary" (click)="updateToggle()"> <i class="material-icons small" >create</i> UPDATE USER DETAILS</button>
-      </div>
+        <tr>
+          <td style="width:10%;text-align:right">
+            <i class="large material-icons md-18" style="font-size:35px">location_city</i>
+          </td>
+          <td style="width:35%;text-align:left">
+            <i style="font-size:14px;color:grey">Door Number</i>
+            <h6>
+              <b>{{address.doorNumber | titlecase}}</b>
+            </h6>
+          </td>
+          <td style="width:10%;text-align:right">
+            <i class="large material-icons md-18" style="font-size:35px">time_to_leave</i>
+          </td>
+          <td style="width:35%;text-align:left">
+            <i style="font-size:14px;color:grey">Street Name</i>
+            <h6>
+              <b>{{address.streetName | titlecase}}</b>
+            </h6>
+          </td>
+        </tr>
+
+        <tr>
+          <td style="width:10%;text-align:right">
+            <i class="large material-icons md-18" style="font-size:35px">pin_drop</i>
+          </td>
+          <td style="width:35%;text-align:left">
+            <i style="font-size:14px;color:grey">Area</i>
+            <h6>
+              <b>{{address.area | titlecase}}</b>
+            </h6>
+          </td>
+          <td style="width:10%;text-align:right">
+            <i class="large material-icons md-18" style="font-size:35px">pin_drop</i>
+          </td>
+          <td style="width:35%;text-align:left">
+            <i style="font-size:14px;color:grey">City</i>
+            <h6>
+              <b>{{address.city | titlecase}}</b>
+            </h6>
+          </td>
+        </tr>
+
+        <tr>
+          <td style="width:10%;text-align:right">
+            <i class="large material-icons md-18" style="font-size:35px">pin_drop</i>
+          </td>
+          <td style="width:25%;text-align:left">
+            <i style="font-size:14px;color:grey">State</i>
+            <h6>
+              <b>{{address.state | titlecase}}</b>
+            </h6>
+          </td>
+          <td style="width:10%;text-align:right">
+            <i class="large material-icons md-18" style="font-size:35px">pin_drop</i>
+          </td>
+          <td style="width:25%;text-align:left">
+            <i style="font-size:14px;color:grey">Country</i>
+            <h6>
+              <b>{{address.country | titlecase}}</b>
+            </h6>
+          </td>
+        </tr>
+        <tr>
+          <td style="width:10%;text-align:right">
+            <i class="large material-icons md-18" style="font-size:35px">fiber_pin</i>
+          </td>
+          <td style="width:25%;text-align:left">
+            <i style="font-size:14px;color:grey">Zipcode</i>
+            <h6>
+              <b>{{address.zipcode }}</b>
+            </h6>
+          </td>
+        </tr>
+        <tr>
+          <td style="width:10%;"></td>
+          <td style="width:35%;"></td>
+          <td style="width:10%;"></td>
+          <td>
+            <div style="text-align:left">
+              <button mat-raised-button color="primary" (click)="updateToggle()">
+                <i class="material-icons small">create</i> UPDATE USER DETAILS</button>
+            </div>
+          </td>
+        </tr>
+      </table>
+
     </div>
     </mat-card> -->
 
   <mat-card>
     <div class="center" *ngIf="isUpdate">
+<<<<<<< HEAD
         <h3 class="center">
             <b> USER PROFILE UPDATE </b>
           </h3><br>
     
+=======
+      <h3 class="center">
+        <b> USER PROFILE UPDATE </b>
+      </h3>
+      <br>
+
+>>>>>>> cad91c83a99010837a34ea81190f185ccbcc176a
       <form name="myForm" #validateForm="ngForm" (ngSubmit)="onSubmit()" novalidate>
         <div>
           <i class="material-icons prefix">account_circle</i>
@@ -259,7 +365,11 @@
             <span class="font" *ngIf="!door">door number cannot be null</span>
           </mat-form-field>
         </div>
+<<<<<<< HEAD
         <!-- 
+=======
+        <!--
+>>>>>>> cad91c83a99010837a34ea81190f185ccbcc176a
         </div>
         <div> -->
         <div>
@@ -288,7 +398,7 @@
             <span class="font" *ngIf="!city1">invalid city</span>
           </mat-form-field>
 
-          <!-- 
+          <!--
         </div>
 
         <div> -->
@@ -300,7 +410,11 @@
             <span class="font" *ngIf="!state1">invalid state</span>
           </mat-form-field>
         </div>
+<<<<<<< HEAD
         <!-- 
+=======
+        <!--
+>>>>>>> cad91c83a99010837a34ea81190f185ccbcc176a
         </div>
         <div> -->
         <div>

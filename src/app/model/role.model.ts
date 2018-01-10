@@ -13,5 +13,5 @@ export class PrivilegeUdt {
   deletionPrivilege: number;
   updationPrivilege: number;
   readPrivilege: number;
-  department_id: string;
+  departmentId: string;
 }

@@ -1,19 +1,16 @@
-<div class="tab-padding">
 <nav mat-tab-nav-bar>
 
 <span *ngIf="deptFlag">
    <a mat-tab-link [routerLink]="['/department']" routerLinkActive #d="routerLinkActive" [active]="d.isActive" >
-    Department
+      <b>Department</b>
   </a>
 </span>
 
 <span *ngIf="roleFlag">
    <a mat-tab-link [routerLink]="['/role']" routerLinkActive #r="routerLinkActive" [active]="r.isActive">
-    Role
+    <b>Role</b>
   </a>
 </span>
-
+<!-- <h6 style="text-align:right;color:crimson">Hi {{firstName}}</h6> -->
 </nav>
-</div>
-
 <router-outlet></router-outlet>
