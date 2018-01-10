@@ -14,11 +14,15 @@ export class PrivilegeCheckerService{
 
 	constructor(private roleService: RoleService, private localStorageService: LocalStorageService){}
 
-	private getCommonDepartments(loggedInUserDepartment: Department[], userToBeDeletedDepartments: Department[]): Department[]{
-		
+	public checkIfSuperAdmin(privileges: PrivilegeUdt[]): boolean{
+		for(let privilege of privileges){
+			if(privilege == null || privilege == undefined)
+				return true;
+		}
+		return false;
 	}
 
-	public checkForDelete(userToBeDeletedDepartments: Department[]): boolean{
+	public checkIfAllowedToDeleteUser(userToBeDeletedDepartments: Department[]): boolean{
 		let privileges: PrivilegeUdt[] = this.localStorageService.getLoggedInUserPrivileges();
 		for(let department of userToBeDeletedDepartments){
 			console.log("here");
@@ -39,7 +43,7 @@ export class PrivilegeCheckerService{
 
 	}
 
-	public checkForUpdate(userToBeDeletedDepartments: Department[]): boolean{
+	public checkIfAllowedToEditUser(userToBeDeletedDepartments: Department[]): boolean{
 		let privileges: PrivilegeUdt[] = this.localStorageService.getLoggedInUserPrivileges();
 		for(let department of userToBeDeletedDepartments){
 			console.log("here");
@@ -60,7 +64,7 @@ export class PrivilegeCheckerService{
 
 	}
 
-	public checkForInsert(userToBeDeletedDepartments: Department[]): boolean{
+	public checkIfAllowedToInsert(userToBeDeletedDepartments: Department[]): boolean{
 		let privileges: PrivilegeUdt[] = this.localStorageService.getLoggedInUserPrivileges();
 		for(let department of userToBeDeletedDepartments){
 			console.log("here");
@@ -79,5 +83,14 @@ export class PrivilegeCheckerService{
 			}
 		}
 
+	}
+
+	public checkIfAllowedToDelete(): boolean{
+		let privileges: PrivilegeUdt[] = this.localStorageService.getLoggedInUserPrivileges();
+
+		if(this.checkIfSuperAdmin(privileges))
+			return true;
+		else
+			return false;
 	}
 }

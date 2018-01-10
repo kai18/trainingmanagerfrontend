@@ -122,7 +122,7 @@ export class Search implements OnInit{
 	{
 		let data;
 
-		if(this.privilegeCheckerService.checkForDelete(user.departments)){
+		if(this.privilegeCheckerService.checkIfAllowedToDeleteUser(user.departments)){
 			data = {
 				message: "Are you sure you want to delete this user?",
 				subject: user.firstName + " " + user.lastName,
