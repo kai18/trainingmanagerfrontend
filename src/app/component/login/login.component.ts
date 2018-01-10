@@ -49,7 +49,7 @@ export class Login {
     this.userService.login(this.user)
       .subscribe(standardResponse => {
         this.standardResponse = standardResponse;
-        if (this.standardResponse != null && this.standardResponse.status === 'success') {
+        if (this.standardResponse != null && this.standardResponse.status === 'SUCCESS') {
           console.log(standardResponse.element.jwtToken)
           const decodedToken = this.jwtHelper.decodeToken(standardResponse.element.jwtToken);
           localStorage.setItem('jwt-token', standardResponse.element.jwtToken);

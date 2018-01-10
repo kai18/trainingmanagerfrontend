@@ -3,13 +3,8 @@
 <div class="container .mat-display-3" style="padding:1%">
   <div *ngIf="!toUpdate">
     <div class="card" style="margin:2% auto;width:55%">
-<<<<<<< HEAD
-     <h4 style="text-align: center;"><b>Department List</b></h4>
-      <mat-card class=" mat-elevation-z5" *ngFor="let department of allDepartments" style="padding:0.7%;margin-bottom:0.4%;height:170px;">
-=======
      <!-- <h4 style="text-align: center;"><b>Department List</b></h4> -->
       <mat-card class=" mat-elevation-z5" *ngFor="let department of allDepartments" style="padding:0.7%;margin-bottom:0.4%;">
->>>>>>> cad91c83a99010837a34ea81190f185ccbcc176a
         <mat-card-header style="margin-left:2%;margin-top:3%;margin-bottom:-3%">
          <div mat-card-avatar class="material-icons" style="font-size:30px;color:rgba(0, 102, 186, 0.986);">video_label</div>
           <mat-card-title style="font-size:25px;">{{department.departmentName}}</mat-card-title>
@@ -48,11 +43,8 @@
 
               <i class="material-icons prefix">account_circle</i>
               <mat-form-field class="full-width">
-<<<<<<< HEAD
-                <input matInput placeholder="Department ID" formControlName="departmentId" disabled="true" *ngIf="toUpdate">
-=======
+
                 <input matInput placeholder="Department ID" formControlName="departmentId" *ngIf="toUpdate">
->>>>>>> cad91c83a99010837a34ea81190f185ccbcc176a
               </mat-form-field>
               <div>
               <i class="material-icons prefix">perm_identity</i>
@@ -80,8 +72,5 @@
 <!-- Floating button-->
  <button mat-fab style="right:2%; bottom:2%; position:fixed;" [routerLink]="['/create-department']">
     <i class="material-icons small">add</i>
-<<<<<<< HEAD
-      </button> 
-=======
+
       </button>
->>>>>>> cad91c83a99010837a34ea81190f185ccbcc176a

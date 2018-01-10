@@ -46,12 +46,13 @@
 	<br>
 	<br>
 	<div class="search-results container">
+				<h6>{{message}}</h6>
+
 		<mat-paginator [length]=[pageLength]
               [pageSize]=[pageSize]
               [pageSizeOptions]="pageSizeOptions"
               (page)="pageEventTrigger($event)">
 		</mat-paginator>
-		<h2></h2>
 		<mat-grid-list cols = "3" rowHeight = "2:2">
 			<mat-grid-tile *ngFor = "let user of pagedUser">
 				<mat-card class="example-card">
@@ -63,17 +64,17 @@
 					  <mat-card-content>
 					    <mat-grid-list style="justify-content: left !important;" cols = "1" rowHeight = "7:1">
 					    	<mat-grid-tile>
-					    		<p><span><strong>Departments:</strong> <mat-chip *ngFor = "let department of user.departments"  [color]="primary">{{department.departmentName}}</mat-chip></span></p>
+					    		<p><span><strong>Departments:</strong> <mat-chip *ngFor = "let department of user.departments"  [color]="primary">{{department.departmentName| titlecase}}</mat-chip></span></p>
 					    	</mat-grid-tile>
 					    	<mat-grid-tile>
-					    		<p><span><strong>Location:</strong>{{user.address.city}}, {{user.address.country}}</span></p>
+					    		<p><span><strong>Location:</strong>{{user.address.city | titlecase}}, {{user.address.country | titlecase}}</span></p>
 					    	</mat-grid-tile>
 					    	<mat-grid-tile>
 					    		<p><strong>Phone:</strong> {{user.phoneNumber}}</p>
 					    	</mat-grid-tile>
 					    	<mat-grid-tile>
 					    	<mat-chip-list>
-					    		<p><strong>Roles:</strong><mat-chip *ngFor = "let role of user.roles">{{role.roleName}}</mat-chip></p>
+					    		<p><strong>Roles:</strong><mat-chip *ngFor = "let role of user.roles">{{role.roleName | titlecase}}</mat-chip></p>
 					    	</mat-chip-list>
 					    </mat-grid-tile>
 					    </mat-grid-list>

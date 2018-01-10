@@ -42,14 +42,20 @@ export class Tabs {
     }
   }
 
-  checkAccessForRoleManagement(): boolean {
-    let flag = false;
-    let keepGoing = true;
+ checkAccessForRoleManagement(): boolean {
+    var flag = false;
+    var keepGoing = true;
     this.previleges.forEach((previlege, previlegeIndex) => {
       if (keepGoing) {
-        if (previlege.departmentId == null) {
-          flag = true;
-          keepGoing = false;
+        if (previlege.creationPrivilege ) {
+          if (previlege.deletionPrivilege ) {
+            if (previlege.updationPrivilege ) {
+              if (previlege.readPrivilege ) {
+                flag = true;
+                keepGoing = false;
+              }
+            }
+          }
         }
       }
     });
@@ -57,17 +63,23 @@ export class Tabs {
   }
 
   checkAccessForDepartmentManagement(): boolean {
-    let flag = false;
-    let keepGoing = true;
+    var flag = false;
+    var keepGoing = true;
     this.previleges.forEach((previlege, previlegeIndex) => {
       if (keepGoing) {
-        if (previlege.departmentId == null) {
-          flag = true;
-          keepGoing = false;
+        if (previlege.creationPrivilege ) {
+          if (previlege.deletionPrivilege ) {
+            if (previlege.updationPrivilege ) {
+              if (previlege.readPrivilege) {
+                flag = true;
+                keepGoing = false;
+              }
+            }
+          }
         }
       }
     });
     return flag;
-  }
+  } 
 
 }

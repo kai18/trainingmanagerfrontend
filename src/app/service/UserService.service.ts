@@ -60,7 +60,7 @@ export class UserService{
         //var token = localStorage.getItem('jwttoken');
         //let cpHeaders = new Headers({ 'Content-Type': 'application/json', 'jwtToken': token });
         //let options = new RequestOptions({ headers: cpHeaders });
-        return this.http.get<StandardResponse>(AppConfig.USER_URL + 'department/departmentRoles/031acd86-0834-416c-8216-a06bd69e1b0e')
+        return this.http.get<StandardResponse>(AppConfig.USER_URL + 'department/departmentRoles/' + userId)
             //.map(this.extractData)
     }  
 
@@ -69,17 +69,13 @@ public granteRoleToUser(userId: string, roleId: string): Observable<Standar
         //let cpHeaders = new Headers({ 'Content-Type': 'application/json', 'jwtToken': token });
 //let options = new RequestOptions({ headers: cpHeaders });
 console.log('grant/{roleId}/user/0fef7d29-2309-4f97-a5c6-3c1e9ec05e5c');
-        return this.http.put<StandardResponse>(AppConfig.USER_URL +'grant/' + roleId + '/user/031acd86-0834-416c-8216-a06bd69e1b0e',null)
+        return this.http.put<StandardResponse>(AppConfig.USER_URL +'grant/' + roleId + '/user/'+userId, userId)
             //.map(this.extractData)
     }
 
     public revokeRoleToUser(userId: string, roleId: string): Observable<StandardResponse> {
-        //var token = localStorage.getItem('jwttoken');
-//let cpHeaders = new Headers({ 'Content-Type': 'application/json', 'jwtToken': token });
-// let options = new RequestOptions({ headers: cpHeaders });
-console.log(roleId);
-return this.http.put<StandardResponse>(AppConfig.USER_URL + 'revoke/' + roleId + '/user/031acd86-0834-416c-8216-a06bd69e1b0e' ,null)
-//.map(this.extractData)
+        console.log(roleId);
+		return this.http.put<StandardResponse>(AppConfig.USER_URL + 'revoke/' + roleId + '/user/' + userId , userId)
 } 
 
 

@@ -7,6 +7,9 @@ export class JwtInterceptor implements HttpInterceptor {
     console.log("intercepting");
 
     var token = localStorage.getItem('jwt-token');
+    if(token === null || token === undefined){
+      return next.handle(req);
+    }
 		console.log(token);
 		let headers = new HttpHeaders();
 		headers = headers.set('Content-Type', 'application/json');

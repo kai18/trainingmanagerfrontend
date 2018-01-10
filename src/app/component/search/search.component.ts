@@ -2,7 +2,7 @@ import {Component, Injectable, OnInit} from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams, HttpResponse} from '@angular/common/http';
 import { Router } from '@angular/router';
 
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatSnackBar} from '@angular/material';
 
 
 import{PageEvent} from'@angular/material';
@@ -48,6 +48,7 @@ export class Search implements OnInit{
 	searchResponse: Observable<StandardResponse>;
 	searchResults: UserSearch[];
 	message: string
+	deleteMessage: string
 	allRoles: Role[];
 	allDepartments: Department[];
 	searchedOnce = false;
@@ -60,7 +61,7 @@ export class Search implements OnInit{
 
 	constructor(private http: HttpClient, private userService: UserService, private roleService: RoleService,
 				 private departmentService: DepartmentService, private privilegeCheckerService: PrivilegeCheckerService,
-				  private router: Router, public dialog: MatDialog)
+				  private router: Router, public dialog: MatDialog, public snackBar: MatSnackBar)
 	{}
 
 	public search(firstName, lastName, email, departments, roles)
@@ -70,7 +71,11 @@ export class Search implements OnInit{
 		this.searchTerms.next(params);
 		this.searchResponse.subscribe(response => {this.searchResponsePlain  = response;
 												   this.searchResults = this.searchResponsePlain.element;
-												   this.message = this.searchResponsePlain.message;
+												   if(this.searchResults.length == 0)
+														this.message = ''
+													else
+														this.message = response.message;
+												   console.log(this.message);
 												   this.pageLength = this.searchResults.length;
 												   this.searchedOnce = true;
 												   console.log(this.pageLength)});		
@@ -115,7 +120,10 @@ export class Search implements OnInit{
 	}
 
 	private deleteUser(userId: string){
-		this.userService.delete(userId).subscribe(response => {console.log(response.message)}, response=> {console.log(response.message)});
+		this.userService.delete(userId).subscribe(response => {
+			this.deleteMessage = response.message
+			console.log(response.message)
+			this.openSnackBar(response.message, "ok")}, response=> {console.log(response.message)});
 	}
 
 	public openUserDeleteDialog(user: UserSearch)
@@ -149,6 +157,12 @@ export class Search implements OnInit{
 		})
 
 	}
+
+	public openSnackBar(message: string, action: string) {
+    this.snackBar.open(message, action, {
+      duration: 4000,
+    });
+  }
 	
 	ngOnInit(): void{
 		this.searchResponse = this.searchTerms
@@ -165,6 +179,10 @@ export class Search implements OnInit{
 		this.searchResponse.subscribe(response => {this.searchResponsePlain  = response;
 													this.searchResults = this.searchResponsePlain.element;
 													this.pageLength = this.searchResults.length;
+													if(this.searchResults.length == 0)
+														this.message = ''
+													else
+														this.message = response.message;
 												   	console.log(this.pageLength);
 												   	this.pagedUser = this.searchResults.slice(0, this.pageSizeOptions[0]);
 													this.searchedOnce = true;});

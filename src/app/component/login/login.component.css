@@ -1,5 +1,5 @@
 .login{
-	padding-top: 5%;
+	padding-top: 5;
 		text-align: center;
 }
 
@@ -9,7 +9,7 @@
 }
 
 .full-width{
-	width: 80%;
+	width: 90%;
 	border: none;
 }
 
@@ -19,4 +19,12 @@
 
 .b{
 	padding-top: 2px;
+}
+
+.login-main{
+	padding-top: 150px;
+}
+
+.error-message{
+	color: red;
 }

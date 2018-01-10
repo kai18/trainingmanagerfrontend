@@ -26,25 +26,8 @@ export class AppComponent {
 		}
 	}
 
-	/* getRefreshTokenExpirationDate() {
-		var token = localStorage.getItem('jwttoken');
-		console.log("App entry point: token : " + token);
-		if (token) {
-		  let tokenExpDate = this.jwtHelper.getTokenExpirationDate(token);
-		  let sessionExpDate = new Date(tokenExpDate.getTime() + 4*60000);
-		  if (new Date() > sessionExpDate) {
-			this.logout();
-		  } else {
-			  this.navigateToUserProfile();
-		  }
-		  return sessionExpDate;
-		}
-
-		this.logout();
-	 }*/
-
 	logout() {
-		localStorage.removeItem('jwttoken');
+		localStorage.removeItem('jwt-token');
 		localStorage.removeItem('decodedtoken');
 		this.router.navigate(['login']);
 	}
