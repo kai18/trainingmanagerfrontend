@@ -77,7 +77,7 @@
           </section>
           <br>
           <br>
-          <button mat-raised-button color="primary" class="full-width" [disabled]="!rFormUpdate.valid">Submit</button>
+          <button mat-raised-button color="primary" class="full-width" [disabled]="!rForm.valid">Submit</button>
         </form>
       </mat-card>
 </div>
@@ -121,7 +121,7 @@
   </mat-card>
 </div>
 
-<button (click)="toggleRole()" mat-fab style="left:95%; bottom:2%; position: fixed">
+<button (click)="toggleRole()" mat-fab style="left:95%; bottom:15%; position: fixed;z-index: 999">
   <i class="material-icons small" *ngIf="!isCreate">add</i>
   <i class="material-icons small" *ngIf="isCreate">clear</i>
 </button>

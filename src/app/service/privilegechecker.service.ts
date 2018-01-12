@@ -16,7 +16,8 @@ export class PrivilegeCheckerService {
 
 	public checkIfSuperAdmin(privileges: PrivilegeUdt[]): boolean{
 		for(let privilege of privileges){
-			if(privilege == null || privilege == undefined)
+			if((privilege.department_id == null || privilege.department_id == undefined) 
+				&& privilege.creationPrivilege ==1 || privilege.deletionPrivilege || privilege.updationPrivilege == 1)
 				return true;
 		}
 		return false;
@@ -24,12 +25,15 @@ export class PrivilegeCheckerService {
 
 	public checkIfAllowedToDeleteUser(userToBeDeletedDepartments: Department[]): boolean{
 		let privileges: PrivilegeUdt[] = this.localStorageService.getLoggedInUserPrivileges();
+
+		if(this.checkIfSuperAdmin(privileges))
+			return true;
 		for(let department of userToBeDeletedDepartments){
 			console.log("here");
 			for(let privilege of privileges){
 				console.log("privilege "  + JSON.stringify(privilege));
 				console.log(privilege.department_id + " == " + department.departmentId);
-				if(privilege.department_id.localeCompare(department.departmentId))
+				if(privilege.department_id != null && privilege.department_id.localeCompare(department.departmentId))
 				{
 					console.log("Match");
 					if(privilege.deletionPrivilege == 1)

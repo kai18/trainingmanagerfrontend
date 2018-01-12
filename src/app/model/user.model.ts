@@ -2,7 +2,7 @@
  import { Role } from '../model/role.model';
  import { Department } from '../model/department.model';
 export class User {
-	public userId: string;
+	public id: string;
 	public emailId: string;
 	public password: string;
 	public lastName: string;

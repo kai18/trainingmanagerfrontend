@@ -1,15 +1,23 @@
 import { Component, Injectable, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
 import { Response } from '@angular/http';
+
 import { StandardResponse } from '../../model/standardresponse.model';
 import { Address } from '../../model/address.model';
 import { User } from '../../model/user.model';
+import {Department} from '../../model/department.model';
 import { Router, ActivatedRoute } from '@angular/router';
+
 import { UserService } from '../../service/UserService.service';
+import {DepartmentService} from '../../service/DepartmentService';
+import {PrivilegeCheckerService} from '../../service/privilegechecker.service'
+
 import { AbstractControl, FormBuilder, FormGroup, Validators, FormControl, FormArray } from '@angular/forms';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 //import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 //import {Inject} from '@angular/core';
+
+import {MatSnackBar, MatSnackBarHorizontalPosition,MatSnackBarVerticalPosition} from '@angular/material'
 
 import { Observable } from "rxjs/Observable";
 import { Subject } from "rxjs/Subject";
@@ -24,44 +32,45 @@ import {Role} from '../../model/role.model';
 })
 
 export class UserProfile {
-  //firstFormGroup: FormGroup;
-  user = new User();
-  availableRoles = new Array<Role>();
-  presentRoles = new Array<Role>();
-  //roleAccessTempList = new Array<Role>();
-  //availableRolesTemp = new Array<Role>();
-  deptArray: Array<number>;
-  standardResponse = new StandardResponse();
-  errorMessage: string;
-  sub: string;
-  //loggedInUserId: number;
-  showProfile: boolean;
-  updateProfile: boolean;
-  address = new Address();
-  //previleges: Previleges[];
-  isUpdate = false;
-  // first = false;
-  first = true;
-  last = true;
-  phone = true;
-  zip = true;
-  door = true;
-  street = true;
-  area1 = true;
-  city1 = true;
-  state1 = true;
-  country1 = true;
+ 
+  private user = new User();
+  private availableRoles = new Array<Role>();
+  private presentRoles = new Array<Role>();
+  
+  private presentDepartments = new Array<Department>();
+  private availableDepartments = new Array<Department>();
 
-  constructor(private userService: UserService, private router: Router, private actRoute: ActivatedRoute, ) {
+  private deptArray: Array<number>;
+  private standardResponse = new StandardResponse();
+  private errorMessage: string;
+  private sub: string;
+  private showProfile: boolean;
+  private updateProfile: boolean;
+  private address = new Address();
+  private isUpdate = false;
+  private first = true;
+  private last = true;
+  private  phone = true;
+  private zip = true;
+  private door = true;
+  private street = true;
+  private area1 = true;
+  private city1 = true;
+  private state1 = true;
+  private country1 = true;
+
+  private horizontalPosition: MatSnackBarHorizontalPosition = 'center';
+    private verticalPosition: MatSnackBarVerticalPosition = 'top';
+
+
+
+
+  constructor(private userService: UserService, private departmentService: DepartmentService, 
+    private router: Router, private actRoute: ActivatedRoute, public snackBar: MatSnackBar,
+     private privilegeChecker: PrivilegeCheckerService) {
 
   }
 
-  // private validateField(field: string): boolean {
-  //  if (field != null && field != undefined && field.length > 0)
-  //    return true
-  //  else
-  //    return false;
-  //   }
   private validateFirstName(field: string): boolean {
     let regexp = new RegExp('^[a-zA-Z]+$');
     this.first = regexp.test(field);
@@ -140,16 +149,14 @@ export class UserProfile {
     return false
   }
 
+
   ngOnInit(): void {
     this.showProfile = true;
     this.updateProfile = false;
     this.sub = this.actRoute.snapshot.queryParams['userId'];
     console.log(this.sub)
-    this.user.userId = this.sub;
+    this.user.id = this.sub;
     let decodevalue: any = JSON.parse(localStorage.getItem('decodedtoken'));
-    //this.loggedInUserId = decodevalue.jti;
-    //this.previleges = decodevalue.previleges;
-    console.log("starting");
     this.fetchUser();
   }
 
@@ -157,7 +164,6 @@ export class UserProfile {
     console.log("inside fetch");
     this.userService.getUserById(this.sub)
       .subscribe(standardResponse => {
-        console.log("hello");
         this.standardResponse = standardResponse;
         this.showProfile = true;
         this.user = this.standardResponse.element;
@@ -165,12 +171,22 @@ export class UserProfile {
         if (this.user.roles != null) {
             this.user.roles.forEach(e => { this.presentRoles.push(e); });
         } 
-        console.log(this.user);
-        this.getRoleByDepartments(this.user.userId); 
         
-        //this.getRoleByDepartments();
-      },
-      error => this.errorMessage = <any>error);
+        if(this.user.departments != null)
+          this.user.departments.forEach(department => {this.presentDepartments.push(department)});
+        this.departmentService.getAllDepartments().subscribe(response => {
+          if(response.element != null){
+            this.availableDepartments = response.element;
+            this.presentDepartments.forEach(presentDepartment => {
+              this.availableDepartments.splice(this.availableDepartments.indexOf(presentDepartment), 1);
+            })
+          }
+        });
+
+        console.log(this.user);
+        this.getRoleByDepartments(this.user.id); 
+        
+      }, error=>{this.openSnackBar(error.error.message, "ok")}
   }
   updateToggle() {
     console.log("toggle clicked!!")
@@ -189,10 +205,7 @@ export class UserProfile {
       console.log("update from component");
       this.user.isActive = true;
       this.user.address = this.address;
-      //this.user.address.id = this.user.userId;
-      //console.log(this.user.address.id = this.user.userId);
-      //this.user.department = getDepartment(this.departments.departmentId);
-      //this.user.role = getRole(this.role.roleId);
+    
       this.userService.update(this.user)
         .subscribe(standardResponse => {
           this.standardResponse = standardResponse;
@@ -200,30 +213,26 @@ export class UserProfile {
           this.showProfile = true;
           //location.reload();
           //this.fetchUser();
-        },
-        error => this.errorMessage = <any>error);
-
-      console.log('Test result : ' + this.standardResponse.status);
+          this.openSnackBar(standardResponse.message, 'ok');
+        }, error=>{this.openSnackBar(error.error.message, "ok")}
     }
     else {
       console.log("form inappropriate");
     }
   }
 
-
-
-getRoleByDepartments(userId: string): void {
+  public getRoleByDepartments(userId: string): void {
         this.userService.getRoleByDepartments(userId)
             .subscribe(standardResponse => {
+                 console.log("fetched roles")
                 this.standardResponse = standardResponse;
                 if (this.standardResponse.element != null) {
                     this.availableRoles = this.standardResponse.element;
                 }
-            },
-            error => this.errorMessage = <any>error);
+            }, error=>{this.openSnackBar(error.error.message, "ok")});
     }
 
-    grantRoleToUser(userId: string, role: Role): void {
+    public grantRoleToUser(userId: string, role: Role): void {
 
         this.userService.granteRoleToUser(userId, role.roleId)
             .subscribe(standardResponse => {
@@ -231,13 +240,14 @@ getRoleByDepartments(userId: string): void {
                 if (this.standardResponse != null && this.standardResponse.status == 'success') {
                     this.presentRoles.push(role);
                     this.availableRoles.splice(this.availableRoles.indexOf(role), 1);
+
                 }
-            },
-            error => this.errorMessage = <any>error);
+                this.openSnackBar(standardResponse.message, 'ok');
+            }, error=>{this.openSnackBar(error.error.message, "ok")});
 
     }
     ///changed
-    revokeRoleToUser(userId: string, role: Role): void {
+    public revokeRoleToUser(userId: string, role: Role): void {
         this.userService.revokeRoleToUser(userId, role.roleId)
             .subscribe(standardResponse => {
                 this.standardResponse = standardResponse;
@@ -245,9 +255,44 @@ getRoleByDepartments(userId: string): void {
                     this.availableRoles.push(role);
                     this.presentRoles.splice(this.presentRoles.indexOf(role), 1);
                 }
-            },
-            error => this.errorMessage = <any>error);
+                this.openSnackBar(standardResponse.message, 'ok');
+            }, error=>{this.openSnackBar(error.error.message, "ok")});
     } 
 
+    public allotDepartment(userId: string, department: Department){
+       this.userService.allotDepartmentToUser(userId, department.departmentId).subscribe(response => {
+         if(response.status == 'success'){
+           this.presentDepartments.push(department);
+           this.presentDepartments.forEach(presentDepartment => {
+              this.availableDepartments.splice(this.availableDepartments.indexOf(presentDepartment), 1);
+              console.log(JSON.stringify(this.availableDepartments));
+            })
+         }
+         this.openSnackBar(response.message, 'ok');
+       }, error=>{
+           console.log(JSON.stringify(error));
+           this.openSnackBar(error.error.message, "ok")})
+    }
+
+    public revokeDepartment(userId: string, department: Department){
+       this.userService.revokeDepartmentFromUser(userId, department.departmentId).subscribe(response => {
+         if(response.status == 'success'){
+           this.availableDepartments.push(department);
+           this.availableDepartments.forEach(availableDepartment => {
+              this.presentDepartments.splice(this.presentDepartments.indexOf(availableDepartment), 1);
+              console.log(JSON.stringify(this.presentDepartments)
+            });
+         }
+         this.openSnackBar(response.message, 'ok');
+       }, error=>{this.openSnackBar(error.error.message, "ok")});
+    }
+
+    public openSnackBar(message: string, action: string) {
+    this.snackBar.open(message, action, {
+      duration: 4000,
+      horizontalPosition: this.horizontalPosition,
+      verticalPosition: this.verticalPosition
+    });
+  }    
 }
 

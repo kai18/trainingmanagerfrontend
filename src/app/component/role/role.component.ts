@@ -129,7 +129,7 @@ export class RoleComponent {
         role.privilege.updationPrivilege = 1;
       }
       role.privilege.readPrivilege = 1;
-      role.privilege.departmentId = departmentId;
+      role.privilege.department_id = departmentId;
 
       role.createdDtm = null;
       role.updatedDtm = null;
@@ -153,8 +153,8 @@ export class RoleComponent {
     // Form is valid, now perform create or update
     this.preProcessConfigurations();
     this.roleToUpdate.roleDescription = this.rFormUpdate.get('roleDescription').value.trim();
-    if (this.roleToUpdate.privilege.departmentId == null) {
-      this.roleToUpdate.privilege.departmentId = null;
+    if (this.roleToUpdate.privilege.department_id == null) {
+      this.roleToUpdate.privilege.department_id = null;
     }
     this.roleService.updateRole(this.roleToUpdate)
       .subscribe(response => {

@@ -26,6 +26,7 @@ export class Login {
   firstFormGroup: FormGroup;
   errorMessage: string;
   modalErrorMessage: string;
+  errorLoggingIn: boolean = false;
 
   showModal = false;
 
@@ -69,6 +70,8 @@ export class Login {
       },
       error => {
         this.errorMessage = <string>error.message;
+        this.errorLoggingIn = true;
+
       });
   }
 

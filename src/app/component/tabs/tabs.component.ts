@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { RoleComponent } from '../../component/role/role.component';
 import { PrivilegeUdt } from '../../model/role.model';
 import { LocalStorageService } from '../../service/LocalStorageService.service';
+import {Constants} from '../../model/appconfig.model';
 
 @Component({
   selector: 'my-tab',
@@ -17,30 +18,31 @@ export class Tabs {
   roleFlag: boolean = false;
   deptFlag: boolean = false;
   firstName: string;
+  isLoggedIn = false;
 
   constructor(private localStorageService: LocalStorageService) { }
 
-  ngOnInit(): void {
-    const decodedValue: any = JSON.parse(localStorage.getItem('decodedtoken'));
+ ngOnInit(): void {
+    const decodedValue: any = JSON.parse(localStorage.getItem(Constants.DECODEDTOKEN));
+    this.isLoggedIn= JSON.parse(localStorage.getItem(Constants.ISLOGGEDIN));
     if (decodedValue) {
       this.userId = decodedValue.jti;
       this.previleges = this.localStorageService.getLoggedInUserPrivileges();
       this.roleFlag = this.checkAccessForRoleManagement();
       this.deptFlag = this.checkAccessForDepartmentManagement();
-      const decodeValue: any = JSON.parse(localStorage.getItem('decodedtoken'));
-      this.firstName = (decodeValue.firstName).toUpperCase();
     }
   }
 
   ngDoCheck(): void {
-    const decodedValue: any = JSON.parse(localStorage.getItem('decodedtoken'));
+    const decodedValue: any = JSON.parse(localStorage.getItem(Constants.DECODEDTOKEN));
+    this.isLoggedIn = JSON.parse(localStorage.getItem(Constants.ISLOGGEDIN));
     if (decodedValue) {
       this.userId = decodedValue.jti;
       this.previleges = this.localStorageService.getLoggedInUserPrivileges();
       this.roleFlag = this.checkAccessForRoleManagement();
       this.deptFlag = this.checkAccessForDepartmentManagement();
     }
-  }
+  } 
 
  checkAccessForRoleManagement(): boolean {
     var flag = false;

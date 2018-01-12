@@ -273,30 +273,55 @@
   </mat-card>
 </div>
 
-<mat-card style="width:60%;margin:3% auto;">
-  <mat-grid-list cols="2" rowHeight="2:1">
-    <mat-grid-tile class="one">
-      <span class="center">
-        <h4>Assigned Roles</h4>
-        <mat-list *ngFor="let role of presentRoles">
-          <mat-list-item class="center" (click)="revokeRoleToUser(user.id, role)">{{role.roleName}}
-            <button style="margin:1px;" mat-mini-fab>-</button>
+<mat-card style="width:40%; left: 30%; margin-top: 20px;">
+  <table style="width:100%;">
+    <tr>
+      <th>Assigned Departments</th>
+      <th>Available Departments</th> 
+    </tr>
+    <tr>
+      <td>
+        <mat-list *ngFor = "let department of presentDepartments">
+          <mat-list-item (click) = "revokeDepartment(user.id, department)">{{department.departmentName}}<button style="margin:1px; float: right;" mat-mini-fab>-</button>
+          </mat-list-item>  
+        </mat-list>
+      </td>
+      <td>
+        <mat-list *ngFor = "let department of availableDepartments">
+          <mat-list-item (click) = "allotDepartment(user.id, department)">{{department.departmentName}}
+            <button style="margin:1px; float: right;" mat-mini-fab>+</button>
           </mat-list-item>
         </mat-list>
-      </span>
-    </mat-grid-tile>
-    <mat-grid-tile>
-      <span class="center">
-        <h4>Available Roles</h4>
-        <mat-list *ngFor="let role of availableRoles">
+      </td>
+    </tr>
+  </table>
+</mat-card>
+
+
+<mat-card style="width:40%; left: 30%; margin-top: 20px;">
+  <table style="width:100%;">
+  <tr>
+    <th>Assigned Roles</th>
+    <th>Available Roles</th> 
+  </tr>
+  <tr>
+    <td>
+      <mat-list *ngFor="let role of presentRoles">
+          <mat-list-item  (click)="revokeRoleToUser(user.id, role)">{{role.roleName}}
+            <button style="margin:1px; float: right;" mat-mini-fab>-</button>
+          </mat-list-item>
+      </mat-list>
+  </td>
+  <td>
+    <mat-list align="right" *ngFor="let role of availableRoles">
           <mat-list-item (click)="grantRoleToUser(user.id, role)">{{role.roleName}}
-            <button style="margin:1px;" mat-mini-fab>+</button>
+            <button align="right" style="margin:1px;" mat-mini-fab>+</button>
           </mat-list-item>
-        </mat-list>
-      </span>
-    </mat-grid-tile>
-  </mat-grid-list>
-</mat-card> 
+    </mat-list></td>
+  </tr>
+</table>
+</mat-card>
+
 
 
 
